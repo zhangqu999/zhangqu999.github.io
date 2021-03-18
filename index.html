@@ -264,9 +264,7 @@
 <li>DB_ROW_ID<br>6byte，隐含的自增ID（隐藏主键），如果数据表没有主键，InnoDB会自动以DB_ROW_ID产生一个聚簇索引</li>
 <li>实际还有一个删除flag隐藏字段, 既记录被更新或删除并不代表真的删除，而是删除flag变了</li>
 </ul>
-
-
-<p><img src="test/image-20210302114448299.png" alt="image-20210302114448299"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302114448299.png" alt="image-20210302114448299"></p>
 <p>如上图，DB_ROW_ID是数据库默认为该行记录生成的唯一隐式主键，DB_TRX_ID是当前操作该记录的事务ID,而DB_ROLL_PTR是一个回滚指针，用于配合undo日志，指向上一个旧版本</p>
 <p><strong>源码分析</strong></p>
 <p>在源码中，添加这3个字段的方法在：/storage/innobase/dict/dict0dict.cc 的 dict_table_add_system_columns 方法中，核心部分如下：</p>
@@ -288,7 +286,7 @@
 </blockquote>
 <p>undo log本质上是一个rollback segment中的一个旧记录链，我们可以来看看它的执行流程</p>
 <p>1）有个事务插入persion表插入了一条新记录，记录如下，name为Jerry, age为24岁，隐式主键是1，事务ID和回滚指针，我们假设为NULL</p>
-<p><img src="test/image-20210302141123807.png" alt="image-20210302141123807"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302141123807.png" alt="image-20210302141123807"></p>
 <p>2）现在来了一个事务1对该记录的name做出了修改，改为Tom</p>
 <ul>
 <li><p>在事务1修改该行(记录)数据时，数据库会先对该行加排他锁</p>
@@ -300,7 +298,7 @@
 <li><p>事务提交后，释放锁</p>
 </li>
 </ul>
-<p><img src="test/image-20210302141333532.png" alt="image-20210302141333532"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302141333532.png" alt="image-20210302141333532"></p>
 <p>3）又来了个事务2修改person表的同一个记录，将age修改为30岁</p>
 <ul>
 <li><p>在事务2修改该行数据时，数据库也先为该行加锁</p>
@@ -312,7 +310,7 @@
 <li><p>事务提交，释放锁</p>
 </li>
 </ul>
-<p><img src="test/image-20210302141450800.png" alt="image-20210302141450800"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302141450800.png" alt="image-20210302141450800"></p>
 <p>从上面，我们就可以看出，不同事务或者相同事务的对同一记录的修改，会导致该记录的undo log成为一条记录版本链表，undo log的链首就是最新的旧记录，链尾就是最早的旧记录</p>
 <h5 id="9-2-3、ReadView"><a href="#9-2-3、ReadView" class="headerlink" title="9.2.3、ReadView"></a>9.2.3、ReadView</h5><p>Read View就是事务进行快照读操作的时候产生的读视图(Read View)，在该事务执行的快照读的那一刻，会生成数据库系统当前的一个快照，记录并维护系统当前活跃事务的ID。它主要用来做<strong>可见性判断</strong>， 即当我们某个事务执行快照读的时候，对该记录创建一个Read View读视图，把它比作条件用来判断当前事务能够看到哪个版本的数据，既可能是当前最新的数据，也有可能是该行记录的undo log里面的某个版本的数据。</p>
 <p>MVCC 模式下的普通查询主方法入口在：/storage/innobase/row/row0sel.cc 的 row_search_mvcc 方法中。</p>
@@ -346,7 +344,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Check whether the changes by id are visible.</span></span><br><span class="line"><span class="comment">	检查传入事务id所做的修改对ReadView是否可见</span></span><br><span class="line"><span class="comment">	@param[in]	id	transaction id to check against the view</span></span><br><span class="line"><span class="comment">	@param[in]	name	table name</span></span><br><span class="line"><span class="comment">	@return whether the view sees the modifications of id. */</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">changes_visible</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">trx_id_t</span>		id,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">const</span> <span class="keyword">table_name_t</span>&amp;	name)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">		<span class="title">MY_ATTRIBUTE</span><span class="params">((warn_unused_result))</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ut_ad(id &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        1、如果被访问版本的 trx_id 小于 ReadView 中的 m_up_limit_id（低水位），表明被访问版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以被	         当前事务访问。</span></span><br><span class="line"><span class="comment">        2、如果被访问版本的 trx_id 与 ReadView 中的 m_creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">		<span class="keyword">if</span> (id &lt; m_up_limit_id || id == m_creator_trx_id) &#123;</span><br><span class="line">			<span class="keyword">return</span>(<span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//检查该id是否有效</span></span><br><span class="line">		check_trx_id_sanity(id, name);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        如果被访问版本的 trx_id 大于等于 ReadView 中的 m_low_limit_id（高水位），表明被访问版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可		以被当前事务访问</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">		<span class="keyword">if</span> (id &gt;= m_low_limit_id) &#123;</span><br><span class="line">			<span class="keyword">return</span>(<span class="literal">false</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (m_ids.empty()) &#123;</span><br><span class="line">           <span class="comment">// 否则查看m_ids活动列表是否为空，如果为空说明此事务虽然在系统可见最小事务号之后发生，但创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问</span></span><br><span class="line">			<span class="keyword">return</span>(<span class="literal">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">ids_t</span>::value_type*	p = m_ids.data();</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">      被访问版本的 trx_id 属性值在 ReadView 的 m_up_limit_id 和 m_low_limit_id 之间，那就需要判断 trx_id 属性值是不是在 m_ids 列表中，这边会通过二分法查找。如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">		<span class="keyword">return</span>(!<span class="built_in">std</span>::binary_search(p, p + m_ids.size(), id));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>判断流程如下：</p>
-<p><img src="test/image-20210302143356258.png" alt="image-20210302143356258"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302143356258.png" alt="image-20210302143356258"></p>
 <p>构建记录的上一个版本，主要是通过 DB_ROLL_PTR 来实现，函数调用链如下：</p>
 <blockquote>
 <p>row_search_mvcc -&gt; row_sel_build_prev_vers_for_mysql -&gt; row_vers_build_for_consistent_read -&gt; trx_undo_prev_version_build</p>
@@ -383,9 +381,9 @@
 
 
 <h4 id="9-4、RR在RC基础上解决不可重复读的问题"><a href="#9-4、RR在RC基础上解决不可重复读的问题" class="headerlink" title="9.4、RR在RC基础上解决不可重复读的问题"></a>9.4、RR在RC基础上解决不可重复读的问题</h4><p>图一：</p>
-<p><img src="test/image-20210302145710523.png" alt="image-20210302145710523"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302145710523.png" alt="image-20210302145710523"></p>
 <p>图二：</p>
-<p><img src="test/image-20210302145621157.png" alt="image-20210302145621157"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302145621157.png" alt="image-20210302145621157"></p>
 <ul>
 <li>这里与上图的唯一区别仅仅是图1的事务B在事务A修改金额前快照读过一次金额数据，而图2的事务B在事务A修改金额前没有进行过快照读。</li>
 </ul>
@@ -402,25 +400,25 @@
 <p>1）在MySQL默认隔离级别RR条件下</p>
 <p>图一测试结果：</p>
 <p>事务1：</p>
-<p><img src="test/image-20210302152613559.png" alt="image-20210302152613559"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302152613559.png" alt="image-20210302152613559"></p>
 <p>事务2：</p>
-<p><img src="test/image-20210302152657364.png" alt="image-20210302152657364"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302152657364.png" alt="image-20210302152657364"></p>
 <p>图二测试结果：</p>
 <p>事务1：</p>
-<p><img src="test/image-20210302153212820.png" alt="image-20210302153212820"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302153212820.png" alt="image-20210302153212820"></p>
 <p>事务2：</p>
-<p><img src="test/image-20210302153242211.png" alt="image-20210302153242211"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302153242211.png" alt="image-20210302153242211"></p>
 <p>2）隔离级别RC条件下</p>
 <p>图一测试结果：</p>
 <p>事务1：</p>
-<p><img src="test/image-20210302154022212.png" alt="image-20210302154022212"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302154022212.png" alt="image-20210302154022212"></p>
 <p>事务2：</p>
-<p><img src="test/image-20210302154054642.png" alt="image-20210302154054642"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302154054642.png" alt="image-20210302154054642"></p>
 <p>图二测试结果：</p>
 <p>事务1：</p>
-<p><img src="test/image-20210302154312495.png" alt="image-20210302154312495"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302154312495.png" alt="image-20210302154312495"></p>
 <p>事务2：</p>
-<p><img src="test/image-20210302154350416.png" alt="image-20210302154350416"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302154350416.png" alt="image-20210302154350416"></p>
 
       
 
