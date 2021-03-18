@@ -6,15 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>我的第一篇博客 | Hexo</title>
+  <title>我的第一篇博客 | JavaGuy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="20210317-张曲任务 具体看B+树分裂这一个事务过程中，内部事务mtr是如何组成的，redo日志和undo日志是如何写的。  源码调试分析注意到MySQL5.7默认是没有开启binlog，也就不支持内部XA，进而看不到两阶段提交，所以我们先开启binlog 修改my.ini配置文件，添加下面三行配置 123log-bin&#x3D;mysql-binbinlog-format&#x3D;Rowserver-id">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的第一篇博客">
 <meta property="og:url" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JavaGuy">
 <meta property="og:description" content="20210317-张曲任务 具体看B+树分裂这一个事务过程中，内部事务mtr是如何组成的，redo日志和undo日志是如何写的。  源码调试分析注意到MySQL5.7默认是没有开启binlog，也就不支持内部XA，进而看不到两阶段提交，所以我们先开启binlog 修改my.ini配置文件，添加下面三行配置 123log-bin&#x3D;mysql-binbinlog-format&#x3D;Rowserver-id">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/img/image-20210315233645193.png">
 <meta property="og:image" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/img/image-20210315233729710.png">
 <meta property="og:image" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/img/image-20210315215852584.png">
@@ -69,11 +69,11 @@
 <meta property="og:image" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/img/image-20210316002049765.png">
 <meta property="article:published_time" content="2021-03-18T05:45:13.000Z">
 <meta property="article:modified_time" content="2021-03-18T05:47:57.380Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Qu Zhang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/img/image-20210315233645193.png">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="JavaGuy" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -572,7 +572,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 John Doe
+    		&copy; 2021 Qu Zhang
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
