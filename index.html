@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-我的第一篇博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2021-03-18T05:45:13.000Z" itemprop="datePublished">2021-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="20210317-张曲"><a href="#20210317-张曲" class="headerlink" title="20210317-张曲"></a>20210317-张曲</h1><h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a><strong>任务</strong></h2><ul>
+<li>具体看<code>B+树</code>分裂这一个事务过程中，内部事务<code>mtr</code>是如何组成的，<code>redo</code>日志和<code>undo</code>日志是如何写的。</li>
+</ul>
+<h2 id="源码调试分析"><a href="#源码调试分析" class="headerlink" title="源码调试分析"></a>源码调试分析</h2><p>注意到<code>MySQL5.7</code>默认是没有开启<code>binlog</code>，也就不支持<strong>内部XA</strong>，进而看不到两阶段提交，所以我们先开启<code>binlog</code></p>
+<p>修改<code>my.ini</code>配置文件，添加下面三行配置</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">log-bin</span>=mysql-bin</span><br><span class="line"><span class="attr">binlog-format</span>=Row</span><br><span class="line"><span class="attr">server-id</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>重启<code>mysqld</code>，执行<code>show binary logs;</code>检查<code>binlog</code>是否开启成功</p>
+<p><img src="img/image-20210315233645193.png" alt="image-20210315233645193"></p>
+<p>该文件在<code>data</code>目录下</p>
+<p><img src="img/image-20210315233729710.png" alt="image-20210315233729710"></p>
+<p>这样<code>MySQL</code>就可以利用<strong>内部XA</strong>来保证<code>redo log</code>和<code>binlog</code>之间的一致性，进而就能看到<code>2pc</code></p>
+<p>接着我们来回顾下<code>mtr</code>的关键数据结构<code>mtr_t</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mtr_t</span> &#123;</span></span><br><span class="line"><span class="comment">/** Impl是mtr_t的内部类用以描述mtr状态 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Impl</span> &#123;</span></span><br><span class="line"><span class="comment">/** memo stack for locks etc.</span></span><br><span class="line"><span class="comment">mtr 持有锁的栈 */</span></span><br><span class="line"><span class="keyword">mtr_buf_t</span> m_memo;</span><br><span class="line"><span class="comment">/** mini-transaction log，</span></span><br><span class="line"><span class="comment">即redo日志*/</span></span><br><span class="line"><span class="keyword">mtr_buf_t</span> m_log;</span><br><span class="line"><span class="comment">/** true if mtr has made at least one buffer pool page dirty</span></span><br><span class="line"><span class="comment">是否产生buffer pool脏页*/</span></span><br><span class="line"><span class="keyword">bool</span> m_made_dirty;</span><br><span class="line"><span class="comment">/** true if inside ibuf changes</span></span><br><span class="line"><span class="comment">insert buffer 是否修改 */</span></span><br><span class="line"><span class="keyword">bool</span> m_inside_ibuf;</span><br><span class="line"><span class="comment">/** true if the mini-transaction modified buffer pool pages </span></span><br><span class="line"><span class="comment">是否修改buffer pool pages*/</span></span><br><span class="line"><span class="keyword">bool</span> m_modifications;</span><br><span class="line"><span class="comment">/** Count of how many page initial log records have been written to the mtr log </span></span><br><span class="line"><span class="comment">log 记录数*/</span></span><br><span class="line"><span class="keyword">ib_uint32_t</span> m_n_log_recs;</span><br><span class="line"><span class="comment">/** specifies which operations should be logged; default value MTR_LOG_ALL </span></span><br><span class="line"><span class="comment">日志模式，默认MTR_LOG_ALL*/</span></span><br><span class="line"><span class="keyword">mtr_log_t</span> m_log_mode;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> UNIV_DEBUG</span></span><br><span class="line"><span class="comment">/** Persistent user tablespace associated with the mini-transaction, or 0 (TRX_SYS_SPACE) if none yet </span></span><br><span class="line"><span class="comment">用户表空间id*/</span></span><br><span class="line">ulint m_user_space_id;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* UNIV_DEBUG */</span></span></span><br><span class="line"><span class="comment">/** User tablespace that is being modified by the</span></span><br><span class="line"><span class="comment">mini-transaction </span></span><br><span class="line"><span class="comment">用户表空间 */</span></span><br><span class="line"><span class="keyword">fil_space_t</span>* m_user_space;</span><br><span class="line"><span class="comment">/** Undo tablespace that is being modified by the</span></span><br><span class="line"><span class="comment">mini-transaction</span></span><br><span class="line"><span class="comment">undo表空间*/</span></span><br><span class="line"><span class="keyword">fil_space_t</span>* m_undo_space;</span><br><span class="line"><span class="comment">/** System tablespace if it is being modified by the</span></span><br><span class="line"><span class="comment">mini-transaction</span></span><br><span class="line"><span class="comment">系统表空间*/</span></span><br><span class="line"><span class="keyword">fil_space_t</span>* m_sys_space;</span><br><span class="line"><span class="comment">/** State of the transaction</span></span><br><span class="line"><span class="comment">事务状态*/</span></span><br><span class="line"><span class="keyword">mtr_state_t</span> m_state;</span><br><span class="line"><span class="comment">/** Owning mini-transaction */</span></span><br><span class="line"><span class="keyword">mtr_t</span>* m_mtr;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/** Start a mini-transaction.*/</span></span><br><span class="line"><span class="comment">//@param sync true if it is a synchronous mini-transaction</span></span><br><span class="line"><span class="comment">//@param read_only true if read only mini-transaction */</span></span><br><span class="line"><span class="comment">//mtr的start函数对mtr_t进行了初始化。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">(<span class="keyword">bool</span> sync = <span class="literal">true</span>, <span class="keyword">bool</span> read_only = <span class="literal">false</span>)</span></span>;</span><br><span class="line">    </span><br><span class="line"> <span class="comment">/** Commit the mini-transaction. */</span></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">commit</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="comment">/** Look up the system tablespace. */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lookup_sys_space</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">/** Look up the user tablespace.*/</span></span><br><span class="line"><span class="comment">//@param[in] space_id tablespace ID</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lookup_user_space</span><span class="params">(ulint space_id)</span></span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Command</span>;</span></span><br><span class="line"><span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Command</span>;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">Impl m_impl;</span><br><span class="line"><span class="comment">/** LSN at commit time */</span></span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">lsn_t</span> m_commit_lsn;</span><br><span class="line"><span class="comment">/** true if it is synchronous mini-transaction */</span></span><br><span class="line"><span class="keyword">bool</span> m_sync;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在整个<code>B+树</code>索引分裂这一个事务过程中，据调试分析应该是有<code>5</code>个<code>mtr</code>，下面我们来详细看看</p>
+<p>我们从<code>row_ins_clust_index_entry_low</code>入口函数开始看起，第<code>2477</code>行我们能看到下面代码，即开启一个<code>mtr</code>，我们记之为<code>mtr-1</code></p>
+<p><img src="img/image-20210315215852584.png" alt="image-20210315215852584"></p>
+<blockquote>
+<p>mtr_start主要包括：</p>
+<ol>
+<li>初始化mtr的各个<strong>状态变量</strong></li>
+<li>默认模式为<strong>MTR_LOG_ALL</strong>，表示记录所有的数据变更</li>
+<li>mtr状态设置为<strong>ACTIVE</strong>状态（MTR_STATE_ACTIVE）</li>
+<li>为锁管理对象和日志管理对象<strong>初始化内存</strong>（mtr_buf_t）,<strong>初始化对象链表</strong></li>
+</ol>
+</blockquote>
+<p>然后会执行下面一行代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mtr.set_named_space(index-&gt;space);</span><br></pre></td></tr></table></figure>
+
+<p>该方法是<code>MySQL5.7</code>新增的逻辑，将当前修改的表空间对象<code>fil_space_t</code>保存下来：如果是系统表空间，则赋值给<code>m_impl.m_sys_space</code>, 否则赋值给<code>m_impl.m_user_space</code></p>
+<p>接着会对<code>index</code>加一个<code>S锁</code>（首先会尝试乐观插入）</p>
+<p><img src="img/image-20210315220334295.png" alt="image-20210315220334295"></p>
+<p><img src="img/image-20210317104223521.png" alt="image-20210317104223521"></p>
+<p>接着找到预插入<code>page</code>对应的<code>block</code>将<code>block锁</code> <code>RW_S_LATCH</code> 入栈（m_memo）</p>
+<p><img src="img/image-20210315220500299.png" alt="image-20210315220500299"></p>
+<p><img src="img/image-20210315220635936.png" alt="image-20210315220635936"></p>
+<p><img src="img/image-20210317104547971.png" alt="image-20210317104547971"></p>
+<p><img src="img/image-20210317104520539.png" alt="image-20210317104520539"></p>
+<p>查看<code>memo_push</code>源码可以发现加锁入栈思路挺简单，就是根据锁类型和锁对象构建<code>mtr_memo_slot_t</code>然后加入到<code>m_impl.m_memo</code>中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((type == MTR_MEMO_PAGE_X_FIX || type == MTR_MEMO_PAGE_SX_FIX) &#123;</span><br><span class="line">   	... </span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == MTR_MEMO_BUF_FIX &amp;&amp; !m_impl.m_made_dirty) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">mtr_memo_slot_t</span>*	slot;</span><br><span class="line">slot = m_impl.m_memo.push&lt;<span class="keyword">mtr_memo_slot_t</span>*&gt;(<span class="keyword">sizeof</span>(*slot));</span><br><span class="line">slot-&gt;type = type;</span><br><span class="line">slot-&gt;object = object;</span><br></pre></td></tr></table></figure>
+
+<p>往下走，一直走到<code>trx_undo_report_row_operation</code>方法</p>
+<p><img src="img/image-20210315221200846.png" alt="image-20210315221200846"></p>
+<p>继续往下走，我们能看到开启了一个<code>mtr</code>，我们记之为<code>mtr-2</code></p>
+<p><img src="img/image-20210315204722389.png" alt="image-20210315204722389"></p>
+<p>主要用来记录<code>undo log</code>，接下往下走，会走到<code>trx_undo_assign_undo</code>方法</p>
+<p><img src="img/image-20210315204922343.png" alt="image-20210315204922343"></p>
+<p>我们跟进去看下，发现里面又开启了一个<code>mtr</code>，我们记之为<code>mtr-3</code>，它主要用来分配或者复用一个<code>undo log</code></p>
+<p><img src="img/image-20210315205050182.png" alt="image-20210315205050182"></p>
+<p>然后我们接着往下走，直到<code>trx_undo_reuse_cached</code>方法</p>
+<p><img src="img/image-20210315205407084.png" alt="image-20210315205407084"></p>
+<p>这里表示我们会先尝试复用<code>undo log</code>，复用失败的话，就分配新的<code>undo log</code>，我们跟到<code>trx_undo_reuse_cached</code>方法里面去，往下走，直到<code>trx_undo_page_get</code></p>
+<p><img src="img/image-20210315205702300.png"></p>
+<p>这里表示会去获取<code>undo log</code>和一个<code>x-latch</code>，最终会调用<code>buf_page_get_gen</code>方法，我们继续往下走，直到<code>mtr_memo_push</code>方法</p>
+<p><img src="img/image-20210315210157470.png" alt="image-20210315210157470"></p>
+<p>此时我们观察<code>fix_type</code>的值是<code>MTR_MEMO_PAGE_X_FIX</code>，对应的<code>rw_latch</code> 为 <code>RW_X_LATCH</code>，即我们把<code>undo log page</code>加<code>RW_X_LATCH</code>入栈</p>
+<p><img src="img/image-20210315210239042.png" alt="image-20210315210239042"></p>
+<p><img src="img/image-20210315210441460.png" alt="image-20210315210441460"></p>
+<p>接着，我们回溯至<code>trx_undo_reuse_cached</code>方法，接着往下走，直到<code>trx_undo_insert_header_reuse</code>方法</p>
+<p><img src="img/image-20210315210649237.png" alt="image-20210315210649237"></p>
+<p>该方法主要是用来写<code>undo log header</code>，就不细看了，然后我们接着往下走，直到<code>trx_undo_header_add_space_for_xid</code>方法</p>
+<p><img src="img/image-20210315210919594.png" alt="image-20210315210919594"></p>
+<p>该方法主要用来在<code>undo log header</code>中预留<code>XA事务</code>的<code>xid</code>空间</p>
+<p><code>trx_undo_reuse_cached</code>至此关键代码都走完了，接着回溯至<code>trx_undo_assign_undo</code>方法，提交<code>mtr-3</code></p>
+<p><img src="img/image-20210315211237454.png" alt="image-20210315211237454"></p>
+<p>然后我们接着回溯至<code>trx_undo_report_row_operation</code>方法，接着往下走，直到<code>buf_page_get_gen</code>方法</p>
+<p><img src="img/image-20210315212604618.png" alt="image-20210315212604618"></p>
+<p>跟进去然后走到<code>mtr_memo_push</code>方法</p>
+<p><img src="img/image-20210315221736270.png" alt="image-20210315221736270"></p>
+<p>即将写入的 <code>undo log page</code> 加 <code>RW_X_LATCH</code> 入栈，接着回溯至<code>trx_undo_report_row_operation</code>，然后往下走，直到<code>trx_undo_page_report_insert</code>方法<img src="img/image-20210315213348452.png" alt="image-20210315213348452"></p>
+<p>该方法主要是<code>undo log</code>记录<code>insert</code>操作，接着往下走，提交<code>mtr-2</code></p>
+<p><img src="img/image-20210315214123709.png" alt="image-20210315214123709"></p>
+<p><code>mtr-2</code>提交完之后，回溯至<code>btr_cur_pessimistic_insert</code>方法，开始分裂，最后尝试插入记录<code>page_cur_tuple_insert</code></p>
+<p><img src="img/image-20210315225322127.png" alt="image-20210315225322127"></p>
+<p>我们跟进去，走到<code>page_cur_insert_rec_low</code>，执行具体<code>insert</code>操作</p>
+<p><img src="img/image-20210315225601780.png" alt="image-20210315225601780"></p>
+<p>跟进去，走到<code>page_cur_insert_rec_write_log</code>方法，写<code>insert</code>操作的<code>redo log</code></p>
+<p><img src="img/image-20210315230014265.png" alt="image-20210315230014265"></p>
+<p>接下来我们跟到<code>page_cur_insert_rec_write_log</code>方法里去看看<code>redo log</code>到底怎么写的</p>
+<p><strong>第一步</strong>：会调用方法<code>mlog_open_and_write_index</code>记录索引相关信息</p>
+<p>1）调用<code>mlog_open</code>，分配足够日志写入的内存地址，并返回内存指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ulint	n	= dict_index_get_n_fields(index);</span><br><span class="line">ulint	total	= <span class="number">11</span> + size + (n + <span class="number">2</span>) * <span class="number">2</span>;</span><br><span class="line">ulint	alloc	= total;</span><br><span class="line">log_start = log_ptr = mlog_open(mtr, alloc);</span><br></pre></td></tr></table></figure>
+
+<p>2）调用<code>mlog_write_initial_log_record_fast</code>，初始化日志记录</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log_ptr = mlog_write_initial_log_record_fast(rec, type, log_ptr, mtr);</span><br></pre></td></tr></table></figure>
+
+<p>3)存储当前索引列数<code>n</code>到<code>log_ptr</code>里面，占两个字节</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mach_write_to_2(log_ptr, n);</span><br><span class="line">log_ptr += <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>4)写入行记录上决定唯一性的列的个数，占两个字节</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (page_is_leaf(page_align(rec))) &#123; <span class="comment">//对于聚集索引，就是PK上的列数</span></span><br><span class="line">    mach_write_to_2(log_ptr, dict_index_get_n_unique_in_tree(index));</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;<span class="comment">//对于二级索引，就是二级索引列 + PK列个数</span></span><br><span class="line">    mach_write_to_2(log_ptr, dict_index_get_n_unique_in_tree_nonleaf(index));</span><br><span class="line">&#125;</span><br><span class="line">log_ptr += <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>5)写入每个列的长度信息，每个列占两个字节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mach_write_to_2(log_ptr, len);</span><br><span class="line">log_ptr +&#x3D; 2;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>第二步</strong>：写入记录在<code>page</code>上的偏移量，占两个字节</p>
+<p><img src="img/image-20210317113611064.png" alt="image-20210317113611064"></p>
+<p><strong>第三步</strong>：写入记录其它相关信息，包括<code>rec size、info bits、extra_size</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Write the record end segment length and the extra info storage flag */</span></span><br><span class="line">	log_ptr += mach_write_compressed(log_ptr, <span class="number">2</span> * (rec_size - i) + <span class="number">1</span>);</span><br><span class="line">	<span class="comment">/* Write the info bits */</span></span><br><span class="line">	mach_write_to_1(log_ptr,</span><br><span class="line">			rec_get_info_and_status_bits(</span><br><span class="line">				insert_rec,</span><br><span class="line">				page_rec_is_comp(insert_rec)));</span><br><span class="line">	log_ptr++;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Write the record origin offset */</span></span><br><span class="line">	log_ptr += mach_write_compressed(log_ptr, extra_size);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Write the mismatch index */</span></span><br><span class="line">	log_ptr += mach_write_compressed(log_ptr, i);</span><br></pre></td></tr></table></figure>
+
+<p>我们发现这里采用了压缩写入的方法<code>mach_write_compressed</code>，我们阅读<code>mach_write_compressed</code>源码可以发现，它是根据写入数字<code>n</code>的大小来选定1到4个字节来记录整数，从而可以节省<code>redo log</code>空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (n &lt; <span class="number">0x80</span>) &#123;</span><br><span class="line">    <span class="comment">/* 0nnnnnnn (7 bits) */</span></span><br><span class="line">    mach_write_to_1(b, n);</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">1</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">0x4000</span>) &#123;</span><br><span class="line">    <span class="comment">/* 10nnnnnn nnnnnnnn (14 bits) */</span></span><br><span class="line">    mach_write_to_2(b, n | <span class="number">0x8000</span>);</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">2</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">0x200000</span>) &#123;</span><br><span class="line">    <span class="comment">/* 110nnnnn nnnnnnnn nnnnnnnn (21 bits) */</span></span><br><span class="line">    mach_write_to_3(b, n | <span class="number">0xC00000</span>);</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">3</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">0x10000000</span>) &#123;</span><br><span class="line">    <span class="comment">/* 1110nnnn nnnnnnnn nnnnnnnn nnnnnnnn (28 bits) */</span></span><br><span class="line">    mach_write_to_4(b, n | <span class="number">0xE0000000</span>);</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">4</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">/* 11110000 nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn (32 bits) */</span></span><br><span class="line">    mach_write_to_1(b, <span class="number">0xF0</span>);</span><br><span class="line">    mach_write_to_4(b + <span class="number">1</span>, n);</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步</strong>： 将插入的记录拷贝到<code>redo</code>文件，同时关闭<code>mlog</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">memcpy(log_ptr, ins_ptr, rec_size);</span><br><span class="line">mlog_close(mtr, log_ptr + rec_size);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>接下来我们来看看<code>mtr</code>的提交过程，入口函数为<code>mtr_t::commit()</code>，当修改产生脏页或者日志记录时，调用<code>mtr_t::Command::execute</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Write the redo log record, add dirty pages to the flush list and release</span></span><br><span class="line"><span class="comment">the resources. </span></span><br><span class="line"><span class="comment">写redo log，添加脏页到flush list，释放资源*/</span></span><br><span class="line"><span class="keyword">void</span> <span class="keyword">mtr_t</span>::Command::execute()</span><br><span class="line">&#123;</span><br><span class="line">	ut_ad(m_impl-&gt;m_log_mode != MTR_LOG_NONE);</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">const</span> ulint len = prepare_write()) &#123;</span><br><span class="line">		finish_write(len);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (m_impl-&gt;m_made_dirty) &#123;</span><br><span class="line">		log_flush_order_mutex_enter();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/* It is now safe to release the log mutex because the</span></span><br><span class="line"><span class="comment">	flush_order mutex will ensure that we are the first one</span></span><br><span class="line"><span class="comment">	to insert into the flush list. */</span></span><br><span class="line">	log_mutex_exit();</span><br><span class="line">	m_impl-&gt;m_mtr-&gt;m_commit_lsn = m_end_lsn;</span><br><span class="line">	release_blocks();</span><br><span class="line">	<span class="keyword">if</span> (m_impl-&gt;m_made_dirty) &#123;</span><br><span class="line">		log_flush_order_mutex_exit();</span><br><span class="line">	&#125;</span><br><span class="line">	release_latches();</span><br><span class="line">	release_resources();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行过程如下：</p>
+<p><strong>第一步</strong>：调用<code>mtr_t::Command::prepare_write()</code>，准备写<code>m_log</code>到<code>redo log buffer</code></p>
+<p>1）若当前<code>m_log_mode</code>为<code>MTR_LOG_NO_REDO</code>或者<code>MTR_LOG_NONE</code>，则获取<code>log_sys-&gt;mutex</code>，然后返回</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> MTR_LOG_NO_REDO:</span><br><span class="line"><span class="keyword">case</span> MTR_LOG_NONE:</span><br><span class="line">    ut_ad(m_impl-&gt;m_log.size() == <span class="number">0</span>);</span><br><span class="line">    log_mutex_enter();</span><br><span class="line">    m_end_lsn = m_start_lsn = log_sys-&gt;lsn;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>2）若当前要写入<code>redo log</code>记录大小超过<code>log buffer</code>的一半，将<code>log buffer</code>扩大为原来两倍</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (len &gt; log_sys-&gt;buf_size / <span class="number">2</span>) &#123;</span><br><span class="line">	log_buffer_extend((len + <span class="number">1</span>) * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3）获取<code>log_sys-&gt;mutex</code>锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log_mutex_enter();</span><br></pre></td></tr></table></figure>
+
+<p>4）调用函数<code>fil_names_write_if_was_clean</code>检查本次修改的表空间是否是上次<code>checkpoint</code>后第一次修改</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">bool</span>	was_clean = space-&gt;max_lsn == <span class="number">0</span>;</span><br><span class="line">ut_ad(space-&gt;max_lsn &lt;= log_sys-&gt;lsn);</span><br><span class="line">space-&gt;max_lsn = log_sys-&gt;lsn;<span class="comment">//首先会将space-&gt;max_lsn赋值为log_sys-&gt;lsn</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (was_clean) &#123;<span class="comment">//即space-&gt;max_lsn == 0，表示自上次checkpoint后第一次修改该表空间，调用fil_names_dirty_and_write将该tablespace加入到fil_system-&gt;named_spaces链表上，同时调用fil_names_write写入一条类型为MLOG_FILE_NAME的日志</span></span><br><span class="line">	fil_names_dirty_and_write(space, mtr);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">/* This was not the first time of dirtying a</span></span><br><span class="line"><span class="comment">		tablespace since the latest checkpoint. </span></span><br><span class="line"><span class="comment">		不是从上一次checkpoint后第一次修改该表，则根据mtr中log的个数，选择标识日志头最高位为MLOG_SINGLE_REC_FLAG，或者附加一个1字节的	    MLOG_MULTI_REC_END日志。*/</span></span><br><span class="line">		ut_ad(n_recs == m_impl-&gt;m_n_log_recs);</span><br><span class="line">		<span class="keyword">if</span> (n_recs &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">			ut_ad(n_recs == <span class="number">1</span>);</span><br><span class="line">			<span class="comment">/* Flag the single log record as the</span></span><br><span class="line"><span class="comment">			only record in this mini-transaction. */</span></span><br><span class="line">			*m_impl-&gt;m_log.front()-&gt;begin()</span><br><span class="line">				|= MLOG_SINGLE_REC_FLAG;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">/* Because this mini-transaction comprises</span></span><br><span class="line"><span class="comment">			multiple log records, append MLOG_MULTI_REC_END</span></span><br><span class="line"><span class="comment">			at the end. */</span></span><br><span class="line">			mlog_catenate_ulint(</span><br><span class="line">				&amp;m_impl-&gt;m_log, MLOG_MULTI_REC_END,</span><br><span class="line">				MLOG_1BYTE);</span><br><span class="line">			len++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5）调用函数<code>log_margin_checkpoint_age</code>检查本次写入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* check and attempt a checkpoint if exceeding capacity */</span></span><br><span class="line">log_margin_checkpoint_age(len)</span><br><span class="line">&#123;</span><br><span class="line">	ulint	margin = log_calculate_actual_len(len);</span><br><span class="line">	<span class="keyword">if</span> (margin &gt; log_sys-&gt;log_group_capacity) &#123;</span><br><span class="line">		<span class="comment">/* return with warning output to avoid deadlock </span></span><br><span class="line"><span class="comment">		如果margin size超过redo log文件capacity，则打印一条错误信息*/</span></span><br><span class="line">		<span class="keyword">if</span> (!log_has_printed_chkp_margine_warning</span><br><span class="line">		    || difftime(time(<span class="literal">NULL</span>),</span><br><span class="line">				log_last_margine_warning_time) &gt; <span class="number">15</span>) &#123;</span><br><span class="line">			log_has_printed_chkp_margine_warning = <span class="literal">true</span>;</span><br><span class="line">			log_last_margine_warning_time = time(<span class="literal">NULL</span>);</span><br><span class="line">			ib::error() &lt;&lt; <span class="string">&quot;The transaction log files are too&quot;</span></span><br><span class="line">				<span class="string">&quot; small for the single transaction log (size=&quot;</span></span><br><span class="line">				&lt;&lt; len &lt;&lt; <span class="string">&quot;). So, the last checkpoint age&quot;</span></span><br><span class="line">				<span class="string">&quot; might exceed the log group capacity &quot;</span></span><br><span class="line">				&lt;&lt; log_sys-&gt;log_group_capacity &lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Our margin check should ensure that we never reach this condition.</span></span><br><span class="line"><span class="comment">	Try to do checkpoint once. We cannot keep waiting here as it might</span></span><br><span class="line"><span class="comment">	result in hang in case the current mtr has latch on oldest lsn */</span></span><br><span class="line">	<span class="keyword">if</span> (log_sys-&gt;lsn - log_sys-&gt;last_checkpoint_lsn + margin</span><br><span class="line">	    &gt; log_sys-&gt;log_group_capacity) &#123;</span><br><span class="line">		<span class="comment">/* The log write of &#x27;len&#x27; might overwrite the transaction log</span></span><br><span class="line"><span class="comment">		after the last checkpoint. Makes checkpoint. </span></span><br><span class="line"><span class="comment">		若本次写入可能覆盖检查点，还需要去强制做一次同步checkpoint*/</span></span><br><span class="line">		<span class="keyword">bool</span>	flushed_enough = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">if</span> (log_sys-&gt;lsn - log_buf_pool_get_oldest_modification()</span><br><span class="line">		    + margin</span><br><span class="line">		    &lt;= log_sys-&gt;log_group_capacity) &#123;</span><br><span class="line">			flushed_enough = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		log_sys-&gt;check_flush_or_checkpoint = <span class="literal">true</span>;</span><br><span class="line">		log_mutex_exit();</span><br><span class="line">		DEBUG_SYNC_C(<span class="string">&quot;margin_checkpoint_age_rescue&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (!flushed_enough) &#123;</span><br><span class="line">			os_thread_sleep(<span class="number">100000</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		log_checkpoint(<span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line">		log_mutex_enter();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步</strong>：调用<code>mtr_t::Command::finish_write</code>，将日志从mtr中拷贝到公共<code>log buffer</code>，这里有两种方式</p>
+<p>1）如果<code>mtr</code>中日志较小，则调用函数<code>log_reserve_and_write_fast</code>尝试将日志拷贝到<code>log buffer</code>最近的一个<code>block</code></p>
+<p><img src="img/image-20210317131225532.png" alt="image-20210317131225532"></p>
+<p>2）检查是否有足够的空闲空间后，返回当前的<code>lsn</code>赋值给<code>m_start_lsn</code>（<code>log_reserve_and_open(len)</code>），随后将日志记录写入到<code>log buffer</code>中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Open the database log for log_write_low */</span></span><br><span class="line">m_start_lsn = log_reserve_and_open(len);</span><br><span class="line"><span class="keyword">mtr_write_log_t</span>	write_log;</span><br><span class="line">m_impl-&gt;m_log.for_each_block(write_log);</span><br></pre></td></tr></table></figure>
+
+<p>3）在完成将<code>redo</code> 拷贝到<code>log buffer</code>后，需要调用<code>log_close</code>, 如果最后一个<code>block</code>未写满，则设置该<code>block</code>头部的<code>LOG_BLOCK_FIRST_REC_GROUP</code>信息</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">first_rec_group = log_block_get_first_rec_group(log_block);</span><br><span class="line">	<span class="keyword">if</span> (first_rec_group == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="comment">/* We initialized a new log block which was not written</span></span><br><span class="line"><span class="comment">		full by the current mtr: the next mtr log record group</span></span><br><span class="line"><span class="comment">		will start within this block at the offset data_len */</span></span><br><span class="line">		log_block_set_first_rec_group(</span><br><span class="line">			log_block, log_block_get_data_len(log_block));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">log</span>-&gt;buf_free &gt; <span class="built_in">log</span>-&gt;max_buf_free) &#123;</span><br><span class="line">		<span class="built_in">log</span>-&gt;check_flush_or_checkpoint = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	checkpoint_age = lsn - <span class="built_in">log</span>-&gt;last_checkpoint_lsn;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (checkpoint_age &gt;= <span class="built_in">log</span>-&gt;log_group_capacity) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!log_has_printed_chkp_warning</span><br><span class="line">		    || difftime(time(<span class="literal">NULL</span>), log_last_warning_time) &gt; <span class="number">15</span>) &#123;</span><br><span class="line">			log_has_printed_chkp_warning = <span class="literal">true</span>;</span><br><span class="line">			log_last_warning_time = time(<span class="literal">NULL</span>);</span><br><span class="line">			ib::error() &lt;&lt; <span class="string">&quot;The age of the last checkpoint is &quot;</span></span><br><span class="line">				&lt;&lt; checkpoint_age &lt;&lt; <span class="string">&quot;, which exceeds the log&quot;</span></span><br><span class="line">				<span class="string">&quot; group capacity &quot;</span> &lt;&lt; <span class="built_in">log</span>-&gt;log_group_capacity</span><br><span class="line">				&lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (checkpoint_age &lt;= <span class="built_in">log</span>-&gt;max_modified_age_sync) &#123;</span><br><span class="line">		<span class="keyword">goto</span> function_exit;</span><br><span class="line">	&#125;</span><br><span class="line">	oldest_lsn = buf_pool_get_oldest_modification();</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">满足如下情况时，设置log_sys-&gt;check_flush_or_checkpoint为true：</span></span><br><span class="line"><span class="comment">1、当前bp中最老lsn为0 （没有脏页）</span></span><br><span class="line"><span class="comment">2、bp中最老lsn和当前lsn的距离超过log_sys-&gt;max_modified_age_sync</span></span><br><span class="line"><span class="comment">3、当前未checkpoint的lsn age超过log_sys-&gt;max_checkpoint_age_async</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">当check_flush_or_checkpoint被设置时，用户线程在每次修改数据前调用log_free_check时，会根据该标记决定是否刷redo日志或者脏页</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">	<span class="keyword">if</span> (!oldest_lsn</span><br><span class="line">	    || lsn - oldest_lsn &gt; <span class="built_in">log</span>-&gt;max_modified_age_sync</span><br><span class="line">	    || checkpoint_age &gt; <span class="built_in">log</span>-&gt;max_checkpoint_age_async) &#123;</span><br><span class="line">		<span class="built_in">log</span>-&gt;check_flush_or_checkpoint = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步</strong>：如果本次修改产生了脏页，获取<code>log_sys-&gt;log_flush_order_mutex</code>，随后释放<code>log_sys-&gt;mutex</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (m_impl-&gt;m_made_dirty) &#123;</span><br><span class="line">    log_flush_order_mutex_enter();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* It is now safe to release the log mutex because the</span></span><br><span class="line"><span class="comment">	flush_order mutex will ensure that we are the first one</span></span><br><span class="line"><span class="comment">	to insert into the flush list. */</span></span><br><span class="line">log_mutex_exit();</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步</strong>： 将当前<code>mtr</code>修改的脏页加入到<code>flush list</code>上，<strong>脏页上记录的lsn为当前mtr写入的结束点lsn</strong>。基于上述加锁逻辑，能够保证<code>flush list</code>上的脏页总是以<code>lsn</code>排序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m_impl-&gt;m_mtr-&gt;m_commit_lsn = m_end_lsn;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五步</strong>：释放<code>log_sys-&gt;log_flush_order_mutex</code>锁</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (m_impl-&gt;m_made_dirty) &#123;</span><br><span class="line">	log_flush_order_mutex_exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第六步</strong>：释放当前mtr持有的锁和相关资源</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">release_latches();</span><br><span class="line">release_resources();</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>然后回溯到<code>row_ins_clust_index_entry_low</code>方法，提交<code>mtr-1</code></p>
+<p><img src="img/image-20210315230229786.png" alt="image-20210315230229786"></p>
+<p><img src="img/image-20210315230413641.png" alt="image-20210315230413641"></p>
+<p>这样<code>insert</code>语句就执行完毕了，接下来进行事务提交，会有两个<code>mtr</code></p>
+<p>第一个<code>mtr</code>从<code>trx_prepare_low</code>开始</p>
+<p><img src="img/image-20210315234300639.png" alt="image-20210315234300639"></p>
+<p>走到<code>mtr_start_sync</code>会启动一个<code>mtr</code>，我们记之为<code>mtr-4</code>，主要用于<code>prepare</code>事务</p>
+<p><img src="img/image-20210315234335143.png" alt="image-20210315234335143"></p>
+<p>接着往下走，会走到<code>trx_undo_set_state_at_prepare</code>方法</p>
+<p><img src="img/image-20210315234544943.png" alt="image-20210315234544943"></p>
+<p>我们跟进去，最后会走到<code>buf_page_get_gen</code>方法</p>
+<p><img src="img/image-20210315234844001.png" alt="image-20210315234844001"></p>
+<p>再次给<code>undo page</code> 加 <code>RW_X_LATCH</code> 入栈</p>
+<p><img src="img/image-20210315235008175.png" alt="image-20210315235008175"></p>
+<p>接着回溯至<code>trx_undo_set_state_at_prepare</code>方法，继续往下走，会依次写入<code>TRX_UNDO_STATE、TRX_UNDO_XID_EXISTS、xid</code></p>
+<p><img src="img/image-20210315235321267.png" alt="image-20210315235321267"></p>
+<p><img src="img/image-20210315235345755.png" alt="image-20210315235345755"></p>
+<p><img src="img/image-20210315235405534.png" alt="image-20210315235405534"></p>
+<p>然后，返回回溯至<code>trx_prepare_low</code>方法，提交<code>mtr-4</code></p>
+<p><img src="img/image-20210315235523933.png" alt="image-20210315235523933"></p>
+<p>至此，<code>prepare</code>阶段就结束了，接下来会进入<code>commit</code>阶段</p>
+<p><img src="img/image-20210315235916346.png" alt="image-20210315235916346"></p>
+<p>进入<code>trx_commit</code>方法，往下走到<code>mtr_start_sync</code>方法，会开启一个<code>mtr</code>，我们记之为<code>mtr-5</code></p>
+<p><img src="img/image-20210315235929716.png" alt="image-20210315235929716"></p>
+<p>之后我们走到<code>trx_undo_set_state_at_finish</code>，其调用链如下：</p>
+<p><img src="img/image-20210316000231627.png" alt="image-20210316000231627"></p>
+<p><img src="img/image-20210316000258827.png" alt="image-20210316000258827"></p>
+<p>最后会调用<code>mtr_memo_push</code>方法给<code>undo log</code>加<code>RW_X_LATCH</code>入栈</p>
+<p><img src="img/image-20210316000713076.png" alt="image-20210316000713076"></p>
+<p><img src="img/image-20210316000725973.png" alt="image-20210316000725973"></p>
+<p>接着我们回溯到<code>trx_write_serialisation_history</code>方法</p>
+<p><img src="img/image-20210316001238065.png" alt="image-20210316001238065"></p>
+<p>往下走，直到<code>trx_sys_update_mysql_binlog_offset</code>方法，该方法主要用来更新偏移量信息到系统表空间</p>
+<p><img src="img/image-20210316001356451.png" alt="image-20210316001356451"></p>
+<p>跟进去，往下走，最后会通过<code>mtr_memo_push</code>将系统表空间 <code>transaction system header page</code> 加 <code>RW_X_LATCH</code> 入栈</p>
+<p><img src="img/image-20210316001739088.png" alt="image-20210316001739088"></p>
+<p><img src="img/image-20210316001855609.png" alt="image-20210316001855609"></p>
+<p>然后回溯至<code>trx_commit_low</code>方法，提交<code>mtr-5</code></p>
+<p><img src="img/image-20210316002049765.png" alt="image-20210316002049765"></p>
+<p>至此，本次<code>insert</code>导致<code>B+树</code>索引分裂涉及的<code>mtr</code>全部结束了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckmegdm480001dktcd12qd1zi" data-title="我的第一篇博客" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/18/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2021-03-18T05:42:10.599Z" itemprop="datePublished">2021-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/03/18/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/18/hello-world/" data-id="ckmegdm3y0000dktc3w47d38h" data-title="Hello World" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/18/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
