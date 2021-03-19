@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/archives/index.html</loc>
-    
-    <lastmod>2021-01-19</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://javaguycoffee.com/404.html</loc>
     
     <lastmod>2021-01-19</lastmod>
@@ -59,6 +52,13 @@
   
   <url>
     <loc>https://javaguycoffee.com/categories/index.html</loc>
+    
+    <lastmod>2021-01-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/archives/index.html</loc>
     
     <lastmod>2021-01-19</lastmod>
     
@@ -167,14 +167,14 @@
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/hexo/</loc>
     <lastmod>2021-03-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/hexo/</loc>
+    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2021-03-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
