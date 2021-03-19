@@ -62,14 +62,14 @@
     <link href="https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/"/>
     <id>https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/</id>
     <published>2021-03-18T11:01:46.000Z</published>
-    <updated>2021-03-18T13:31:26.467Z</updated>
+    <updated>2021-03-19T17:34:17.836Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;9、MVCC&quot;&gt;&lt;a href=&quot;#9、MVCC&quot; class=&quot;headerlink&quot; title=&quot;9、MVCC&quot;&gt;&lt;/a&gt;9、MVCC&lt;/h3&gt;&lt;p&gt;MVCC在MySQL</summary>
+    <summary type="html">&lt;h2 id=&quot;9、MVCC&quot;&gt;&lt;a href=&quot;#9、MVCC&quot; class=&quot;headerlink&quot; title=&quot;9、MVCC&quot;&gt;&lt;/a&gt;9、MVCC&lt;/h2&gt;&lt;p&gt;&lt;code&gt;MVCC&lt;/code&gt;在&lt;code&gt;MySQL</summary>
         
       
     
@@ -85,6 +85,8 @@
     <category term="MVCC" scheme="https://javaguycoffee.com/tags/MVCC/"/>
     
     <category term="ReadView" scheme="https://javaguycoffee.com/tags/ReadView/"/>
+    
+    <category term="InnoDB" scheme="https://javaguycoffee.com/tags/InnoDB/"/>
     
   </entry>
   
