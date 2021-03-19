@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>JavaGuy的博客</title>
+  
+  <subtitle>Talk is cheap，show me your code!</subtitle>
+  <link href="https://javaguycoffee.com/atom.xml" rel="self"/>
+  
+  <link href="https://javaguycoffee.com/"/>
+  <updated>2021-03-19T05:36:00.116Z</updated>
+  <id>https://javaguycoffee.com/</id>
+  
+  <author>
+    <name>JavaGuy</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的个人博客搭建笔记-1</title>
+    <link href="https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji-1/"/>
+    <id>https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji-1/</id>
+    <published>2021-03-19T01:33:31.000Z</published>
+    <updated>2021-03-19T05:36:00.116Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1、搭建hexo博客，并部署到GitHub-Pages&quot;&gt;&lt;a href=&quot;#1、搭建hexo博客，并部署到GitHub-Pages&quot; class=&quot;headerlink&quot; title=&quot;1、搭建hexo博客，并部署到GitHub</summary>
+        
+      
+    
+    
+    
+    <category term="博客" scheme="https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="hexo" scheme="https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://javaguycoffee.com/tags/hexo/"/>
+    
+    <category term="GitHub" scheme="https://javaguycoffee.com/tags/GitHub/"/>
+    
+    <category term="nodejs" scheme="https://javaguycoffee.com/tags/nodejs/"/>
+    
+    <category term="typora" scheme="https://javaguycoffee.com/tags/typora/"/>
+    
+    <category term="OSS" scheme="https://javaguycoffee.com/tags/OSS/"/>
+    
+    <category term="PicGo" scheme="https://javaguycoffee.com/tags/PicGo/"/>
+    
+    <category term="DNSPod" scheme="https://javaguycoffee.com/tags/DNSPod/"/>
+    
+    <category term="GoDaddy" scheme="https://javaguycoffee.com/tags/GoDaddy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL MVCC相关源码阅读笔记</title>
+    <link href="https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/"/>
+    <id>https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/</id>
+    <published>2021-03-18T11:01:46.000Z</published>
+    <updated>2021-03-18T13:31:26.467Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;9、MVCC&quot;&gt;&lt;a href=&quot;#9、MVCC&quot; class=&quot;headerlink&quot; title=&quot;9、MVCC&quot;&gt;&lt;/a&gt;9、MVCC&lt;/h3&gt;&lt;p&gt;MVCC在MySQL</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
+    
+    <category term="MVCC" scheme="https://javaguycoffee.com/tags/MVCC/"/>
+    
+    <category term="ReadView" scheme="https://javaguycoffee.com/tags/ReadView/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://javaguycoffee.com/2021/03/18/hello-world/"/>
+    <id>https://javaguycoffee.com/2021/03/18/hello-world/</id>
+    <published>2021-03-18T05:42:10.599Z</published>
+    <updated>2021-03-18T05:42:10.599Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
