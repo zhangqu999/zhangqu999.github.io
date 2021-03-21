@@ -256,7 +256,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -474,17 +474,17 @@ Adds system columns to a table object.
 添加系统列到指定表*/
 void dict_table_add_system_columns(
     dict_table_t*    table,    /*!< in/out: table */
-    mem_heap_t*    heap)    /*!< in: temporary heap */ &#123;
+    mem_heap_t*    heap)    /*!< in: temporary heap */ {
     //添加行id
     dict_mem_table_add_col(table, heap, "DB_ROW_ID", DATA_SYS, DATA_ROW_ID | DATA_NOT_NULL, DATA_ROW_ID_LEN);
     //添加事务id
     dict_mem_table_add_col(table, heap, "DB_TRX_ID", DATA_SYS, DATA_TRX_ID | DATA_NOT_NULL, DATA_TRX_ID_LEN);
     //判断是否是内部表
-    if (!dict_table_is_intrinsic(table)) &#123;
+    if (!dict_table_is_intrinsic(table)) {
         //添加回滚指针
         dict_mem_table_add_col(table, heap, "DB_ROLL_PTR", DATA_SYS, DATA_ROLL_PTR | DATA_NOT_NULL, DATA_ROLL_PTR_LEN);
-    &#125;    
-&#125;
+    }    
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="9-2-2、undo日志"><a href="#9-2-2、undo日志" class="headerlink" title="9.2.2、undo日志"></a>9.2.2、undo日志</h4><p><code>undo log</code>主要分为两种：</p>
 <ul>
@@ -565,28 +565,28 @@ Opens a read view where exactly the transactions serialized before this
 point in time are seen in the view.
 @param id        Creator transaction id */
 void ReadView::prepare(trx_id_t id)
-&#123;
+{
     ut_ad(mutex_own(&trx_sys->mutex));
     //当前ReadView创建版本号赋值为事务id
     m_creator_trx_id = id;
     //高水位赋值为全局系统事务的版本号，即分配给下一个事务的id
     m_low_limit_no = m_low_limit_id = trx_sys->max_trx_id;
-    if (!trx_sys->rw_trx_ids.empty()) &#123;
+    if (!trx_sys->rw_trx_ids.empty()) {
        //如果系统事务的活跃事务列表不为空，则将其拷贝至m_ids
         copy_trx_ids(trx_sys->rw_trx_ids);
-    &#125; else &#123;
+    } else {
         //否则清空ReadView中的活跃事务列表
         m_ids.clear();
-    &#125;
+    }
 
-    if (UT_LIST_GET_LEN(trx_sys->serialisation_list) > 0) &#123;
+    if (UT_LIST_GET_LEN(trx_sys->serialisation_list) > 0) {
         const trx_t*    trx;
         trx = UT_LIST_GET_FIRST(trx_sys->serialisation_list);
-        if (trx->no < m_low_limit_no) &#123;
+        if (trx->no < m_low_limit_no) {
             m_low_limit_no = trx->no;
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后，会将这个创建的 <code>ReadView</code> 添加到 <code>MVCC</code> 的 <code>m_views</code> 中。</p>
 <p>此外，<code>ReadView</code>类核心属性有：</p>
@@ -620,14 +620,14 @@ void ReadView::prepare(trx_id_t id)
 <li>SQL查询走聚集索引</li>
 </ul>
 <p>核心流程在<code>row_search_mvcc</code>方法中</p>
-<pre class="line-numbers language-c++"><code class="language-c++">else if (index == clust_index) &#123; //走聚集索引
+<pre class="line-numbers language-c++"><code class="language-c++">else if (index == clust_index) { //走聚集索引
             /* Fetch a previous version of the row if the current
             one is not visible in the snapshot; if we have a very
             high force recovery level set, we try to avoid crashes
             by skipping this lookup */
             //判断rec是否在ReadView可见
             if (srv_force_recovery < 5
-                && !lock_clust_rec_cons_read_sees(rec, index, offsets, trx_get_read_view(trx))) &#123;
+                && !lock_clust_rec_cons_read_sees(rec, index, offsets, trx_get_read_view(trx))) {
                 rec_t*    old_vers;
                 /* 获取rec的上一个版本，赋值给old_vers*/
                 err = row_sel_build_prev_vers_for_mysql(
@@ -636,19 +636,19 @@ void ReadView::prepare(trx_id_t id)
                     &old_vers, need_vrow ? &vrow : NULL,
                     &mtr);
 
-                if (err != DB_SUCCESS) &#123;
+                if (err != DB_SUCCESS) {
                     goto lock_wait_or_error;
-                &#125;
+                }
 
-                if (old_vers == NULL) &#123;
+                if (old_vers == NULL) {
                     /* The row did not exist yet in
                     the read view */
                     goto next_rec;
-                &#125;
+                }
                 //用于下一次判断
                 rec = old_vers;
                 prev_rec = rec;
-            &#125;
+            }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>视图可见性判断在函数：<code>changes_visible</code>，调用链如下：</p>
 <blockquote>
@@ -664,15 +664,15 @@ void ReadView::prepare(trx_id_t id)
         trx_id_t        id,
         const table_name_t&    name) const
         MY_ATTRIBUTE((warn_unused_result))
-    &#123;
+    {
         ut_ad(id > 0);
         /*
         1、如果被访问版本的 trx_id 小于 ReadView 中的 m_up_limit_id（低水位），表明被访问版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以        被当前事务访问。
         2、如果被访问版本的 trx_id 与 ReadView 中的 m_creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问
         */
-        if (id < m_up_limit_id || id == m_creator_trx_id) &#123;
+        if (id < m_up_limit_id || id == m_creator_trx_id) {
             return(true);
-        &#125;
+        }
 
         //检查该id是否有效
         check_trx_id_sanity(id, name);
@@ -680,12 +680,12 @@ void ReadView::prepare(trx_id_t id)
         /*
         如果被访问版本的 trx_id 大于等于 ReadView 中的 m_low_limit_id（高水位），表明被访问版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可        以被当前事务访问
         */
-        if (id >= m_low_limit_id) &#123;
+        if (id >= m_low_limit_id) {
             return(false);
-        &#125; else if (m_ids.empty()) &#123;
+        } else if (m_ids.empty()) {
            /* 否则查看m_ids活动列表是否为空，如果为空说明此事务虽然在系统可见最小事务号之后发生，但创建 ReadView 时生成该版本的事务已经被提交，该版本可            以被访问*/
             return(true);
-        &#125;
+        }
 
         const ids_t::value_type*    p = m_ids.data();
 
@@ -693,7 +693,7 @@ void ReadView::prepare(trx_id_t id)
       被访问版本的 trx_id 属性值在 ReadView 的 m_up_limit_id 和 m_low_limit_id 之间，那就需要判断 trx_id 属性值是不是在 m_ids 列表中，这边会通过二分法查找。如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
       */
         return(!std::binary_search(p, p + m_ids.size(), id));
-    &#125;
+    }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>判断流程如下：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302143356258.png" alt="image-20210302143356258"></p>
@@ -702,7 +702,7 @@ void ReadView::prepare(trx_id_t id)
 <p>row_search_mvcc -&gt; row_sel_build_prev_vers_for_mysql -&gt; row_vers_build_for_consistent_read -&gt; trx_undo_prev_version_build</p>
 </blockquote>
 <p><code>trx_undo_prev_version_build</code>源码如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">trx_undo_prev_version_build() &#123;
+<pre class="line-numbers language-c++"><code class="language-c++">trx_undo_prev_version_build() {
     //1、获取record的回滚指针roll_ptr
     roll_ptr = row_get_rec_roll_ptr(rec, index, offsets);
     
@@ -712,9 +712,9 @@ void ReadView::prepare(trx_id_t id)
     //3、根据roll_ptr获取undo log，并拷贝给heap，填充到undo_rec中
     if (trx_undo_get_undo_rec(
         roll_ptr, rec_trx_id, heap, is_redo_rseg,
-        index->table->name, &undo_rec)) &#123;
+        index->table->name, &undo_rec)) {
         
-    &#125;
+    }
     //4、以下开始解析undo log，填充相应参数
     //4.1、根据undo_rec读取type，cmpl_info，undo_no，table_id值并填充到对应参数中，读完后将undo_rec剩余部分返回给ptr
     ptr = trx_undo_rec_get_pars(undo_rec, &type, &cmpl_info, &dummy_extern, &undo_no, &table_id);
@@ -726,17 +726,17 @@ void ReadView::prepare(trx_id_t id)
     //4.4、通过undo log剩余部分和前面读取的参数构造update
     ptr = trx_undo_update_rec_get_update(ptr, index, type, trx_id, roll_ptr, info_bits, NULL, heap, &update);
     
-    if (row_upd_changes_field_size_or_external(index, offsets, update))  &#123;
+    if (row_upd_changes_field_size_or_external(index, offsets, update))  {
         
-    &#125; else &#123;
+    } else {
         //5、构建old_vers：先用rec填充，再用update覆盖
         //5.1、先将rec拷贝到buf，并返回指向buf的指针给old_vers
         *old_vers = rec_copy(buf, rec, offsets);
         rec_offs_make_valid(*old_vers, index, offsets);
         //5.2、使用update覆盖old_vers
         row_upd_rec_in_place(*old_vers, index, offsets, update, NULL);
-    &#125;
-&#125;
+    }
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>SQL查询走辅助索引</li>
@@ -759,33 +759,33 @@ bool lock_sec_rec_cons_read_sees(
                     should be read or passed over
                     by a read cursor */
     const dict_index_t*    index,    /*!< in: index */
-    const ReadView*    view)    /*!< in: consistent read view */ &#123;
-    if (recv_recovery_is_on()) &#123;
+    const ReadView*    view)    /*!< in: consistent read view */ {
+    if (recv_recovery_is_on()) {
         return(false);
-    &#125; else if (dict_table_is_temporary(index->table)) &#123;
+    } else if (dict_table_is_temporary(index->table)) {
         /* Temp-tables are not shared across connections and multiple
         transactions from different connections cannot simultaneously
         operate on same temp-table and so read of temp-table is
         always consistent read. */
         return(true);
-    &#125;
+    }
     //1、取索引页上的最大事务id：max_trx_id
     trx_id_t max_trx_id = page_get_max_trx_id(page_align(rec));
     ut_ad(max_trx_id > 0);
     //2、判断max_trx_id是否小于m_up_limit_id
     return(view->sees(max_trx_id));
-&#125;
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-c++"><code class="language-c++">    /**
     @param id        transaction to check
     @return true if view sees transaction id */
     bool sees(trx_id_t id) const
-    &#123;
+    {
         return(id < m_up_limit_id);
-    &#125;
+    }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="9-3、MVCC类定义"><a href="#9-3、MVCC类定义" class="headerlink" title="9.3、MVCC类定义"></a>9.3、MVCC类定义</h3><pre class="line-numbers language-c++"><code class="language-c++">/** The MVCC read view manager */
-class MVCC &#123;
+class MVCC {
 public:
     /**
     Allocate and create a view.
@@ -794,12 +794,12 @@ public:
                 caller. Must be freed by calling close()
     @param trx        transaction creating the view
    */
-    void view_open(ReadView*& view, trx_t* trx) &#123;
+    void view_open(ReadView*& view, trx_t* trx) {
         ut_ad(!srv_read_only_mode);
 
         /** If no new RW transaction has been started since the last view
         was created then reuse the the existing view. */
-        if (view != NULL) &#123;
+        if (view != NULL) {
             uintptr_t    p = reinterpret_cast<uintptr_t>(view);
             view = reinterpret_cast<ReadView*>(p & ~1);
             ut_ad(view->m_closed);
@@ -812,32 +812,32 @@ public:
             Therefore we must set the low limit id after we reset the
             closed status after the check. */
 
-            if (trx_is_autocommit_non_locking(trx) && view->empty()) &#123;
+            if (trx_is_autocommit_non_locking(trx) && view->empty()) {
                 view->m_closed = false;
-                if (view->m_low_limit_id == trx_sys_get_max_trx_id()) &#123;
+                if (view->m_low_limit_id == trx_sys_get_max_trx_id()) {
                     return;
-                &#125; else &#123;
+                } else {
                     view->m_closed = true;
-                &#125;
-            &#125;
+                }
+            }
             mutex_enter(&trx_sys->mutex);
             UT_LIST_REMOVE(m_views, view);
-        &#125; else &#123;
+        } else {
             mutex_enter(&trx_sys->mutex);
             view = get_view();
-        &#125;
+        }
 
-        if (view != NULL) &#123;
+        if (view != NULL) {
 
             view->prepare(trx->id);
             view->complete();
             UT_LIST_ADD_FIRST(m_views, view);
             ut_ad(!view->is_closed());
             ut_ad(validate());
-        &#125;
+        }
 
         trx_sys_mutex_exit();
-    &#125;
+    }
 
     /**
     Close a view created by the above function.
@@ -858,10 +858,10 @@ public:
     判断一个视图是否处于活动和有效状态
     @return true if the view is active and valid */
     static bool is_view_active(ReadView* view)
-    &#123;
+    {
         ut_a(view != reinterpret_cast<ReadView*>(0x1));
         return(view != NULL && !(intptr_t(view) & 0x1));
-    &#125;
+    }
 
 private:
 
@@ -884,7 +884,7 @@ private:
     creator trx id set to TRX_ID_MAX 
     活跃或者已经关闭的 Read View 的链表*/
     view_list_t        m_views;
-&#125;;
+};
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="9-4、RR在RC基础上解决不可重复读的问题"><a href="#9-4、RR在RC基础上解决不可重复读的问题" class="headerlink" title="9.4、RR在RC基础上解决不可重复读的问题"></a>9.4、RR在RC基础上解决不可重复读的问题</h3><p>图一：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302145710523.png" alt="image-20210302145710523"></p>
@@ -1155,7 +1155,7 @@ private:
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="我的个人博客搭建笔记-1">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="我的个人博客搭建笔记-1">
                         
                         <span class="card-title">我的个人博客搭建笔记-1</span>
                     </div>
@@ -1237,7 +1237,7 @@ private:
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Hello World">
                         
                         <span class="card-title">Hello World</span>
                     </div>
@@ -1420,7 +1420,7 @@ private:
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">3.7k</span>
+            <span class="white-color">8.4k</span>
             
 
             <br>
