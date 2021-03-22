@@ -456,8 +456,8 @@ lspci
 02:02.0 USB controller: VMware USB2 EHCI Controller
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>上面显示了两个USB设备</p>
-<pre><code>02:01.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
-</code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">02:01.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>上面显示的是千兆网卡设备</p>
 <p>此外 lspci -v命令能看到更详细的PCI设备信息</p>
 <pre class="line-numbers language-shell"><code class="language-shell">lspci -v
@@ -571,12 +571,12 @@ lspci
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>将设备指定到这个挂载目录之后，以后访问这个目录就相当于访问这个设备了。</p>
 <p>Linux系统有一个/mnt目录，专门用作临时挂载点（Mount Point）目录，主要用于系统管理员临时挂载一些媒体设备。此外，Linux还有一个/media目录，主要用于自动挂载U盘，光盘。在CentOS7中新出现了一个/run目录，现在所有的移动设备都会自动挂载到这个目录下。</p>
-<h5 id="1-2-3-1、挂载软盘"><a href="#1-2-3-1、挂载软盘" class="headerlink" title="1.2.3.1、挂载软盘"></a>1.2.3.1、挂载软盘</h5><pre><code>mount -t msdos /dev/fd0 /mnt/floppy
-</code></pre>
+<h5 id="1-2-3-1、挂载软盘"><a href="#1-2-3-1、挂载软盘" class="headerlink" title="1.2.3.1、挂载软盘"></a>1.2.3.1、挂载软盘</h5><pre class="line-numbers language-shell"><code class="language-shell">mount -t msdos /dev/fd0 /mnt/floppy
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这个命令把一个DOS文件格式的软盘挂载在/mnt/floppy目录下</p>
 <h5 id="1-2-3-2、挂载U盘"><a href="#1-2-3-2、挂载U盘" class="headerlink" title="1.2.3.2、挂载U盘"></a>1.2.3.2、挂载U盘</h5><p>首先通过下面命令查看U盘设备名以及是否挂载</p>
-<pre><code>df -h
-</code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">df -h
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210322222946637.png" alt="image-20210322222946637"></p>
 <p>然后建立挂载点</p>
 <pre class="line-numbers language-shell"><code class="language-shell">mkdir /mnt/usb
@@ -586,6 +586,8 @@ lspci
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样我们就能通过/mnt/usb目录来访问sda1里面的内容了</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210322223236485.png" alt="image-20210322223236485"></p>
+<h5 id="1-2-3-3、挂载光盘"><a href="#1-2-3-3、挂载光盘" class="headerlink" title="1.2.3.3、挂载光盘"></a>1.2.3.3、挂载光盘</h5><pre class="line-numbers language-shell"><code class="language-shell">mount -t iso9660 /dev/hda /mnt/cdrom
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
             </div>
             <hr />
