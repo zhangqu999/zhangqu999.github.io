@@ -521,8 +521,8 @@ lspci
 <p>由以上信息可知，系统目前物理内存<code>MemTotal</code>大约为5.3G，可用物理内存<code>MemFree</code>大约为2.7G，缓冲区<code>Buffers</code>占用了1772KB，缓存<code>Cached</code>占用了约1.5G</p>
 <h4 id="1-1-4、查看磁盘分区信息"><a href="#1-1-4、查看磁盘分区信息" class="headerlink" title="1.1.4、查看磁盘分区信息"></a>1.1.4、查看磁盘分区信息</h4><pre class="line-numbers language-shell"><code class="language-shell">fdisk -l
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="C:\Users\18422\AppData\Roaming\Typora\typora-user-images\image-20210322141629087.png" alt="image-20210322141629087"></p>
-<p>通过以上输出可知，该系统一共有一个107.4G的磁盘，换分了三个分区，分别是<code>centos-root</code>，<code>centos-swap</code>，<code>centos-home</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210322141629087.png" alt="image-20210322141629087"></p>
+<p>通过以上输出可知，该系统一共有一个107.4G的磁盘，划分了三个分区，分别是<code>centos-root</code>，<code>centos-swap</code>，<code>centos-home</code></p>
 <h3 id="1-2、Linux外在设备的使用"><a href="#1-2、Linux外在设备的使用" class="headerlink" title="1.2、Linux外在设备的使用"></a>1.2、Linux外在设备的使用</h3><p>有时候我们需要使用软盘，U盘，光驱，磁带等外在设备，这需要挂载才能使用。</p>
 <h4 id="1-2-1、硬件与设备文件"><a href="#1-2-1、硬件与设备文件" class="headerlink" title="1.2.1、硬件与设备文件"></a>1.2.1、硬件与设备文件</h4><p>在<code>Linux</code>系统下， 硬件设备都是以文件方式存在，不同硬件设备有不同的文件类型，我们把硬件与系统下相对应的文件称为<strong>设备文件</strong>。设备文件存放在</p>
 <p><code>/dev</code>下面，命名方式是主设备号（设备类型）+次设备号（具体哪一个设备）</p>
