@@ -602,7 +602,7 @@ lspci
 </thead>
 <tbody><tr>
 <td><code>passwd</code></td>
-<td>用户库文件，存放每个用户的用户名，UID，GID和工作目录</td>
+<td>用户库文件，存放每个用户的用户名，<code>UID，GID</code>和工作目录</td>
 </tr>
 <tr>
 <td><code>shadow</code></td>
@@ -618,23 +618,23 @@ lspci
 </tr>
 <tr>
 <td><code>systemd</code></td>
-<td>配置文件目录，是CentOS7.x新增目录，Linux系统启动用来对整个系统进行初始化配置</td>
+<td>配置文件目录，是<code>CentOS7.x</code>新增目录，<code>Linux</code>系统启动用来对整个系统进行初始化配置</td>
 </tr>
 <tr>
 <td><code>hosts</code></td>
-<td>设定用户的IP和名字对应表，类型windows系统的hosts文件·</td>
+<td>设定用户的<code>IP</code>和名字对应表，类似<code>Windows</code>系统的<code>hosts</code>文件</td>
 </tr>
 <tr>
 <td><code>resolv.conf</code></td>
-<td>客户端DNS配置文件</td>
+<td>客户端<code>DNS</code>配置文件</td>
 </tr>
 <tr>
 <td><code>sysconfig/network-scripts/ifcfg-xxx</code></td>
-<td>IP地址配置文件</td>
+<td><code>IP</code>地址配置文件</td>
 </tr>
 <tr>
 <td><code>X11</code></td>
-<td>X-Windows配置文件</td>
+<td><code>X-Windows</code>配置文件</td>
 </tr>
 <tr>
 <td><code>rsyslog.conf</code></td>
@@ -642,7 +642,7 @@ lspci
 </tr>
 <tr>
 <td><code>sysctl.conf</code></td>
-<td>系统内核参数配置文件，CentOS7.x移到了/usr/lib/sysctl.d目录下，但该配置文件依然存在，并且有效</td>
+<td>系统内核参数配置文件，<code>CentOS7.x</code>移到了<code>/usr/lib/sysctl.d</code>目录下，但该配置文件依然存在，并且有效</td>
 </tr>
 <tr>
 <td><code>services</code></td>
@@ -667,7 +667,7 @@ lspci
 </tr>
 <tr>
 <td><code>src</code></td>
-<td>包含所有程序源代码，主要是Linux核心程序源代码</td>
+<td>包含所有程序源代码，主要是<code>Linux</code>核心程序源代码</td>
 </tr>
 <tr>
 <td><code>local</code></td>
@@ -687,7 +687,7 @@ lspci
 </tr>
 <tr>
 <td><code>include</code></td>
-<td>包含C语言的头文件，扩展名大多是.h</td>
+<td>包含C语言的头文件，扩展名大多是<code>.h</code></td>
 </tr>
 <tr>
 <td><code>share</code></td>
@@ -712,11 +712,11 @@ lspci
 </tr>
 <tr>
 <td><code>spool</code></td>
-<td>是mail，new，打印机队列和其他队列的输入，输出的缓冲目录</td>
+<td>是<code>mail，new</code>，打印机队列和其他队列的输入，输出的缓冲目录</td>
 </tr>
 <tr>
 <td><code>tmp</code></td>
-<td>该目录可以比/tmp存放更大的文件</td>
+<td>该目录可以比<code>/tmp</code>存放更大的文件</td>
 </tr>
 <tr>
 <td><code>lock</code></td>
@@ -753,11 +753,11 @@ lspci
 </tr>
 <tr>
 <td><code>hd*</code></td>
-<td>IDE硬盘设备</td>
+<td><code>IDE</code>硬盘设备</td>
 </tr>
 <tr>
 <td><code>sd*</code></td>
-<td>SCSI设备，sda代表第一块SCSI硬盘</td>
+<td><code>SCSI</code>设备，<code>sda</code>代表第一块<code>SCSI</code>硬盘</td>
 </tr>
 <tr>
 <td><code>lp*</code></td>
@@ -773,11 +773,11 @@ lspci
 </tr>
 <tr>
 <td><code>tty*</code></td>
-<td>虚拟/字符控制台，我的CentOS7.x系统上有64个tty*文件</td>
+<td>虚拟/字符控制台，我的<code>CentOS7.x</code>系统上有64个<code>tty*</code>文件</td>
 </tr>
 <tr>
 <td><code>ttyS*</code></td>
-<td>串行端口，类型Windows下的COM*</td>
+<td>串行端口，类似<code>Windows</code>下的<code>COM*</code></td>
 </tr>
 <tr>
 <td><code>console</code></td>
@@ -788,7 +788,7 @@ lspci
 <td>输出空设备</td>
 </tr>
 </tbody></table>
-<h4 id="2-1-2-5、-proc目录"><a href="#2-1-2-5、-proc目录" class="headerlink" title="2.1.2.5、/proc目录"></a>2.1.2.5、/proc目录</h4><p>虚拟目录，存在于内存中，里面所有信息都是内存的映射，可以获取进程的有用信息，也可以在系统运行中修改内核参数。</p>
+<h4 id="2-1-2-5、-proc目录"><a href="#2-1-2-5、-proc目录" class="headerlink" title="2.1.2.5、/proc目录"></a>2.1.2.5、/proc目录</h4><p><strong>虚拟目录</strong>，存在于内存中，里面所有信息都是内存的映射，可以获取进程的有用信息，也可以在系统运行中修改内核参数。</p>
 <table>
 <thead>
 <tr>
@@ -798,7 +798,7 @@ lspci
 </thead>
 <tbody><tr>
 <td><code>cpuinfo</code></td>
-<td>系统CPU的有关信息，包括CPU名称，型号，类型等</td>
+<td>系统<code>CPU</code>的有关信息，包括<code>CPU</code>名称，型号，类型等</td>
 </tr>
 <tr>
 <td><code>meminfo</code></td>
@@ -818,11 +818,11 @@ lspci
 </tr>
 <tr>
 <td><code>dma</code></td>
-<td>当前使用的dma通道</td>
+<td>当前使用的<code>dma</code>通道</td>
 </tr>
 <tr>
 <td><code>ioports</code></td>
-<td>当前使用的IO端口</td>
+<td>当前使用的<code>IO</code>端口</td>
 </tr>
 <tr>
 <td><code>modules</code></td>
@@ -850,23 +850,23 @@ lspci
 </tr>
 <tr>
 <td><code>kmsg</code></td>
-<td>内核输出信息，同时输出到rsyslog</td>
+<td>内核输出信息，同时输出到<code>rsyslog</code></td>
 </tr>
 </tbody></table>
 <h4 id="2-1-2-6、-boot目录"><a href="#2-1-2-6、-boot目录" class="headerlink" title="2.1.2.6、/boot目录"></a>2.1.2.6、/boot目录</h4><p>存放启动<code>Linux</code>的一些核心文件，包含一些<strong>镜像文件和链接文件</strong>，如果遭到破坏，系统将无法启动。</p>
-<h4 id="2-1-2-7、-bin和-sbin目录"><a href="#2-1-2-7、-bin和-sbin目录" class="headerlink" title="2.1.2.7、/bin和/sbin目录"></a>2.1.2.7、/bin和/sbin目录</h4><p>都是存放可执行的二进制文件</p>
+<h4 id="2-1-2-7、-bin和-sbin目录"><a href="#2-1-2-7、-bin和-sbin目录" class="headerlink" title="2.1.2.7、/bin和/sbin目录"></a>2.1.2.7、/bin和/sbin目录</h4><p>都是存放<strong>可执行的二进制文件</strong></p>
 <ul>
 <li><code>/bin</code>存放我们经常使用的<code>Linux</code>命令，如文件操作命令<code>ls，cd，cp</code>；文本编辑命令<code>vi，ed</code>；磁盘操作命令<code>dd，df，mount</code>等</li>
 <li><code>/sbin</code>中的<code>s</code>是<code>super user</code>的意思，只有<code>root</code>用户才能执行这些命令，如磁盘检查修复命令<code>fcsk</code>，磁盘分区命令<code>fdisk</code>，创建文件系统命令<code>mkfs</code>，关机命令<code>shutdown</code>，初始化系统命令<code>init</code>等</li>
 </ul>
-<h4 id="2-1-2-8、-home目录"><a href="#2-1-2-8、-home目录" class="headerlink" title="2.1.2.8、/home目录"></a>2.1.2.8、/home目录</h4><p>用户的工作目录。每个用户都有一个自己的目录，以用户账号命名</p>
+<h4 id="2-1-2-8、-home目录"><a href="#2-1-2-8、-home目录" class="headerlink" title="2.1.2.8、/home目录"></a>2.1.2.8、/home目录</h4><p>用户的工作目录。每个用户都有一个自己的目录，以<strong>用户账号</strong>命名</p>
 <h4 id="2-1-2-9、-lib目录"><a href="#2-1-2-9、-lib目录" class="headerlink" title="2.1.2.9、/lib目录"></a>2.1.2.9、/lib目录</h4><p>存放<strong>共享程序库和映像文件</strong>，可供多个程序使用。</p>
 <h4 id="2-1-2-10、-root目录"><a href="#2-1-2-10、-root目录" class="headerlink" title="2.1.2.10、/root目录"></a>2.1.2.10、/root目录</h4><p>是<code>root</code>用户默认的主目录</p>
-<h4 id="2-1-2-11、-run和-mnt目录"><a href="#2-1-2-11、-run和-mnt目录" class="headerlink" title="2.1.2.11、/run和/mnt目录"></a>2.1.2.11、/run和/mnt目录</h4><p><code>/run</code>是外在设备的自动挂载目录，<code>CentOS7.x</code>以前是<code>/media</code>目录</p>
-<p><code>/mnt</code>是手动挂载移动设备的目录</p>
+<h4 id="2-1-2-11、-run和-mnt目录"><a href="#2-1-2-11、-run和-mnt目录" class="headerlink" title="2.1.2.11、/run和/mnt目录"></a>2.1.2.11、/run和/mnt目录</h4><p><code>/run</code>是外在设备的<strong>自动挂载</strong>目录，<code>CentOS7.x</code>以前是<code>/media</code>目录</p>
+<p><code>/mnt</code>是<strong>手动挂载</strong>移动设备的目录</p>
 <h4 id="2-1-2-12、-tmp目录"><a href="#2-1-2-12、-tmp目录" class="headerlink" title="2.1.2.12、/tmp目录"></a>2.1.2.12、/tmp目录</h4><p>存放临时文件，可随时删除</p>
 <h2 id="2-2、系统核心组成"><a href="#2-2、系统核心组成" class="headerlink" title="2.2、系统核心组成"></a>2.2、系统核心组成</h2><p>最核心的就是<code>Linux</code>内核，它由5个部分组成，分别是<strong>内存管理，进程管理，进程间通信，虚拟文件系统和网络接口</strong></p>
-<h3 id="2-2-1、内存管理"><a href="#2-2-1、内存管理" class="headerlink" title="2.2.1、内存管理"></a>2.2.1、内存管理</h3><p>合理有效地管理系统的物理内存，快速响应各个子系统对内存分配的请求。支持虚拟内存。</p>
+<h3 id="2-2-1、内存管理"><a href="#2-2-1、内存管理" class="headerlink" title="2.2.1、内存管理"></a>2.2.1、内存管理</h3><p>合理有效地管理系统的物理内存，快速响应各个子系统对内存分配的请求，<strong>支持虚拟内存</strong>。</p>
 <h3 id="2-2-2、进程管理"><a href="#2-2-2、进程管理" class="headerlink" title="2.2.2、进程管理"></a>2.2.2、进程管理</h3><p>进程调度器基于优先级的调度算法来对<strong>时间片的分配</strong>进行管理，在多个进程间快速切换，可以达到一个<code>CPU</code>多个程序同时运行的效果。实际上，同一时间只有一个进程在运行（一个<code>CPU</code>）。</p>
 <h3 id="2-2-3、进程间通信"><a href="#2-2-3、进程间通信" class="headerlink" title="2.2.3、进程间通信"></a>2.2.3、进程间通信</h3><p>控制不同进程之间在用户空间的<strong>同步、数据共享和交换</strong>。</p>
 <h3 id="2-2-4、虚拟文件系统"><a href="#2-2-4、虚拟文件系统" class="headerlink" title="2.2.4、虚拟文件系统"></a>2.2.4、虚拟文件系统</h3><p>包括逻辑文件系统和设备驱动程序。</p>
@@ -1342,74 +1342,57 @@ lspci
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/24/vector-yuan-ma-fen-xi/">
+                <a href="/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Vector源码分析">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Linux系统基本结构学习-1">
                         
-                        <span class="card-title">Vector源码分析</span>
+                        <span class="card-title">Linux系统基本结构学习-1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            1、系统与硬件1.1、Linux硬件资源管理1.1.1、查看系统PCI设备lspci命令可以列出所有PCI设备，如主板、声卡、显卡、网卡、USB接口设备等
+lspci
+
+
+下面我们来分析下上面的输出结果
+00:00.0 Host bridg
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java/" class="post-category" target="_blank">
-                                    Java
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                    Linux
                                 </a>
                             
-                            <a href="/categories/Java/Jdk%E6%BA%90%E7%A0%81/" class="post-category" target="_blank">
-                                    Jdk源码
-                                </a>
-                            
-                            <a href="/categories/Java/Jdk%E6%BA%90%E7%A0%81/Java%E5%AE%B9%E5%99%A8/" class="post-category" target="_blank">
-                                    Java容器
+                            <a href="/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category" target="_blank">
+                                    基础知识
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ArrayList/" target="_blank">
-                        <span class="chip bg-color">ArrayList</span>
-                    </a>
-                    
-                    <a href="/tags/jdk%E6%BA%90%E7%A0%81/" target="_blank">
-                        <span class="chip bg-color">jdk源码</span>
-                    </a>
-                    
-                    <a href="/tags/Java%E5%AE%B9%E5%99%A8/" target="_blank">
-                        <span class="chip bg-color">Java容器</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
-                        <span class="chip bg-color">序列化</span>
-                    </a>
-                    
-                    <a href="/tags/fail-fast/" target="_blank">
-                        <span class="chip bg-color">fail-fast</span>
-                    </a>
-                    
-                    <a href="/tags/forEach/" target="_blank">
-                        <span class="chip bg-color">forEach</span>
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
