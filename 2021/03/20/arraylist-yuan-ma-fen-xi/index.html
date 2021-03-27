@@ -254,7 +254,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -437,7 +437,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.8k
+                    4.7k
                 </div>
                 
 
@@ -460,12 +460,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1、概览"><a href="#1、概览" class="headerlink" title="1、概览"></a>1、概览</h2><h3 id="1-1、基本特点"><a href="#1-1、基本特点" class="headerlink" title="1.1、基本特点"></a>1.1、基本特点</h3><p><code>ArrayList</code>相当于一个动态数组，容量可以动态增长，继承自抽象类<code>AbstractList</code>，实现了<code>List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</code>接口，因此具有<code>List</code>的一些特性，支持<strong>随机访问，克隆和序列化</strong></p>
+                <h1 id="1、概览"><a href="#1、概览" class="headerlink" title="1、概览"></a>1、概览</h1><h2 id="1-1、基本特点"><a href="#1-1、基本特点" class="headerlink" title="1.1、基本特点"></a>1.1、基本特点</h2><p><code>ArrayList</code>相当于一个动态数组，容量可以动态增长，继承自抽象类<code>AbstractList</code>，实现了<code>List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</code>接口，因此具有<code>List</code>的一些特性，支持<strong>随机访问，克隆和序列化</strong></p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>E<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">AbstractList</span><span class="token operator">&lt;</span>E<span class="token operator">></span>
             <span class="token keyword">implements</span> <span class="token class-name">List</span><span class="token operator">&lt;</span>E<span class="token operator">></span><span class="token punctuation">,</span> RandomAccess<span class="token punctuation">,</span> Cloneable<span class="token punctuation">,</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="1-1-1、标记接口"><a href="#1-1-1、标记接口" class="headerlink" title="1.1.1、标记接口"></a>1.1.1、标记接口</h4><p>一般我们认为<strong>没有任何方法</strong>的接口是标记接口。这并不是<code>Java</code>的一种语法，而是一种<strong>设计理念</strong>，用来标记类提供的的某项功能。</p>
-<h4 id="1-1-2、RandomAccess-Cloneable-java-io-Serializable"><a href="#1-1-2、RandomAccess-Cloneable-java-io-Serializable" class="headerlink" title="1.1.2、RandomAccess, Cloneable, java.io.Serializable"></a>1.1.2、RandomAccess, Cloneable, java.io.Serializable</h4><p>这三个接口我们去看源码会发现里面什么方法都没有，因此它们都是标记接口，分别用来标记实现类支持随机访问，克隆和序列化。</p>
+<h3 id="1-1-1、标记接口"><a href="#1-1-1、标记接口" class="headerlink" title="1.1.1、标记接口"></a>1.1.1、标记接口</h3><p>一般我们认为<strong>没有任何方法</strong>的接口是标记接口。这并不是<code>Java</code>的一种语法，而是一种<strong>设计理念</strong>，用来标记类提供的的某项功能。</p>
+<h3 id="1-1-2、RandomAccess-Cloneable-java-io-Serializable"><a href="#1-1-2、RandomAccess-Cloneable-java-io-Serializable" class="headerlink" title="1.1.2、RandomAccess, Cloneable, java.io.Serializable"></a>1.1.2、RandomAccess, Cloneable, java.io.Serializable</h3><p>这三个接口我们去看源码会发现里面什么方法都没有，因此它们都是标记接口，分别用来标记实现类支持随机访问，克隆和序列化。</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">RandomAccess</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 
@@ -475,45 +475,45 @@
     <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="1-2、线程安全型"><a href="#1-2、线程安全型" class="headerlink" title="1.2、线程安全型"></a>1.2、线程安全型</h3><p>对<code>ArrayList</code>的修改操作，我们可以分为两种：</p>
+<h2 id="1-2、线程安全型"><a href="#1-2、线程安全型" class="headerlink" title="1.2、线程安全型"></a>1.2、线程安全型</h2><p>对<code>ArrayList</code>的修改操作，我们可以分为两种：</p>
 <ul>
 <li><p>一种是对数组元素<strong>位置的调整</strong>，比如添加删除元素</p>
 </li>
-<li><p>另一种是对数组<strong>元素的修改</strong>，比如修改某个元素。这在多线程环境下是无法保证原子性的，而<code>ArrayList</code>又没有采用加锁机制来保证操作的原子性，因此是线程不安全的。如果你想要在多线程环境下使用这种结构，建议用<code>Vector</code>，它就相当于一个线程安全的<code>ArrayList</code>，关于它的源码，我将在下一篇文章进行分析。</p>
+<li><p>另一种是对数组<strong>元素的修改</strong>，比如修改某个元素。这在多线程环境下是无法保证原子性的，而<code>ArrayList</code>又没有采用加锁机制来保证操作的原子性，因此是线程不安全的。如果你想要在多线程环境下使用这种结构，建议用<code>Vector</code>，它就相当于一个线程安全的<code>ArrayList</code>。</p>
 </li>
 </ul>
-<h2 id="2、属性"><a href="#2、属性" class="headerlink" title="2、属性"></a>2、属性</h2><h3 id="2-1、DEFAULT-CAPACITY"><a href="#2-1、DEFAULT-CAPACITY" class="headerlink" title="2.1、DEFAULT_CAPACITY"></a>2.1、DEFAULT_CAPACITY</h3><p>默认初始化容量<code>DEFAULT_CAPACITY</code>为10</p>
+<h1 id="2、属性"><a href="#2、属性" class="headerlink" title="2、属性"></a>2、属性</h1><h2 id="2-1、DEFAULT-CAPACITY"><a href="#2-1、DEFAULT-CAPACITY" class="headerlink" title="2.1、DEFAULT_CAPACITY"></a>2.1、DEFAULT_CAPACITY</h2><p>默认初始化容量<code>DEFAULT_CAPACITY</code>为10</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> DEFAULT_CAPACITY <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-2、EMPTY-ELEMENTDATA"><a href="#2-2、EMPTY-ELEMENTDATA" class="headerlink" title="2.2、EMPTY_ELEMENTDATA"></a>2.2、EMPTY_ELEMENTDATA</h3><p><code>EMPTY_ELEMENTDATA</code>是一个静态常量的空数组对象，用来初始化<code>elementData</code></p>
+<h2 id="2-2、EMPTY-ELEMENTDATA"><a href="#2-2、EMPTY-ELEMENTDATA" class="headerlink" title="2.2、EMPTY_ELEMENTDATA"></a>2.2、EMPTY_ELEMENTDATA</h2><p><code>EMPTY_ELEMENTDATA</code>是一个静态常量的空数组对象，用来初始化<code>elementData</code></p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-3、DEFAULTCAPACITY-EMPTY-ELEMENTDATA"><a href="#2-3、DEFAULTCAPACITY-EMPTY-ELEMENTDATA" class="headerlink" title="2.3、DEFAULTCAPACITY_EMPTY_ELEMENTDATA"></a>2.3、DEFAULTCAPACITY_EMPTY_ELEMENTDATA</h3><p><code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>也是一个静态常量，也是用来初始化<code>elementData</code>，关于它和<code>EMPTY_ELEMENTDATA</code>不同的地方，后面扩容的部分会谈到。</p>
+<h2 id="2-3、DEFAULTCAPACITY-EMPTY-ELEMENTDATA"><a href="#2-3、DEFAULTCAPACITY-EMPTY-ELEMENTDATA" class="headerlink" title="2.3、DEFAULTCAPACITY_EMPTY_ELEMENTDATA"></a>2.3、DEFAULTCAPACITY_EMPTY_ELEMENTDATA</h2><p><code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>也是一个静态常量，也是用来初始化<code>elementData</code>，关于它和<code>EMPTY_ELEMENTDATA</code>不同的地方，后面扩容的部分会谈到。</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-4、elementData"><a href="#2-4、elementData" class="headerlink" title="2.4、elementData"></a>2.4、elementData</h3><p>保存数组元素的对象数组，并且加上了<code>transient</code>关键字，表示该属性不使用<code>Java</code>默认序列化机制进行序列化</p>
+<h2 id="2-4、elementData"><a href="#2-4、elementData" class="headerlink" title="2.4、elementData"></a>2.4、elementData</h2><p>保存数组元素的对象数组，并且加上了<code>transient</code>关键字，表示该属性不使用<code>Java</code>默认序列化机制进行序列化</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">transient</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// non-private to simplify nested class access</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-5、size"><a href="#2-5、size" class="headerlink" title="2.5、size"></a>2.5、size</h3><p>保存数组当前<strong>实际的大小</strong></p>
+<h2 id="2-5、size"><a href="#2-5、size" class="headerlink" title="2.5、size"></a>2.5、size</h2><p>保存数组当前<strong>实际的大小</strong></p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">int</span> size<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-6、MAX-ARRAY-SIZE"><a href="#2-6、MAX-ARRAY-SIZE" class="headerlink" title="2.6、MAX_ARRAY_SIZE"></a>2.6、MAX_ARRAY_SIZE</h3><p>静态常量，定义数组容量的最大值，在扩容的时候会用到。</p>
+<h2 id="2-6、MAX-ARRAY-SIZE"><a href="#2-6、MAX-ARRAY-SIZE" class="headerlink" title="2.6、MAX_ARRAY_SIZE"></a>2.6、MAX_ARRAY_SIZE</h2><p>静态常量，定义数组容量的最大值，在扩容的时候会用到。</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> MAX_ARRAY_SIZE <span class="token operator">=</span> Integer<span class="token punctuation">.</span>MAX_VALUE <span class="token operator">-</span> <span class="token number">8</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-7、modCount"><a href="#2-7、modCount" class="headerlink" title="2.7、modCount"></a>2.7、modCount</h3><p><code>modCount</code> 用来记录 <code>ArrayList</code> 结构发生变化的次数，如果一个动作前后 <code>modCount</code> 的值不相等，说明 <code>ArrayList</code> 被其它线程修改了</p>
+<h2 id="2-7、modCount"><a href="#2-7、modCount" class="headerlink" title="2.7、modCount"></a>2.7、modCount</h2><p><code>modCount</code> 用来记录 <code>ArrayList</code> 结构发生变化的次数，如果一个动作前后 <code>modCount</code> 的值不相等，说明 <code>ArrayList</code> 被其它线程修改了</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">transient</span> <span class="token keyword">int</span> modCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-8、serialVersionUID"><a href="#2-8、serialVersionUID" class="headerlink" title="2.8、serialVersionUID"></a>2.8、serialVersionUID</h3><p>实现了<code>Serializable</code>接口的类如果我们不显示的指定<code>serialVersionUID</code>的话，那么会基于类的属性方法等参数生成一个默认的<code>serialVersionUID</code>，如果类的属性或方法有所改动，那么这个默认的<code>serialVersionUID</code>也会随之改动。</p>
+<h2 id="2-8、serialVersionUID"><a href="#2-8、serialVersionUID" class="headerlink" title="2.8、serialVersionUID"></a>2.8、serialVersionUID</h2><p>实现了<code>Serializable</code>接口的类如果我们不显示的指定<code>serialVersionUID</code>的话，那么会基于类的属性方法等参数生成一个默认的<code>serialVersionUID</code>，如果类的属性或方法有所改动，那么这个默认的<code>serialVersionUID</code>也会随之改动。</p>
 <p>所以<strong>如果我们不显示的指定serialVersionUID的话，只要类有所改动serialVersionUID就会变化，从而导致反序列化失败</strong>。</p>
 <p>对于<code>serialVersionUID</code>的显式赋值，一般情况下直接设置成<code>1L</code>就行了，当然了也可以使用<code>IDEA</code>帮我们自动生成的<code>serialVersionUID</code>作为默认值。</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> 8683452581122892189L<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="3、构造方法"><a href="#3、构造方法" class="headerlink" title="3、构造方法"></a>3、构造方法</h2><h3 id="3-1、无参构造"><a href="#3-1、无参构造" class="headerlink" title="3.1、无参构造"></a>3.1、无参构造</h3><p>如果是无参构造，就会初始化一个默认容量为10的空数组</p>
+<h1 id="3、构造方法"><a href="#3、构造方法" class="headerlink" title="3、构造方法"></a>3、构造方法</h1><h2 id="3-1、无参构造"><a href="#3-1、无参构造" class="headerlink" title="3.1、无参构造"></a>3.1、无参构造</h2><p>如果是无参构造，就会初始化一个默认容量为10的空数组</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token function">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-2、带初始化容量的构造"><a href="#3-2、带初始化容量的构造" class="headerlink" title="3.2、带初始化容量的构造"></a>3.2、带初始化容量的构造</h3><p>如果是传初始容量进行构造，则会分三种情况，如下：</p>
+<h2 id="3-2、带初始化容量的构造"><a href="#3-2、带初始化容量的构造" class="headerlink" title="3.2、带初始化容量的构造"></a>3.2、带初始化容量的构造</h2><p>如果是传初始容量进行构造，则会分三种情况，如下：</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token function">ArrayList</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>initialCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -525,7 +525,7 @@
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们会发现，当传入参数<code>initialCapacity</code>为0时，会将<code>elementData</code>初始化为<code>EMPTY_ELEMENTDATA</code>空数组，上面的无参构造是初始化为<code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>，对于两者的区别，后面的扩容会进行分析。</p>
-<h3 id="3-3、传一个集合构造"><a href="#3-3、传一个集合构造" class="headerlink" title="3.3、传一个集合构造"></a>3.3、传一个集合构造</h3><p>如果是给传一个集合进行构造，会分两种情况进行讨论</p>
+<h2 id="3-3、传一个集合构造"><a href="#3-3、传一个集合构造" class="headerlink" title="3.3、传一个集合构造"></a>3.3、传一个集合构造</h2><p>如果是给传一个集合进行构造，会分两种情况进行讨论</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token function">ArrayList</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         elementData <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>size <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -586,7 +586,7 @@
     <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">native</span> Object <span class="token function">newArray</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> componentType<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> NegativeArraySizeException<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="4、关键方法"><a href="#4、关键方法" class="headerlink" title="4、关键方法"></a>4、关键方法</h2><h3 id="4-1、trimToSize"><a href="#4-1、trimToSize" class="headerlink" title="4.1、trimToSize"></a>4.1、trimToSize</h3><p>该方法用来最小化<code>ArrayList</code>实例存储空间，将容器大小调整为当前元素所占用的大小。</p>
+<h1 id="4、关键方法"><a href="#4、关键方法" class="headerlink" title="4、关键方法"></a>4、关键方法</h1><h2 id="4-1、trimToSize"><a href="#4-1、trimToSize" class="headerlink" title="4.1、trimToSize"></a>4.1、trimToSize</h2><p>该方法用来最小化<code>ArrayList</code>实例存储空间，将容器大小调整为当前元素所占用的大小。</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">trimToSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         modCount<span class="token operator">++</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">&lt;</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -612,7 +612,7 @@
      * destination array.*/</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>大致意思就是，如果<code>src</code>和<code>dest</code>是同一个数组的引用时，在拷贝的时候，会先将<code>src</code>数组拷贝<code>length</code>长度到一个<strong>临时数组</strong>，然后再将临时数组的内容拷贝到<code>dest</code>数组的<code>destPos</code>位置，而如果<code>src</code>和<code>dest</code>指向不同数组的话，就直接进行拷贝</p>
-<h3 id="4-2、添加元素与扩容"><a href="#4-2、添加元素与扩容" class="headerlink" title="4.2、添加元素与扩容"></a>4.2、添加元素与扩容</h3><h4 id="4-2-1、在最后添加一个元素"><a href="#4-2-1、在最后添加一个元素" class="headerlink" title="4.2.1、在最后添加一个元素"></a>4.2.1、在最后添加一个元素</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span>E e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h2 id="4-2、添加元素与扩容"><a href="#4-2、添加元素与扩容" class="headerlink" title="4.2、添加元素与扩容"></a>4.2、添加元素与扩容</h2><h3 id="4-2-1、在最后添加一个元素"><a href="#4-2-1、在最后添加一个元素" class="headerlink" title="4.2.1、在最后添加一个元素"></a>4.2.1、在最后添加一个元素</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span>E e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Increments modCount!!</span>
         elementData<span class="token punctuation">[</span>size<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
         <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
@@ -664,7 +664,7 @@
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后调用<code>Arrays.copyOf</code>方法进行数组拷贝</p>
-<h4 id="4-2-2、在指定位置添加一个元素"><a href="#4-2-2、在指定位置添加一个元素" class="headerlink" title="4.2.2、在指定位置添加一个元素"></a>4.2.2、在指定位置添加一个元素</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> E element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="4-2-2、在指定位置添加一个元素"><a href="#4-2-2、在指定位置添加一个元素" class="headerlink" title="4.2.2、在指定位置添加一个元素"></a>4.2.2、在指定位置添加一个元素</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> E element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">rangeCheckForAdd</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Increments modCount!!</span>
@@ -680,7 +680,7 @@
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后调用<code>ensureCapacityInternal</code>方法确保至少有<code>size + 1</code>的空间，接着会调用<code>System.arraycopy</code>方法进行数组移位（将<code>index</code>后面的元素往后移一位），然后再将<code>element</code>插到<code>index</code>的位置，数组的大小加一。</p>
-<h4 id="4-2-3、在最后添加一个集合元素"><a href="#4-2-3、在最后添加一个集合元素" class="headerlink" title="4.2.3、在最后添加一个集合元素"></a>4.2.3、在最后添加一个集合元素</h4><p>该方法用来添加集合c里面的所有元素，所以至少需要保证容量至少要有<code>size + numNew</code>即两者的<code>size</code>大小之和，然后调用 <code>System.arraycopy</code> 将要添加的集合中的元素复制到原集合已有元素的后面</p>
+<h3 id="4-2-3、在最后添加一个集合元素"><a href="#4-2-3、在最后添加一个集合元素" class="headerlink" title="4.2.3、在最后添加一个集合元素"></a>4.2.3、在最后添加一个集合元素</h3><p>该方法用来添加集合c里面的所有元素，所以至少需要保证容量至少要有<code>size + numNew</code>即两者的<code>size</code>大小之和，然后调用 <code>System.arraycopy</code> 将要添加的集合中的元素复制到原集合已有元素的后面</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">addAll</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         Object<span class="token punctuation">[</span><span class="token punctuation">]</span> a <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> numNew <span class="token operator">=</span> a<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
@@ -690,7 +690,7 @@
         <span class="token keyword">return</span> numNew <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-3、删除元素"><a href="#4-3、删除元素" class="headerlink" title="4.3、删除元素"></a>4.3、删除元素</h3><h4 id="4-3-1、删除指定索引位置的元素"><a href="#4-3-1、删除指定索引位置的元素" class="headerlink" title="4.3.1、删除指定索引位置的元素"></a>4.3.1、删除指定索引位置的元素</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> E <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h2 id="4-3、删除元素"><a href="#4-3、删除元素" class="headerlink" title="4.3、删除元素"></a>4.3、删除元素</h2><h3 id="4-3-1、删除指定索引位置的元素"><a href="#4-3-1、删除指定索引位置的元素" class="headerlink" title="4.3.1、删除指定索引位置的元素"></a>4.3.1、删除指定索引位置的元素</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> E <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">rangeCheck</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         modCount<span class="token operator">++</span><span class="token punctuation">;</span>
@@ -712,7 +712,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后计算需要移动的元素数量，如果<code>index==size-1</code>，即<code>numMoved</code>为0，不需要移动。否则调用<code>System.arraycopy</code>方法将<code>numMoved</code>个元素往前移一位</p>
 <p>最后，将<code>elementData</code>之前最后一个元素的位置赋值为<code>null</code>，建议<code>GC</code>进行回收</p>
-<h4 id="4-3-2、删除指定对象"><a href="#4-3-2、删除指定对象" class="headerlink" title="4.3.2、删除指定对象"></a>4.3.2、删除指定对象</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="4-3-2、删除指定对象"><a href="#4-3-2、删除指定对象" class="headerlink" title="4.3.2、删除指定对象"></a>4.3.2、删除指定对象</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> index <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> index<span class="token operator">++</span><span class="token punctuation">)</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -739,7 +739,7 @@
         elementData<span class="token punctuation">[</span><span class="token operator">--</span>size<span class="token punctuation">]</span> <span class="token operator">=</span> null<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// clear to let GC do its work</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="4-3-3、删除集合c里的所有元素"><a href="#4-3-3、删除集合c里的所有元素" class="headerlink" title="4.3.3、删除集合c里的所有元素"></a>4.3.3、删除集合c里的所有元素</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">removeAll</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="4-3-3、删除集合c里的所有元素"><a href="#4-3-3、删除集合c里的所有元素" class="headerlink" title="4.3.3、删除集合c里的所有元素"></a>4.3.3、删除集合c里的所有元素</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">removeAll</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         Objects<span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> <span class="token function">batchRemove</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -782,13 +782,13 @@
         <span class="token keyword">return</span> modified<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="4-3-4、删除除集合c里的所有元素"><a href="#4-3-4、删除除集合c里的所有元素" class="headerlink" title="4.3.4、删除除集合c里的所有元素"></a>4.3.4、删除除集合c里的所有元素</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">retainAll</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="4-3-4、删除除集合c里的所有元素"><a href="#4-3-4、删除除集合c里的所有元素" class="headerlink" title="4.3.4、删除除集合c里的所有元素"></a>4.3.4、删除除集合c里的所有元素</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">retainAll</span><span class="token punctuation">(</span>Collection<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         Objects<span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> <span class="token function">batchRemove</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>和<code>removeAll</code>类似，只是<code>retainAll</code>是保留集合c里面的元素，其他的全部删除。</p>
-<h3 id="4-4、遍历"><a href="#4-4、遍历" class="headerlink" title="4.4、遍历"></a>4.4、遍历</h3><h4 id="4-4-1、迭代器"><a href="#4-4-1、迭代器" class="headerlink" title="4.4.1、迭代器"></a>4.4.1、迭代器</h4><p>迭代器有两个，分别是<code>Itr</code>和<code>ListItr</code> ，两个都是<code>ArrayList</code>的内部类，我们来看看两者的类结构图</p>
+<h2 id="4-4、遍历"><a href="#4-4、遍历" class="headerlink" title="4.4、遍历"></a>4.4、遍历</h2><h3 id="4-4-1、迭代器"><a href="#4-4-1、迭代器" class="headerlink" title="4.4.1、迭代器"></a>4.4.1、迭代器</h3><p>迭代器有两个，分别是<code>Itr</code>和<code>ListItr</code> ，两个都是<code>ArrayList</code>的内部类，我们来看看两者的类结构图</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210321135714119.png" alt="image-20210321135714119"></p>
 <ul>
 <li><strong>ListItr 有 add()</strong> 方法，可以向<code>List</code>中添加对象，而 Itr 不能</li>
@@ -796,7 +796,7 @@
 <li><code>ListItr</code> 可以定位当前的索引位置，<strong>nextIndex() 和 previousIndex()</strong> 可以实现。Itr 没有此功能。</li>
 <li><strong>都可实现删除对象</strong>，但是 <strong>ListItr 可以实现对象的修改，set() 方法可以实现</strong>。<code>Iierator</code> 仅能遍历，不能修改</li>
 </ul>
-<h4 id="4-4-2、forEach"><a href="#4-4-2、forEach" class="headerlink" title="4.4.2、forEach"></a>4.4.2、forEach</h4><p><code>forEach()</code> 方法与 <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-arraylist-foreach.html">Java-foreach循环</a> 不同。</p>
+<h3 id="4-4-2、forEach"><a href="#4-4-2、forEach" class="headerlink" title="4.4.2、forEach"></a>4.4.2、forEach</h3><p><code>forEach()</code> 方法与 <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-arraylist-foreach.html">Java-foreach循环</a> 不同。</p>
 <p> 前者用于遍历动态数组中每一个元素并执行特定操作，而后者用于遍历数组中的每个元素</p>
 <pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">forEach</span><span class="token punctuation">(</span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> E<span class="token operator">></span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         Objects<span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -844,7 +844,7 @@
 更新 ArrayList<span class="token operator">:</span> <span class="token number">10</span> <span class="token number">20</span> <span class="token number">30</span> <span class="token number">40</span> 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>以上实例中，我们将匿名函数 <code>lambda</code> 的表达式作为 <code>forEach()</code> 方法的参数传入，<code>lambda</code> 表达式将动态数组中的每个元素乘以 10，然后输出结果。</p>
-<h3 id="4-5、序列化"><a href="#4-5、序列化" class="headerlink" title="4.5、序列化"></a>4.5、序列化</h3><p>通常我们序列化一个对象的目的是为了可以反序列化回来，使用场景有很多，比如说：</p>
+<h2 id="4-5、序列化"><a href="#4-5、序列化" class="headerlink" title="4.5、序列化"></a>4.5、序列化</h2><p>通常我们序列化一个对象的目的是为了可以反序列化回来，使用场景有很多，比如说：</p>
 <ul>
 <li>把对象保存到文件中，然后可以再恢复</li>
 <li>使用网络<code>IO</code>传递一个对象</li>
@@ -935,7 +935,7 @@
     <span class="token keyword">return</span> <span class="token punctuation">(</span>writeObjectMethod <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-6、fail-fast"><a href="#4-6、fail-fast" class="headerlink" title="4.6、fail-fast"></a>4.6、fail-fast</h3><p>如果在创建迭代器之后的任何时候以任何方式修改了列表（增加、删除、修改），除了通过迭代器自己的<code>remove</code> 或 <code>add</code>方法，迭代器将抛出 <code>ConcurrentModificationException</code> 异常</p>
+<h2 id="4-6、fail-fast"><a href="#4-6、fail-fast" class="headerlink" title="4.6、fail-fast"></a>4.6、fail-fast</h2><p>如果在创建迭代器之后的任何时候以任何方式修改了列表（增加、删除、修改），除了通过迭代器自己的<code>remove</code> 或 <code>add</code>方法，迭代器将抛出 <code>ConcurrentModificationException</code> 异常</p>
 <p>需要注意的是：这里异常的抛出条件是检测到 <code>modCount != expectedmodCount</code>，如果并发场景下一个线程修改了<code>modCount</code>值时另一个线程又 “及时地” 修改了<code>expectedmodCount</code>值，则异常不会抛出。所以<strong>不能依赖于这个异常来检测程序的正确性</strong>。</p>
 <p>下面是用到<code>modCount</code>的一些情景</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">writeObject</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>ObjectOutputStream s<span class="token punctuation">)</span> <span class="token keyword">throws</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">{</span>
@@ -992,7 +992,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="5、参考资料"><a href="#5、参考资料" class="headerlink" title="5、参考资料"></a>5、参考资料</h2><p><a target="_blank" rel="noopener" href="https://laijianfeng.org/2019/01/ArrayList-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">https://laijianfeng.org/2019/01/ArrayList-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a></p>
+<h1 id="5、参考资料"><a href="#5、参考资料" class="headerlink" title="5、参考资料"></a>5、参考资料</h1><p><a target="_blank" rel="noopener" href="https://laijianfeng.org/2019/01/ArrayList-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">https://laijianfeng.org/2019/01/ArrayList-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a></p>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/4309288/blog/3338206">https://my.oschina.net/u/4309288/blog/3338206</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.matools.com/api/java8">https://www.matools.com/api/java8</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-arraylist-foreach.html">https://www.runoob.com/java/java-arraylist-foreach.html</a></p>
@@ -1467,7 +1467,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux系统基本结构学习-1">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Linux系统基本结构学习-1">
                         
                         <span class="card-title">Linux系统基本结构学习-1</span>
                     </div>
@@ -1525,7 +1525,7 @@ lspci
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="我的个人博客搭建笔记-1">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="我的个人博客搭建笔记-1">
                         
                         <span class="card-title">我的个人博客搭建笔记-1</span>
                     </div>
@@ -1775,7 +1775,7 @@ lspci
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">12.3k</span>
+            <span class="white-color">14k</span>
             
 
             <br>

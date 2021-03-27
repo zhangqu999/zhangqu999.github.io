@@ -2,7 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/</loc>
-    <lastmod>2021-03-23</lastmod>
+    <lastmod>2021-03-27</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/03/20/arraylist-yuan-ma-fen-xi/</loc>
+    <lastmod>2021-03-24</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/03/24/vector-yuan-ma-fen-xi/</loc>
+    <lastmod>2021-03-24</lastmod>
   </url>
   <url>
     <loc>https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/</loc>
@@ -11,10 +19,6 @@
   <url>
     <loc>https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji-1/</loc>
     <lastmod>2021-03-22</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/03/20/arraylist-yuan-ma-fen-xi/</loc>
-    <lastmod>2021-03-21</lastmod>
   </url>
   <url>
     <loc>https://javaguycoffee.com/2021/03/18/hello-world/</loc>
