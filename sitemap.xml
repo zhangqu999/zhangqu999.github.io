@@ -72,14 +72,14 @@
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/index.html</loc>
+    <loc>https://javaguycoffee.com/archives/index.html</loc>
     
     <lastmod>2021-01-19</lastmod>
     
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/archives/index.html</loc>
+    <loc>https://javaguycoffee.com/categories/index.html</loc>
     
     <lastmod>2021-01-19</lastmod>
     
@@ -200,6 +200,13 @@
   </url>
   
   <url>
+    <loc>https://javaguycoffee.com/tags/Linux/</loc>
+    <lastmod>2021-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://javaguycoffee.com/tags/MySQL/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
@@ -222,13 +229,6 @@
   
   <url>
     <loc>https://javaguycoffee.com/tags/InnoDB/</loc>
-    <lastmod>2021-03-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://javaguycoffee.com/tags/Linux/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -258,14 +258,14 @@
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://javaguycoffee.com/categories/Linux/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/Linux/</loc>
+    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -279,14 +279,14 @@
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/</loc>
+    <loc>https://javaguycoffee.com/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://javaguycoffee.com/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/</loc>
     <lastmod>2021-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
