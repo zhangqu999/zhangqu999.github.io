@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux系统基本结构学习-1, SpringBoot Java MySQL MA JavaGuy Math 算法">
+    <meta name="keywords" content="Linux系统基本结构学习, SpringBoot Java MySQL MA JavaGuy Math 算法">
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
@@ -21,7 +21,7 @@ lspci
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Linux系统基本结构学习-1 | JavaGuy的博客</title>
+    <title>Linux系统基本结构学习 | JavaGuy的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -272,13 +272,13 @@ lspci
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/27.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Linux系统基本结构学习-1
+                        Linux系统基本结构学习
                     </div>
                 </div>
             </div>
@@ -431,14 +431,14 @@ lspci
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.2k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    14 分
                 </div>
                 
                 
@@ -892,7 +892,87 @@ lspci
 <li><strong>网络协议</strong>：负责实现每一种可能的网络传输协议。</li>
 <li><strong>网络设备驱动程序</strong>：主要负责与硬件设备进行通信。</li>
 </ul>
-<h1 id="3、参考文献"><a href="#3、参考文献" class="headerlink" title="3、参考文献"></a>3、参考文献</h1><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26758194/">高俊峰《循序渐进Linux》第二版</a></p>
+<h1 id="3、运行机制介绍"><a href="#3、运行机制介绍" class="headerlink" title="3、运行机制介绍"></a>3、运行机制介绍</h1><h2 id="3-1、Linux初始化init系统"><a href="#3-1、Linux初始化init系统" class="headerlink" title="3.1、Linux初始化init系统"></a>3.1、Linux初始化init系统</h2><h3 id="3-1-1、初始化init系统"><a href="#3-1-1、初始化init系统" class="headerlink" title="3.1.1、初始化init系统"></a>3.1.1、初始化init系统</h3><p><code>Linux</code>启动：<code>BIOS</code>-&gt;内核初始化</p>
+<p>内核初始化最后一步是启动<code>PID</code>为1的<code>init</code>进程，该进程负责产生其他所有的用户进程。但是需要一个系统和管理init进程的行为，该系统就是<code>init</code>系统。</p>
+<p><code>CentOS7.x</code>之前都采用的是<code>sysvinit</code>，<code>CentOS7.x</code>开始采用<code>systemd</code>，<code>ubuntu</code>采用的是<code>upstart</code></p>
+<h3 id="3-1-2、系统关机过程"><a href="#3-1-2、系统关机过程" class="headerlink" title="3.1.2、系统关机过程"></a>3.1.2、系统关机过程</h3><h4 id="3-1-2-1、shutdown命令"><a href="#3-1-2-1、shutdown命令" class="headerlink" title="3.1.2.1、shutdown命令"></a>3.1.2.1、shutdown命令</h4><p>必须由超级用户才能执行，该命令执行后，会以广播的形式通知正在工作的用户，系统将在指定时间内关闭。当指定时间已到时，<code>shutdown</code>发送信号给<code>init</code>进程改变系统运行级别。关机就执行<code>init 0</code>，重启就执行<code>init 6</code></p>
+<ul>
+<li><p>立即重启</p>
+<pre class="line-numbers language-shell"><code class="language-shell">shutdown -r now
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>立即关机</p>
+<pre class="line-numbers language-shell"><code class="language-shell">shutdown -h now
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>设定时间关机</p>
+<pre class="line-numbers language-shell"><code class="language-shell">shutdown +5 "system will shutdown after 5 mins"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="3-1-2-2、halt命令"><a href="#3-1-2-2、halt命令" class="headerlink" title="3.1.2.2、halt命令"></a>3.1.2.2、halt命令</h4><p><code>halt</code>相当于<code>shutdown -h</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">halt [-finp]
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-1-2-3、reboot命令"><a href="#3-1-2-3、reboot命令" class="headerlink" title="3.1.2.3、reboot命令"></a>3.1.2.3、reboot命令</h4><p>系统重启</p>
+<h4 id="3-1-2-4、init命令"><a href="#3-1-2-4、init命令" class="headerlink" title="3.1.2.4、init命令"></a>3.1.2.4、init命令</h4><p>用于系统不同运行级别之间的转换</p>
+<p>0：关机模式</p>
+<p>1：单用户模式，只有管理员能登陆</p>
+<p>6：重启模式</p>
+<h1 id="4、系统服务管理工具systemd"><a href="#4、系统服务管理工具systemd" class="headerlink" title="4、系统服务管理工具systemd"></a>4、系统服务管理工具systemd</h1><p><code>systemd</code>提供了一个很强大的命令行工具<code>systemctl</code>，可以用来查看、启动、停止、重启、启用或禁用系统服务。</p>
+<h2 id="4-1、启动、停止、重启服务"><a href="#4-1、启动、停止、重启服务" class="headerlink" title="4.1、启动、停止、重启服务"></a>4.1、启动、停止、重启服务</h2><p>在<code>root</code>账户下：</p>
+<ul>
+<li>启动</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl start httpd.service
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样就启动了httpd服务（Apache Http服务器）</p>
+<ul>
+<li><p>停止</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl stop httpd.service
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>重启</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl restart httpd.service
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="4-2、查看、禁止、启用服务"><a href="#4-2、查看、禁止、启用服务" class="headerlink" title="4.2、查看、禁止、启用服务"></a>4.2、查看、禁止、启用服务</h2><ul>
+<li><p>开机启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl enable httpd.service    
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>关闭开机启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl disable httpd.service
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>查看服务运行状态</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl status httpd.service
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="4-3、电源管理命令"><a href="#4-3、电源管理命令" class="headerlink" title="4.3、电源管理命令"></a>4.3、电源管理命令</h2><ul>
+<li><p>关闭系统</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl poweroff
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>重启系统</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl reboot
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>进入待机模式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl suspend
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>进入休眠模式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl hibernate
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>进入混合休眠模式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl hybrid-sleep
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="5、参考文献"><a href="#5、参考文献" class="headerlink" title="5、参考文献"></a>5、参考文献</h1><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26758194/">高俊峰《循序渐进Linux》第二版</a></p>
 
             </div>
             <hr />
@@ -1051,9 +1131,9 @@ lspci
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《Linux系统基本结构学习-1》
+                    《Linux系统基本结构学习》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JavaGuy
             </a> 采用
@@ -1355,57 +1435,78 @@ lspci
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/">
+                <a href="/2021/04/01/20210401-zhang-qu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="Linux系统基本结构学习-1">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="20210401-张曲">
                         
-                        <span class="card-title">Linux系统基本结构学习-1</span>
+                        <span class="card-title">20210401-张曲</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、系统与硬件1.1、Linux硬件资源管理1.1.1、查看系统PCI设备lspci命令可以列出所有PCI设备，如主板、声卡、显卡、网卡、USB接口设备等
-lspci
+                            本周工作总结一、概述1、学习《MA项目设计文档V5》网络通信模块设计，Socket  IO复用2、调试多SE代码，梳理流程以及熟悉CE，SE之间的通信二、具体内容1、文档学习1.1、Quorum+Gossip
 
 
-下面我们来分析下上面的输出结果
-00:00.0 Host bridg
+
+
+
+
+
+
+
+
+
+1.2、
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/Lab/" class="post-category" target="_blank">
+                                    Lab
                                 </a>
                             
-                            <a href="/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-category" target="_blank">
-                                    基础知识
+                            <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                                    周会总结报告
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/" target="_blank">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/Quorum/" target="_blank">
+                        <span class="chip bg-color">Quorum</span>
+                    </a>
+                    
+                    <a href="/tags/Gossip/" target="_blank">
+                        <span class="chip bg-color">Gossip</span>
+                    </a>
+                    
+                    <a href="/tags/Socket/" target="_blank">
+                        <span class="chip bg-color">Socket</span>
+                    </a>
+                    
+                    <a href="/tags/MSE/" target="_blank">
+                        <span class="chip bg-color">MSE</span>
+                    </a>
+                    
+                    <a href="/tags/MA/" target="_blank">
+                        <span class="chip bg-color">MA</span>
                     </a>
                     
                 </div>
@@ -1423,7 +1524,7 @@ lspci
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="ArrayList源码分析">
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="ArrayList源码分析">
                         
                         <span class="card-title">ArrayList源码分析</span>
                     </div>
@@ -1570,7 +1671,7 @@ lspci
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             // headingsOffset: -205,
-            headingSelector: 'h1, h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
         });
 
         // modify the toc link href to support Chinese.
@@ -1582,7 +1683,7 @@ lspci
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -1668,7 +1769,7 @@ lspci
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">14k</span>
+            <span class="white-color">20k</span>
             
 
             <br>

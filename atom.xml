@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>JavaGuy的博客</title>
   
-  <subtitle>Talk is cheap，show me your code!</subtitle>
+  <subtitle>Talk is cheap，show me the code!</subtitle>
   <link href="https://javaguycoffee.com/atom.xml" rel="self"/>
   
   <link href="https://javaguycoffee.com/"/>
-  <updated>2021-03-27T15:43:42.146Z</updated>
+  <updated>2021-04-04T16:01:33.335Z</updated>
   <id>https://javaguycoffee.com/</id>
   
   <author>
@@ -17,11 +17,117 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Linux系统基本结构学习-1</title>
-    <link href="https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/"/>
-    <id>https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi-1/</id>
+    <title>myMall环境搭建部署记录</title>
+    <link href="https://javaguycoffee.com/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/"/>
+    <id>https://javaguycoffee.com/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/</id>
+    <published>2021-04-04T12:18:42.000Z</published>
+    <updated>2021-04-04T16:01:33.335Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、本地环境搭建&quot;&gt;&lt;a href=&quot;#1、本地环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1、本地环境搭建&quot;&gt;&lt;/a&gt;1、本地环境搭建&lt;/h1&gt;&lt;h2 id=&quot;1-1、后端环境&quot;&gt;&lt;a href=&quot;#1-1、后端环境&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/"/>
+    <id>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</id>
+    <published>2021-04-03T11:37:30.000Z</published>
+    <updated>2021-04-04T16:01:33.333Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>招聘管理系统环境搭建部署记录</title>
+    <link href="https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/"/>
+    <id>https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/</id>
+    <published>2021-04-02T07:27:04.000Z</published>
+    <updated>2021-04-04T16:01:33.336Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、本地环境搭建&quot;&gt;&lt;a href=&quot;#1、本地环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1、本地环境搭建&quot;&gt;&lt;/a&gt;1、本地环境搭建&lt;/h1&gt;&lt;h2 id=&quot;1-1、后端环境&quot;&gt;&lt;a href=&quot;#1-1、后端环境&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="SpringBoot" scheme="https://javaguycoffee.com/categories/SpringBoot/"/>
+    
+    <category term="项目实战" scheme="https://javaguycoffee.com/categories/SpringBoot/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://javaguycoffee.com/tags/SpringBoot/"/>
+    
+    <category term="Vue" scheme="https://javaguycoffee.com/tags/Vue/"/>
+    
+    <category term="前后端分离" scheme="https://javaguycoffee.com/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"/>
+    
+    <category term="招聘管理系统" scheme="https://javaguycoffee.com/tags/%E6%8B%9B%E8%81%98%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="本科毕设" scheme="https://javaguycoffee.com/tags/%E6%9C%AC%E7%A7%91%E6%AF%95%E8%AE%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210401-张曲</title>
+    <link href="https://javaguycoffee.com/2021/04/01/20210401-zhang-qu/"/>
+    <id>https://javaguycoffee.com/2021/04/01/20210401-zhang-qu/</id>
+    <published>2021-04-01T03:10:45.000Z</published>
+    <updated>2021-04-02T15:04:15.448Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;本周工作总结&quot;&gt;&lt;a href=&quot;#本周工作总结&quot; class=&quot;headerlink&quot; title=&quot;本周工作总结&quot;&gt;&lt;/a&gt;本周工作总结&lt;/h1&gt;&lt;h1 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="Quorum" scheme="https://javaguycoffee.com/tags/Quorum/"/>
+    
+    <category term="Gossip" scheme="https://javaguycoffee.com/tags/Gossip/"/>
+    
+    <category term="Socket" scheme="https://javaguycoffee.com/tags/Socket/"/>
+    
+    <category term="MSE" scheme="https://javaguycoffee.com/tags/MSE/"/>
+    
+    <category term="MA" scheme="https://javaguycoffee.com/tags/MA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux系统基本结构学习</title>
+    <link href="https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi/"/>
+    <id>https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi/</id>
     <published>2021-03-22T03:48:05.000Z</published>
-    <updated>2021-03-27T15:43:42.146Z</updated>
+    <updated>2021-04-02T15:04:15.448Z</updated>
     
     
       
@@ -83,18 +189,18 @@
   </entry>
   
   <entry>
-    <title>我的个人博客搭建笔记-1</title>
-    <link href="https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji-1/"/>
-    <id>https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji-1/</id>
+    <title>我的个人博客搭建笔记</title>
+    <link href="https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji/"/>
+    <id>https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji/</id>
     <published>2021-03-19T01:33:31.000Z</published>
-    <updated>2021-03-28T14:47:33.955Z</updated>
+    <updated>2021-03-30T01:36:49.002Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;1、搭建hexo博客，并部署到GitHub-Pages&quot;&gt;&lt;a href=&quot;#1、搭建hexo博客，并部署到GitHub-Pages&quot; class=&quot;headerlink&quot; title=&quot;1、搭建hexo博客，并部署到GitHub</summary>
+    <summary type="html">&lt;h1 id=&quot;1、搭建hexo博客，并部署到GitHub-Pages&quot;&gt;&lt;a href=&quot;#1、搭建hexo博客，并部署到GitHub-Pages&quot; class=&quot;headerlink&quot; title=&quot;1、搭建hexo博客，并部署到GitHub</summary>
         
       
     
@@ -160,8 +266,8 @@
     <title>Hello World</title>
     <link href="https://javaguycoffee.com/2021/03/18/hello-world/"/>
     <id>https://javaguycoffee.com/2021/03/18/hello-world/</id>
-    <published>2021-03-18T03:48:05.000Z</published>
-    <updated>2021-03-28T15:36:22.058Z</updated>
+    <published>2021-03-18T01:33:31.000Z</published>
+    <updated>2021-04-04T16:01:33.334Z</updated>
     
     
       
