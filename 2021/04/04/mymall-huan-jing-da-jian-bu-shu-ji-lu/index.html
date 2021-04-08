@@ -273,7 +273,7 @@ https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -415,14 +415,14 @@ https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    634
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
                 
@@ -564,8 +564,121 @@ output <span class="token punctuation">{</span>
 <pre><code>logstash -f logstash.conf
 </code></pre>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210404225122205.png" alt="image-20210404225122205"></p>
-<h3 id="1-1-7、MongoDB"><a href="#1-1-7、MongoDB" class="headerlink" title="1.1.7、MongoDB"></a>1.1.7、MongoDB</h3><h2 id="1-2、前端环境"><a href="#1-2、前端环境" class="headerlink" title="1.2、前端环境"></a>1.2、前端环境</h2><h1 id="2、分离部署到Linux服务器"><a href="#2、分离部署到Linux服务器" class="headerlink" title="2、分离部署到Linux服务器"></a>2、分离部署到Linux服务器</h1><h2 id="2-1、后端部署"><a href="#2-1、后端部署" class="headerlink" title="2.1、后端部署"></a>2.1、后端部署</h2><h2 id="2-2、前端部署"><a href="#2-2、前端部署" class="headerlink" title="2.2、前端部署"></a>2.2、前端部署</h2><h1 id="3、debug记录"><a href="#3、debug记录" class="headerlink" title="3、debug记录"></a>3、debug记录</h1><h2 id="3-1、后端"><a href="#3-1、后端" class="headerlink" title="3.1、后端"></a>3.1、后端</h2><h3 id="3-1-1、project-‘org-springframework-boot-spring-boot-starter-parent-2-3-0-RELEASE’-not-found"><a href="#3-1-1、project-‘org-springframework-boot-spring-boot-starter-parent-2-3-0-RELEASE’-not-found" class="headerlink" title="3.1.1、project ‘org.springframework.boot:spring-boot-starter-parent:2.3.0.RELEASE’ not found"></a>3.1.1、project ‘org.springframework.boot:spring-boot-starter-parent:2.3.0.RELEASE’ not found</h3><p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210404213423557.png" alt="image-20210404213423557"></p>
-<h2 id="3-2、前端"><a href="#3-2、前端" class="headerlink" title="3.2、前端"></a>3.2、前端</h2><h1 id="4、参考文章"><a href="#4、参考文章" class="headerlink" title="4、参考文章"></a>4、参考文章</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/61909247/dependency-org-springframework-bootspring-boot-starter-web2-3-0-release-not">https://stackoverflow.com/questions/61909247/dependency-org-springframework-bootspring-boot-starter-web2-3-0-release-not</a></p>
+<h3 id="1-1-7、MongoDB"><a href="#1-1-7、MongoDB" class="headerlink" title="1.1.7、MongoDB"></a>1.1.7、MongoDB</h3><ul>
+<li><p>下载MongoDB安装包，选择<code>Windows x64</code>版本安装，下载地址：<a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center/community">https://www.mongodb.com/download-center/community</a></p>
+</li>
+<li><p>运行MongoDB安装包并选择自定义安装，设置好安装路径；</p>
+</li>
+<li><p>配置MongoDB，让MongoDB作为服务运行，并配置好数据目录和日志目录；</p>
+</li>
+</ul>
+<p><img src="http://www.macrozheng.com/images/mall_windows_deploy_17.png" alt="img"></p>
+<ul>
+<li>取消MongoDB Compass的安装选项（不取消安装极慢），需要可自行安装；</li>
+</ul>
+<p><img src="http://www.macrozheng.com/images/mall_windows_deploy_18.png" alt="img"></p>
+<ul>
+<li>双击<code>mongo.exe</code>可以运行MongoDB自带客户端，操作MongoDB；</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405111700532.png" alt="image-20210405111700532"></p>
+<ul>
+<li>如果需要移除MongoDB服务，只需使用管理员权限运行<code>cmd</code>工具，并输入如下命令。</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">sc.exe delete MongoDB
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>下载客户端工具<code>Robo 3T</code>，下载地址：<a target="_blank" rel="noopener" href="https://robomongo.org/download">https://robomongo.org/download</a></li>
+</ul>
+<p><img src="http://www.macrozheng.com/images/mall_windows_deploy_21.png" alt="img"></p>
+<ul>
+<li><p>下载完成后解压，双击<code>robo3t.exe</code>即可使用；</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405111849992.png" alt="image-20210405111849992"></p>
+</li>
+<li><p>之后创建一个到MongoDB的连接；</p>
+</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112251927.png" alt="image-20210405112251927"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112307283.png" alt="image-20210405112307283"></p>
+<h3 id="1-1-8、rabbitmq"><a href="#1-1-8、rabbitmq" class="headerlink" title="1.1.8、rabbitmq"></a>1.1.8、rabbitmq</h3><ul>
+<li>安装Erlang，下载地址：<a target="_blank" rel="noopener" href="http://erlang.org/download/otp_win64_21.3.exe">http://erlang.org/download/otp_win64_21.3.exe</a></li>
+<li>安装RabbitMQ，下载地址：<a target="_blank" rel="noopener" href="https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.14/rabbitmq-server-3.7.14.exe">https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.14/rabbitmq-server-3.7.14.exe</a></li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405111004266.png" alt="image-20210405111004266"></p>
+<ul>
+<li>安装完成后，进入RabbitMQ安装目录下的sbin目录</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112345371.png" alt="image-20210405112345371"></p>
+<ul>
+<li><p>以管理员身份启动cmd，并进入该sbin目录，然后输入以下命令启动管理功能：</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_management
+</code></pre>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112629188.png" alt="image-20210405112629188"></p>
+</li>
+<li><p>访问地址查看是否安装成功：<a target="_blank" rel="noopener" href="http://localhost:15672/">http://localhost:15672/</a></p>
+</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112736939.png" alt="image-20210405112736939"></p>
+<ul>
+<li><p>输入账号密码并登录：guest guest</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112841588.png" alt="image-20210405112841588"></p>
+</li>
+<li><p>创建帐号并设置其角色为管理员：mall mall</p>
+</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405112928607.png" alt="image-20210405112928607"></p>
+<ul>
+<li><p>创建一个新的虚拟host为：/mall</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405113143115.png" alt="image-20210405113143115"></p>
+</li>
+<li><p>点击mall用户进入用户配置页面</p>
+</li>
+<li><p>给mall用户配置该虚拟host的权限</p>
+</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405113324330.png" alt="image-20210405113324330"></p>
+<p>至此就配置完成了。</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405113414804.png" alt="image-20210405113414804"></p>
+<h3 id="1-1-9、OSS"><a href="#1-1-9、OSS" class="headerlink" title="1.1.9、OSS"></a>1.1.9、OSS</h3><h3 id="1-1-10、mall-admin"><a href="#1-1-10、mall-admin" class="headerlink" title="1.1.10、mall-admin"></a>1.1.10、mall-admin</h3><ul>
+<li><p>启动项目：直接运行com.macro.mall.MallAdminApplication的main方法即可；</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405114753069.png" alt="image-20210405114753069"></p>
+</li>
+<li><p>接口文档地址：<a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405114836314.png" alt="image-20210405114836314"></p>
+</li>
+</ul>
+<h3 id="1-1-11、mall-search"><a href="#1-1-11、mall-search" class="headerlink" title="1.1.11、mall-search"></a>1.1.11、mall-search</h3><ul>
+<li><p>启动项目：直接运行com.macro.mall.search.MallSearchApplication的main方法即可；</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405115204443.png" alt="image-20210405115204443"></p>
+</li>
+<li><p>接口文档地址：<a target="_blank" rel="noopener" href="http://localhost:8081/swagger-ui.html">http://localhost:8081/swagger-ui.html</a></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405115230623.png" alt="image-20210405115230623"></p>
+</li>
+<li><p>使用前需要先调用接口导入数据；<a target="_blank" rel="noopener" href="http://localhost:8081/esProduct/importAll">http://localhost:8081/esProduct/importAll</a></p>
+</li>
+<li><p>如出现无法启动的问题，可以先删除<code>Elasticsearch</code>里面的数据再启动</p>
+</li>
+</ul>
+<h3 id="1-1-12、mall-portal"><a href="#1-1-12、mall-portal" class="headerlink" title="1.1.12、mall-portal"></a>1.1.12、mall-portal</h3><ul>
+<li><p>启动mall-portal项目：直接运行com.macro.mall.portal.MallPortalApplication的main方法即可；</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405115732853.png" alt="image-20210405115732853"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405115858459.png" alt="image-20210405115858459"></p>
+</li>
+<li><p>接口文档地址：<a target="_blank" rel="noopener" href="http://localhost:8085/swagger-ui.html">http://localhost:8085/swagger-ui.html</a></p>
+</li>
+</ul>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405115924435.png" alt="image-20210405115924435"></p>
+<h2 id="1-2、前端环境"><a href="#1-2、前端环境" class="headerlink" title="1.2、前端环境"></a>1.2、前端环境</h2><h3 id="1-2-1、nodejs"><a href="#1-2-1、nodejs" class="headerlink" title="1.2.1、nodejs"></a>1.2.1、nodejs</h3><h3 id="1-2-2、从IDEA中打开mall-admin-web项目"><a href="#1-2-2、从IDEA中打开mall-admin-web项目" class="headerlink" title="1.2.2、从IDEA中打开mall-admin-web项目"></a>1.2.2、从IDEA中打开mall-admin-web项目</h3><p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405120458903.png" alt="image-20210405120458903"></p>
+<p>在控制台通过 <code>cnpm install</code> 命令安装相关依赖</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405121522743.png" alt="image-20210405121522743"></p>
+<p>运行本地mall-admin服务</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405122739891.png" alt="image-20210405122739891"></p>
+<p>在IDEA控制台中输入如下命令：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">npm run dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210405121715450.png" alt="image-20210405121715450"></p>
+<h1 id="2、分离部署到Linux服务器"><a href="#2、分离部署到Linux服务器" class="headerlink" title="2、分离部署到Linux服务器"></a>2、分离部署到Linux服务器</h1><h2 id="2-1、后端部署"><a href="#2-1、后端部署" class="headerlink" title="2.1、后端部署"></a>2.1、后端部署</h2><h2 id="2-2、前端部署"><a href="#2-2、前端部署" class="headerlink" title="2.2、前端部署"></a>2.2、前端部署</h2><h1 id="3、debug记录"><a href="#3、debug记录" class="headerlink" title="3、debug记录"></a>3、debug记录</h1><h2 id="3-1、后端"><a href="#3-1、后端" class="headerlink" title="3.1、后端"></a>3.1、后端</h2><h3 id="3-1-1、project-‘org-springframework-boot-spring-boot-starter-parent-2-3-0-RELEASE’-not-found"><a href="#3-1-1、project-‘org-springframework-boot-spring-boot-starter-parent-2-3-0-RELEASE’-not-found" class="headerlink" title="3.1.1、project ‘org.springframework.boot:spring-boot-starter-parent:2.3.0.RELEASE’ not found"></a>3.1.1、project ‘org.springframework.boot:spring-boot-starter-parent:2.3.0.RELEASE’ not found</h3><p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210404213423557.png" alt="image-20210404213423557"></p>
+<h2 id="3-2、前端"><a href="#3-2、前端" class="headerlink" title="3.2、前端"></a>3.2、前端</h2><h1 id="4、参考文章"><a href="#4、参考文章" class="headerlink" title="4、参考文章"></a>4、参考文章</h1><p><a target="_blank" rel="noopener" href="http://www.macrozheng.com/#/deploy/mall_deploy_windows">http://www.macrozheng.com/#/deploy/mall_deploy_windows</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/61909247/dependency-org-springframework-bootspring-boot-starter-web2-3-0-release-not">https://stackoverflow.com/questions/61909247/dependency-org-springframework-bootspring-boot-starter-web2-3-0-release-not</a></p>
 
             </div>
             <hr />
@@ -1028,42 +1141,34 @@ output <span class="token punctuation">{</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/">
+                <a href="/2021/04/08/20210408/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/28.jpg" class="responsive-img" alt="myMall环境搭建部署记录">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="20210408">
                         
-                        <span class="card-title">myMall环境搭建部署记录</span>
+                        <span class="card-title">20210408</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、本地环境搭建1.1、后端环境1.1.1、IDEA
-下载
-
-https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
-
-安装激活
-用edu邮
+                            
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-04
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-08
+                        </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1078,7 +1183,7 @@ https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Linux常用命令">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Linux常用命令">
                         
                         <span class="card-title">Linux常用命令</span>
                     </div>
@@ -1280,7 +1385,7 @@ https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">20k</span>
+            <span class="white-color">26.2k</span>
             
 
             <br>
