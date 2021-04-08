@@ -1420,19 +1420,22 @@ Quorum+Gossip原理解读
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/08/20210408/">
+                <a href="/2021/04/08/20210317/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="20210408">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="20210317">
                         
-                        <span class="card-title">20210408</span>
+                        <span class="card-title">20210317</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            任务
+具体看B+树分裂这一个事务过程中，内部事务mtr是如何组成的，redo日志和undo日志是如何写的。
+
+源码调试分析注意到MySQL5.7默认是没有开启binlog，也就不支持内部XA，进而看不到两阶段提交，所以我们先开启binlog
                         
                     </div>
                     <div class="publish-info">
@@ -1441,8 +1444,55 @@ Quorum+Gossip原理解读
                             </span>
                         <span class="publish-author">
                             
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Lab/" class="post-category" target="_blank">
+                                    Lab
+                                </a>
+                            
+                            <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                                    周会总结报告
+                                </a>
+                            
+                            
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/B-%E6%A0%91/" target="_blank">
+                        <span class="chip bg-color">B+树</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B4%A2%E5%BC%95%E5%88%86%E8%A3%82/" target="_blank">
+                        <span class="chip bg-color">索引分裂</span>
+                    </a>
+                    
+                    <a href="/tags/binlog/" target="_blank">
+                        <span class="chip bg-color">binlog</span>
+                    </a>
+                    
+                    <a href="/tags/mtr/" target="_blank">
+                        <span class="chip bg-color">mtr</span>
+                    </a>
+                    
+                    <a href="/tags/redo/" target="_blank">
+                        <span class="chip bg-color">redo</span>
+                    </a>
+                    
+                    <a href="/tags/undo/" target="_blank">
+                        <span class="chip bg-color">undo</span>
+                    </a>
+                    
+                    <a href="/tags/lsn/" target="_blank">
+                        <span class="chip bg-color">lsn</span>
+                    </a>
+                    
+                    <a href="/tags/XA%E4%BA%8B%E5%8A%A1/" target="_blank">
+                        <span class="chip bg-color">XA事务</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1626,7 +1676,7 @@ Quorum+Gossip原理解读
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">26.2k</span>
+            <span class="white-color">32.7k</span>
             
 
             <br>

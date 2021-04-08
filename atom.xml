@@ -62,6 +62,76 @@
   </entry>
   
   <entry>
+    <title>20210317</title>
+    <link href="https://javaguycoffee.com/2021/04/08/20210317/"/>
+    <id>https://javaguycoffee.com/2021/04/08/20210317/</id>
+    <published>2021-04-08T13:15:35.000Z</published>
+    <updated>2021-04-08T13:49:00.984Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;任务&quot;&gt;&lt;a href=&quot;#任务&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="B+树" scheme="https://javaguycoffee.com/tags/B-%E6%A0%91/"/>
+    
+    <category term="索引分裂" scheme="https://javaguycoffee.com/tags/%E7%B4%A2%E5%BC%95%E5%88%86%E8%A3%82/"/>
+    
+    <category term="binlog" scheme="https://javaguycoffee.com/tags/binlog/"/>
+    
+    <category term="mtr" scheme="https://javaguycoffee.com/tags/mtr/"/>
+    
+    <category term="redo" scheme="https://javaguycoffee.com/tags/redo/"/>
+    
+    <category term="undo" scheme="https://javaguycoffee.com/tags/undo/"/>
+    
+    <category term="lsn" scheme="https://javaguycoffee.com/tags/lsn/"/>
+    
+    <category term="XA事务" scheme="https://javaguycoffee.com/tags/XA%E4%BA%8B%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210310</title>
+    <link href="https://javaguycoffee.com/2021/04/08/20210310/"/>
+    <id>https://javaguycoffee.com/2021/04/08/20210310/</id>
+    <published>2021-04-08T13:10:55.000Z</published>
+    <updated>2021-04-08T13:48:27.560Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;任务：&quot;&gt;&lt;a href=&quot;#任务：&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="B+树" scheme="https://javaguycoffee.com/tags/B-%E6%A0%91/"/>
+    
+    <category term="索引分裂" scheme="https://javaguycoffee.com/tags/%E7%B4%A2%E5%BC%95%E5%88%86%E8%A3%82/"/>
+    
+  </entry>
+  
+  <entry>
     <title>20210408</title>
     <link href="https://javaguycoffee.com/2021/04/08/20210408/"/>
     <id>https://javaguycoffee.com/2021/04/08/20210408/</id>

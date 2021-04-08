@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://javaguycoffee.com/2021/04/08/20210317/</loc>
+    
+    <lastmod>2021-04-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/2021/04/08/20210310/</loc>
+    
+    <lastmod>2021-04-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://javaguycoffee.com/2021/04/08/20210324/</loc>
     
     <lastmod>2021-04-08</lastmod>
@@ -397,6 +411,62 @@
   
   <url>
     <loc>https://javaguycoffee.com/tags/%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/B-%E6%A0%91/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/%E7%B4%A2%E5%BC%95%E5%88%86%E8%A3%82/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/binlog/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/mtr/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/redo/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/undo/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/lsn/</loc>
+    <lastmod>2021-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://javaguycoffee.com/tags/XA%E4%BA%8B%E5%8A%A1/</loc>
     <lastmod>2021-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
