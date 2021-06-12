@@ -8,7 +8,11 @@
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
-    <meta name="description" content="20210408 | JavaGuy的博客">
+    <meta name="description" content="本周工作总结一、概述1、搭建多SE自动测试环境2、进一步学习Quorum+Gossip相关代码二、具体内容1、搭建多SE自动测试环境
+
+
+
+2、Quorum+Gossip源码进一步学习2.1、线程梳理2.1.1、CEthread-1 mai">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -167,7 +171,7 @@
         <div class="logo-name">JavaGuy的博客</div>
         <div class="logo-desc">
             
-            华中科技大学 | 计算机科学与技术 | 云数据库内核
+            华中科技大学 | 计算机科学与技术 | 分布式云数据库内核
             
         </div>
     </div>
@@ -267,7 +271,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/27.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -383,11 +387,48 @@
                 <div class="col s7">
                     
                     <div class="article-tag">
-                        <span class="chip bg-color">无标签</span>
+                        
+                        <a href="/tags/Quorum/" target="_blank">
+                            <span class="chip bg-color">Quorum</span>
+                        </a>
+                        
+                        <a href="/tags/Gossip/" target="_blank">
+                            <span class="chip bg-color">Gossip</span>
+                        </a>
+                        
+                        <a href="/tags/Socket/" target="_blank">
+                            <span class="chip bg-color">Socket</span>
+                        </a>
+                        
+                        <a href="/tags/MSE/" target="_blank">
+                            <span class="chip bg-color">MSE</span>
+                        </a>
+                        
+                        <a href="/tags/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/" target="_blank">
+                            <span class="chip bg-color">自动测试环境</span>
+                        </a>
+                        
+                        <a href="/tags/Shell/" target="_blank">
+                            <span class="chip bg-color">Shell</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/Lab/" class="post-category" target="_blank">
+                            Lab
+                        </a>
+                        
+                        <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                            周会总结报告
+                        </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -409,14 +450,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    755
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
                 
@@ -432,7 +473,127 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="本周工作总结"><a href="#本周工作总结" class="headerlink" title="本周工作总结"></a>本周工作总结</h1><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><h2 id="1、搭建多SE自动测试环境"><a href="#1、搭建多SE自动测试环境" class="headerlink" title="1、搭建多SE自动测试环境"></a>1、搭建多SE自动测试环境</h2><h2 id="2、进一步学习Quorum-Gossip相关代码"><a href="#2、进一步学习Quorum-Gossip相关代码" class="headerlink" title="2、进一步学习Quorum+Gossip相关代码"></a>2、进一步学习Quorum+Gossip相关代码</h2><h1 id="二、具体内容"><a href="#二、具体内容" class="headerlink" title="二、具体内容"></a>二、具体内容</h1><h2 id="1、搭建多SE自动测试环境-1"><a href="#1、搭建多SE自动测试环境-1" class="headerlink" title="1、搭建多SE自动测试环境"></a>1、搭建多SE自动测试环境</h2><p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407153020376.png" alt="image-20210407153020376"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407153400273.png" alt="image-20210407153400273"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407153449735.png" alt="image-20210407153449735"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407153629824.png" alt="image-20210407153629824"></p>
+<h2 id="2、Quorum-Gossip源码进一步学习"><a href="#2、Quorum-Gossip源码进一步学习" class="headerlink" title="2、Quorum+Gossip源码进一步学习"></a>2、Quorum+Gossip源码进一步学习</h2><h3 id="2-1、线程梳理"><a href="#2-1、线程梳理" class="headerlink" title="2.1、线程梳理"></a>2.1、线程梳理</h3><h4 id="2-1-1、CE"><a href="#2-1-1、CE" class="headerlink" title="2.1.1、CE"></a>2.1.1、CE</h4><p><code>thread-1</code> <code>main</code>线程，监听客户端连接</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407210242673.png" alt="image-20210407210242673"></p>
+<p><code>thread2-4</code> 是<code>CE</code>用来与三台<code>SE</code>通信的线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407210507497.png" alt="image-20210407210507497"></p>
+<p><code>thread-5</code>是用来管理<code>Quorum</code>心跳计时器的线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407210841971.png" alt="image-20210407210841971"></p>
+<p><code>thread7-16</code>是<code>IO</code>处理线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407211209150.png" alt="image-20210407211209150"></p>
+<p><code>thread-17</code>是刷脏线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407211402201.png" alt="image-20210407211402201"></p>
+<p><code>thread-19</code>是<code>lock_wait_timeout_thread</code>，用来唤醒那些等待锁超时的线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407211714352.png" alt="image-20210407211714352"></p>
+<p><code>thread-20</code>是<code>srv_error_monitor_thread</code>，用来打印信号等待时间太长的警告信息，可以用来追踪导致挂起的<code>bug</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407213429548.png" alt="image-20210407213429548"></p>
+<p><code>thread-21</code>是<code>srv_monitor_thread</code>，用来打印各种<code>Innodb</code>监视器的相关信息</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407213448922.png" alt="image-20210407213448922"></p>
+<p><code>thread-22</code>是<code>srv_master_thread</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407213705019.png" alt="image-20210407213705019"></p>
+<p><code>thread-23</code>是<code>srv_purge_coordinator_thread</code>，用来执行<code>purge</code>任务</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407214425675.png" alt="image-20210407214425675"></p>
+<p><code>thread24-26</code>是<code>srv_worker_thread</code>，用来执行<code>work</code>队列里的任务</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407214632174.png" alt="image-20210407214632174"></p>
+<p><code>thread-28</code>是<code>dict_stats_thread</code>，用来收集后台数据，并重新计算</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407215337023.png" alt="image-20210407215337023"></p>
+<h4 id="2-1-2、SE"><a href="#2-1-2、SE" class="headerlink" title="2.1.2、SE"></a>2.1.2、SE</h4><p><code>thread-1</code>是<code>main</code>线程</p>
+<p><code>thread2-11</code>是<code>IO</code>处理线程</p>
+<p><code>thread-12</code>是<code>SE</code> 的<code>buffer pool</code>的页面回收线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210326130526798.png" alt="image-20210326130526798"></p>
+<p><code>thread-13</code>是<code>SE</code>的后台刷脏线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210326130600126.png" alt="image-20210326130600126"></p>
+<p><code>thread-14</code>是日志应用线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210326130648365.png" alt="image-20210326130648365"></p>
+<p><code>thread-15</code>是日志解析线程</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210326130750223.png" alt="image-20210326130750223"></p>
+<h3 id="2-2、CE和SE通信梳理"><a href="#2-2、CE和SE通信梳理" class="headerlink" title="2.2、CE和SE通信梳理"></a>2.2、CE和SE通信梳理</h3><h4 id="2-2-1、CE发包"><a href="#2-2-1、CE发包" class="headerlink" title="2.2.1、CE发包"></a>2.2.1、CE发包</h4><p>从<code>quorum_send_and_receive</code>函数看起</p>
+<p>首先从<code>Quorum</code>配置里获取读写模式和<code>receive</code>规则（<code>Quorum</code>默认是<code>majority</code>）</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407222946195.png" alt="image-20210407222946195"></p>
+<p>然后设置<code>response</code>验证函数</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407224211252.png" alt="image-20210407224211252"></p>
+<p>接着根据是读还是写，进行相应的设置，如果是读的话，会多设置一个<code>compare</code>函数，用来比较三个<code>SE</code>返回的<code>packet</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210407235259958.png" alt="image-20210407235259958"></p>
+<p>然后给<code>s_protect_redo_com</code>加锁</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408000330470.png" alt="image-20210408000330470"></p>
+<p>接下来就进行<code>packet</code>的<code>send</code>和<code>receive</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408000820105.png" alt="image-20210408000820105"></p>
+<p>我们看看<code>send_replicate_redo</code>函数</p>
+<p>会先封装一个<code>redo_replicate_request_t</code>，然后再调用<code>client_model_t</code>的<code>send_redo_update_request</code>方法</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408001255522.png" alt="image-20210408001255522"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408001438344.png" alt="image-20210408001438344"></p>
+<p>然后我们进去<code>send_redo_update_request</code>函数里看看</p>
+<p>首先会调用一个<code>check_and_reset</code>方法</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">  <span class="token keyword">void</span> <span class="token function">check_and_reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">bool</span> is_checked <span class="token operator">=</span> <span class="token punctuation">(</span>m_is_get_redo_update <span class="token operator">!=</span> response_state_t<span class="token operator">::</span>NONE<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//是否收到过response</span>
+      <span class="token comment" spellcheck="true">//如果全部SE节点都成功收到redo，重置一些信息，global_count++</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>m_get_redo_update_node_num <span class="token operator">==</span> m_node_num <span class="token operator">&amp;&amp;</span> is_checked<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      m_get_redo_update_node_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      m_is_get_redo_update <span class="token operator">=</span> response_state_t<span class="token operator">::</span>NONE<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>m_get_redo_update_event<span class="token punctuation">.</span><span class="token function">is_set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+        m_get_redo_update_event<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      m_protect_sync_data<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      m_fault<span class="token punctuation">.</span><span class="token function">count_up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后就会写一下<code>m_sync_request</code>和<code>m_model</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408004056704.png" alt="image-20210408004056704"></p>
+<p>之后会在<code>client_thread</code>里进行读取</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408003923909.png" alt="image-20210408003923909"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408004238830.png" alt="image-20210408004238830"></p>
+<p>接下来看看<code>receive_replicate_redo</code>，也是会封装一个<code>redo_replicate_result_t</code>，然后调用<code>m_client</code>的<code>receive_redo_update_response</code>方法</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408004614166.png" alt="image-20210408004614166"></p>
+<p>然后我们来看看<code>CE</code>往三台<code>SE</code>发包的过程，这里<code>CE</code>用了三个线程分别进行发包</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408005726366.png" alt="image-20210408005726366"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408005828174.png" alt="image-20210408005828174"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408010040826.png" alt="image-20210408010040826"></p>
+<p><code>send_packet</code>里会调用<code>net_send</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408010314035.png" alt="image-20210408010314035"></p>
+<p>接着调用<code>net_write_raw</code>-&gt;<code>net_write_command</code></p>
+<p>定义了一个<code>buff[5]</code>，进行了一系列设置之后，调用<code>net_write_buff</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408020518174.png" alt="image-20210408020518174"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408020930640.png" alt="image-20210408020930640"></p>
+<p>接着往下会调用 <code>net_write_packet</code>-&gt;<code>net_write_raw_loop</code>-&gt;<code>vio_write</code>-&gt;<code>mysql_socket_send:inline_mysql_socket_send</code>-&gt;<code>send</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408022536619.png" alt="image-20210408022536619"></p>
+<h4 id="2-2-2、SE收包"><a href="#2-2-2、SE收包" class="headerlink" title="2.2.2、SE收包"></a>2.2.2、SE收包</h4><p>从<code>ha_ma_se</code>看起</p>
+<p>首先对<code>request_buf</code>进行反序列化</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408013122761.png" alt="image-20210408013122761"></p>
+<p>然后获取请求类型</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408013156024.png" alt="image-20210408013156024"></p>
+<p>对不同的请求类型，分别进行相应的处理</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408013307185.png" alt="image-20210408013307185"></p>
+<p>然后根据是否<code>shutdown SE</code>，来决定给<code>response_buf</code>第一个字符设置为<code>+</code>或者<code>-</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408013928392.png" alt="image-20210408013928392"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408014035109.png" alt="image-20210408014035109"></p>
+<p>最后将<code>response</code>序列化为<code>response_buf</code>后返回</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408014301473.png" alt="image-20210408014301473"></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408014332845.png" alt="image-20210408014332845"></p>
+<p>然后最后也会调用<code>net_write_command</code>将<code>packet</code>返回给<code>CE</code></p>
+<h4 id="2-2-3、CE读取SE的response包"><a href="#2-2-3、CE读取SE的response包" class="headerlink" title="2.2.3、CE读取SE的response包"></a>2.2.3、CE读取SE的response包</h4><p>通过<code>net_receive</code>进行接收</p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408023011611.png" alt="image-20210408023011611"></p>
+<p>依次会调用<code>net_read_raw</code>-&gt;<code>my_net_read</code>-&gt;<code>net_read_packet</code></p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">net_read_packet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//读取包头</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">net_read_packet_header</span><span class="token punctuation">(</span>net<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">goto</span> error<span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+     <span class="token comment" spellcheck="true">// 读取包体</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">net_read_raw_loop</span><span class="token punctuation">(</span>net<span class="token punctuation">,</span> pkt_len<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">goto</span> error<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>net_read_raw_loop</code>往下会继续调用<code>vio_read</code>-&gt;<code>mysql_socket_recv:inline_mysql_socket_recv</code>-&gt;<code>recv</code></p>
+<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408024810294.png" alt="image-20210408024810294"></p>
+
             </div>
             <hr />
 
@@ -902,7 +1063,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="20210310">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="20210310">
                         
                         <span class="card-title">20210310</span>
                     </div>
@@ -958,30 +1119,25 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/">
+                <a href="/2021/04/05/mse-xi-tong-debug-ji-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="myMall环境搭建部署记录">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="MSE系统debug记录">
                         
-                        <span class="card-title">myMall环境搭建部署记录</span>
+                        <span class="card-title">MSE系统debug记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、本地环境搭建1.1、后端环境1.1.1、IDEA
-下载
-
-https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
-
-安装激活
-用edu邮
+                            1、small problems1.1、mysqld: Unknown error 1158，Signal: SIGSEGV (Segmentation fault)1158：网络错误出现读错误请检查网络连接状况 
+经排查应该是网络通信出现
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-04
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-05
                             </span>
                         <span class="publish-author">
                             
@@ -1170,7 +1326,7 @@ https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">32.7k</span>
+            <span class="white-color">209.8k</span>
             
 
             <br>

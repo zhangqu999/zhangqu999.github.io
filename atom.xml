@@ -6,7 +6,7 @@
   <link href="https://javaguycoffee.com/atom.xml" rel="self"/>
   
   <link href="https://javaguycoffee.com/"/>
-  <updated>2021-04-08T13:56:55.214Z</updated>
+  <updated>2021-06-12T06:28:03.467Z</updated>
   <id>https://javaguycoffee.com/</id>
   
   <author>
@@ -15,6 +15,313 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://javaguycoffee.com/2021/06/12/20210527/"/>
+    <id>https://javaguycoffee.com/2021/06/12/20210527/</id>
+    <published>2021-06-12T06:28:03.467Z</published>
+    <updated>2021-06-12T06:28:03.467Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;title: 20210527&lt;br&gt;top: false&lt;br&gt;cover: false&lt;br&gt;password: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377&lt;br&gt;toc:</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210603</title>
+    <link href="https://javaguycoffee.com/2021/06/02/20210603/"/>
+    <id>https://javaguycoffee.com/2021/06/02/20210603/</id>
+    <published>2021-06-02T12:02:45.000Z</published>
+    <updated>2021-06-12T06:28:03.468Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、MySQL5-7-代价模型浅析&quot;&gt;&lt;a href=&quot;#1、MySQL5-7-代价模型浅析&quot; class=&quot;headerlink&quot; title=&quot;1、MySQL5.7 代价模型浅析&quot;&gt;&lt;/a&gt;1、MySQL5.7 代价模型浅析&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Java面经</title>
+    <link href="https://javaguycoffee.com/2021/05/28/java-mian-jing/"/>
+    <id>https://javaguycoffee.com/2021/05/28/java-mian-jing/</id>
+    <published>2021-05-28T03:17:19.000Z</published>
+    <updated>2021-06-12T06:28:03.472Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、计算机网络&quot;&gt;&lt;a href=&quot;#1、计算机网络&quot; class=&quot;headerlink&quot; title=&quot;1、计算机网络&quot;&gt;&lt;/a&gt;1、计算机网络&lt;/h1&gt;&lt;h2 id=&quot;1-1、网络模型与相关协议&quot;&gt;&lt;a href=&quot;#1-1、网络模型与相关协议&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210520</title>
+    <link href="https://javaguycoffee.com/2021/05/19/20210520/"/>
+    <id>https://javaguycoffee.com/2021/05/19/20210520/</id>
+    <published>2021-05-19T13:05:11.000Z</published>
+    <updated>2021-06-12T06:28:03.467Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;一、运行张轲学长代码&quot;&gt;&lt;a href=&quot;#一、运行张轲学长代码&quot; class=&quot;headerlink&quot; title=&quot;一、运行张轲学长代码&quot;&gt;&lt;/a&gt;一、运行张轲学长代码&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="查询优化" scheme="https://javaguycoffee.com/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="代价估算" scheme="https://javaguycoffee.com/tags/%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97/"/>
+    
+    <category term="多表连接算法" scheme="https://javaguycoffee.com/tags/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库查询优化器的艺术阅读笔记</title>
+    <link href="https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/"/>
+    <id>https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/</id>
+    <published>2021-05-13T03:55:47.000Z</published>
+    <updated>2021-06-12T06:28:03.474Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、数据管理系统的查询优化&quot;&gt;&lt;a href=&quot;#1、数据管理系统的查询优化&quot; class=&quot;headerlink&quot; title=&quot;1、数据管理系统的查询优化&quot;&gt;&lt;/a&gt;1、数据管理系统的查询优化&lt;/h1&gt;&lt;h2 id=&quot;1-1、数据库调优&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="阅读笔记" scheme="https://javaguycoffee.com/categories/Lab/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210513</title>
+    <link href="https://javaguycoffee.com/2021/05/12/20210513/"/>
+    <id>https://javaguycoffee.com/2021/05/12/20210513/</id>
+    <published>2021-05-12T12:32:06.000Z</published>
+    <updated>2021-05-16T05:40:01.470Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2、PushdownDB论文解读&quot;&gt;&lt;a href=&quot;#2、PushdownDB论文解读&quot; class=&quot;headerlink&quot; title=&quot;2、PushdownDB论文解读&quot;&gt;&lt;/a&gt;2、PushdownDB论文解读&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="PushdownDB" scheme="https://javaguycoffee.com/tags/PushdownDB/"/>
+    
+    <category term="S3 Select" scheme="https://javaguycoffee.com/tags/S3-Select/"/>
+    
+    <category term="Bloom filter" scheme="https://javaguycoffee.com/tags/Bloom-filter/"/>
+    
+    <category term="TOP-K" scheme="https://javaguycoffee.com/tags/TOP-K/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pushdowndb阅读笔记</title>
+    <link href="https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/"/>
+    <id>https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/</id>
+    <published>2021-05-11T08:38:00.000Z</published>
+    <updated>2021-05-16T05:40:01.473Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、翻译&quot;&gt;&lt;a href=&quot;#1、翻译&quot; class=&quot;headerlink&quot; title=&quot;1、翻译&quot;&gt;&lt;/a&gt;1、翻译&lt;/h1&gt;&lt;h2 id=&quot;1-1、摘要&quot;&gt;&lt;a href=&quot;#1-1、摘要&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210506</title>
+    <link href="https://javaguycoffee.com/2021/05/05/20210506/"/>
+    <id>https://javaguycoffee.com/2021/05/05/20210506/</id>
+    <published>2021-05-05T13:12:10.000Z</published>
+    <updated>2021-05-16T05:40:01.470Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、王阳阳学长实现部分汇总&quot;&gt;&lt;a href=&quot;#1、王阳阳学长实现部分汇总&quot; class=&quot;headerlink&quot; title=&quot;1、王阳阳学长实现部分汇总&quot;&gt;&lt;/a&gt;1、王阳阳学长实现部分汇总&lt;/h1&gt;&lt;h2 id=&quot;1-1、查询内并行负载均衡读&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="负载均衡读" scheme="https://javaguycoffee.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%AF%BB/"/>
+    
+    <category term="虚拟分区" scheme="https://javaguycoffee.com/tags/%E8%99%9A%E6%8B%9F%E5%88%86%E5%8C%BA/"/>
+    
+    <category term="wyy" scheme="https://javaguycoffee.com/tags/wyy/"/>
+    
+    <category term="protobuf" scheme="https://javaguycoffee.com/tags/protobuf/"/>
+    
+    <category term="多生产者和单消费者模型" scheme="https://javaguycoffee.com/tags/%E5%A4%9A%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E5%8D%95%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210429</title>
+    <link href="https://javaguycoffee.com/2021/04/26/20210429/"/>
+    <id>https://javaguycoffee.com/2021/04/26/20210429/</id>
+    <published>2021-04-26T02:43:35.000Z</published>
+    <updated>2021-05-16T05:40:01.470Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、分布式一致性写&quot;&gt;&lt;a href=&quot;#1、分布式一致性写&quot; class=&quot;headerlink&quot; title=&quot;1、分布式一致性写&quot;&gt;&lt;/a&gt;1、分布式一致性写&lt;/h1&gt;&lt;h2 id=&quot;1-1、存储层网络通信模型&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="并行写" scheme="https://javaguycoffee.com/tags/%E5%B9%B6%E8%A1%8C%E5%86%99/"/>
+    
+    <category term="负载均衡读" scheme="https://javaguycoffee.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%AF%BB/"/>
+    
+    <category term="多分区选主" scheme="https://javaguycoffee.com/tags/%E5%A4%9A%E5%88%86%E5%8C%BA%E9%80%89%E4%B8%BB/"/>
+    
+    <category term="multi-Paxos" scheme="https://javaguycoffee.com/tags/multi-Paxos/"/>
+    
+    <category term="[object Object]" scheme="https://javaguycoffee.com/tags/object-Object/"/>
+    
+    <category term="虚拟分区" scheme="https://javaguycoffee.com/tags/%E8%99%9A%E6%8B%9F%E5%88%86%E5%8C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210422</title>
+    <link href="https://javaguycoffee.com/2021/04/21/20210422/"/>
+    <id>https://javaguycoffee.com/2021/04/21/20210422/</id>
+    <published>2021-04-21T01:39:32.000Z</published>
+    <updated>2021-05-16T05:40:01.469Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、Gossip协议的实现&quot;&gt;&lt;a href=&quot;#1、Gossip协议的实现&quot; class=&quot;headerlink&quot; title=&quot;1、Gossip协议的实现&quot;&gt;&lt;/a&gt;1、Gossip协议的实现&lt;/h1&gt;&lt;h2 id=&quot;1-1、概述&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="Gossip" scheme="https://javaguycoffee.com/tags/Gossip/"/>
+    
+    <category term="Socket" scheme="https://javaguycoffee.com/tags/Socket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210415</title>
+    <link href="https://javaguycoffee.com/2021/04/15/20210415/"/>
+    <id>https://javaguycoffee.com/2021/04/15/20210415/</id>
+    <published>2021-04-15T02:35:00.000Z</published>
+    <updated>2021-05-16T05:40:01.469Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;本周工作总结&quot;&gt;&lt;a href=&quot;#本周工作总结&quot; class=&quot;headerlink&quot; title=&quot;本周工作总结&quot;&gt;&lt;/a&gt;本周工作总结&lt;/h1&gt;&lt;h1 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="Quorum" scheme="https://javaguycoffee.com/tags/Quorum/"/>
+    
+    <category term="Gossip" scheme="https://javaguycoffee.com/tags/Gossip/"/>
+    
+    <category term="Socket" scheme="https://javaguycoffee.com/tags/Socket/"/>
+    
+    <category term="MSE" scheme="https://javaguycoffee.com/tags/MSE/"/>
+    
+  </entry>
   
   <entry>
     <title>20210324</title>
@@ -136,8 +443,53 @@
     <link href="https://javaguycoffee.com/2021/04/08/20210408/"/>
     <id>https://javaguycoffee.com/2021/04/08/20210408/</id>
     <published>2021-04-08T00:57:35.000Z</published>
-    <updated>2021-04-08T00:57:35.299Z</updated>
+    <updated>2021-05-16T05:40:01.468Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;本周工作总结&quot;&gt;&lt;a href=&quot;#本周工作总结&quot; class=&quot;headerlink&quot; title=&quot;本周工作总结&quot;&gt;&lt;/a&gt;本周工作总结&lt;/h1&gt;&lt;h1 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="Quorum" scheme="https://javaguycoffee.com/tags/Quorum/"/>
+    
+    <category term="Gossip" scheme="https://javaguycoffee.com/tags/Gossip/"/>
+    
+    <category term="Socket" scheme="https://javaguycoffee.com/tags/Socket/"/>
+    
+    <category term="MSE" scheme="https://javaguycoffee.com/tags/MSE/"/>
+    
+    <category term="自动测试环境" scheme="https://javaguycoffee.com/tags/%E8%87%AA%E5%8A%A8%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/"/>
+    
+    <category term="Shell" scheme="https://javaguycoffee.com/tags/Shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MSE系统debug记录</title>
+    <link href="https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/"/>
+    <id>https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/</id>
+    <published>2021-04-05T08:25:25.000Z</published>
+    <updated>2021-05-16T05:40:01.472Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、small-problems&quot;&gt;&lt;a href=&quot;#1、small-problems&quot; class=&quot;headerlink&quot; title=&quot;1、small problems&quot;&gt;&lt;/a&gt;1、small problems&lt;/h1&gt;&lt;h2</summary>
+        
+      
     
     
     
@@ -149,41 +501,7 @@
     <link href="https://javaguycoffee.com/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/"/>
     <id>https://javaguycoffee.com/2021/04/04/mymall-huan-jing-da-jian-bu-shu-ji-lu/</id>
     <published>2021-04-04T12:18:42.000Z</published>
-    <updated>2021-04-08T00:49:21.938Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、本地环境搭建&quot;&gt;&lt;a href=&quot;#1、本地环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1、本地环境搭建&quot;&gt;&lt;/a&gt;1、本地环境搭建&lt;/h1&gt;&lt;h2 id=&quot;1-1、后端环境&quot;&gt;&lt;a href=&quot;#1-1、后端环境&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Linux常用命令</title>
-    <link href="https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/"/>
-    <id>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</id>
-    <published>2021-04-03T11:37:30.000Z</published>
-    <updated>2021-04-04T16:01:33.333Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>招聘管理系统环境搭建部署记录</title>
-    <link href="https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/"/>
-    <id>https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/</id>
-    <published>2021-04-02T07:27:04.000Z</published>
-    <updated>2021-04-04T16:01:33.336Z</updated>
+    <updated>2021-06-11T12:39:20.591Z</updated>
     
     
       
@@ -201,6 +519,82 @@
     <category term="项目实战" scheme="https://javaguycoffee.com/categories/SpringBoot/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
     
     
+    <category term="nodejs" scheme="https://javaguycoffee.com/tags/nodejs/"/>
+    
+    <category term="OSS" scheme="https://javaguycoffee.com/tags/OSS/"/>
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
+    
+    <category term="Java" scheme="https://javaguycoffee.com/tags/Java/"/>
+    
+    <category term="SpringBoot" scheme="https://javaguycoffee.com/tags/SpringBoot/"/>
+    
+    <category term="Vue" scheme="https://javaguycoffee.com/tags/Vue/"/>
+    
+    <category term="前后端分离" scheme="https://javaguycoffee.com/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"/>
+    
+    <category term="Maven" scheme="https://javaguycoffee.com/tags/Maven/"/>
+    
+    <category term="ElasticSearch" scheme="https://javaguycoffee.com/tags/ElasticSearch/"/>
+    
+    <category term="LogStash" scheme="https://javaguycoffee.com/tags/LogStash/"/>
+    
+    <category term="Kibana" scheme="https://javaguycoffee.com/tags/Kibana/"/>
+    
+    <category term="MongoDB" scheme="https://javaguycoffee.com/tags/MongoDB/"/>
+    
+    <category term="RabbitMQ" scheme="https://javaguycoffee.com/tags/RabbitMQ/"/>
+    
+    <category term="Nginx" scheme="https://javaguycoffee.com/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/"/>
+    <id>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</id>
+    <published>2021-04-03T11:37:30.000Z</published>
+    <updated>2021-05-16T05:40:01.471Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、shell简介&quot;&gt;&lt;a href=&quot;#1、shell简介&quot; class=&quot;headerlink&quot; title=&quot;1、shell简介&quot;&gt;&lt;/a&gt;1、shell简介&lt;/h1&gt;&lt;h2 id=&quot;1-1、简介&quot;&gt;&lt;a href=&quot;#1-1、简介&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>招聘管理系统环境搭建部署记录</title>
+    <link href="https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/"/>
+    <id>https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/</id>
+    <published>2021-04-02T07:27:04.000Z</published>
+    <updated>2021-05-16T05:40:01.474Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、本地环境搭建&quot;&gt;&lt;a href=&quot;#1、本地环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1、本地环境搭建&quot;&gt;&lt;/a&gt;1、本地环境搭建&lt;/h1&gt;&lt;h2 id=&quot;1-1、后端环境&quot;&gt;&lt;a href=&quot;#1-1、后端环境&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="SpringBoot" scheme="https://javaguycoffee.com/categories/SpringBoot/"/>
+    
+    <category term="项目实战" scheme="https://javaguycoffee.com/categories/SpringBoot/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="nodejs" scheme="https://javaguycoffee.com/tags/nodejs/"/>
+    
     <category term="Java" scheme="https://javaguycoffee.com/tags/Java/"/>
     
     <category term="SpringBoot" scheme="https://javaguycoffee.com/tags/SpringBoot/"/>
@@ -212,6 +606,12 @@
     <category term="招聘管理系统" scheme="https://javaguycoffee.com/tags/%E6%8B%9B%E8%81%98%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
     
     <category term="本科毕设" scheme="https://javaguycoffee.com/tags/%E6%9C%AC%E7%A7%91%E6%AF%95%E8%AE%BE/"/>
+    
+    <category term="Maven" scheme="https://javaguycoffee.com/tags/Maven/"/>
+    
+    <category term="Nginx" scheme="https://javaguycoffee.com/tags/Nginx/"/>
+    
+    <category term="yarn" scheme="https://javaguycoffee.com/tags/yarn/"/>
     
   </entry>
   
@@ -247,167 +647,6 @@
     <category term="MSE" scheme="https://javaguycoffee.com/tags/MSE/"/>
     
     <category term="MA" scheme="https://javaguycoffee.com/tags/MA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux系统基本结构学习</title>
-    <link href="https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi/"/>
-    <id>https://javaguycoffee.com/2021/03/22/linux-xi-tong-ji-ben-jie-gou-xue-xi/</id>
-    <published>2021-03-22T03:48:05.000Z</published>
-    <updated>2021-04-02T15:04:15.448Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、系统与硬件&quot;&gt;&lt;a href=&quot;#1、系统与硬件&quot; class=&quot;headerlink&quot; title=&quot;1、系统与硬件&quot;&gt;&lt;/a&gt;1、系统与硬件&lt;/h1&gt;&lt;h2 id=&quot;1-1、Linux硬件资源管理&quot;&gt;&lt;a href=&quot;#1-1、Linux硬件资源管理&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://javaguycoffee.com/categories/Linux/"/>
-    
-    <category term="基础知识" scheme="https://javaguycoffee.com/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="Linux" scheme="https://javaguycoffee.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ArrayList源码分析</title>
-    <link href="https://javaguycoffee.com/2021/03/20/arraylist-yuan-ma-fen-xi/"/>
-    <id>https://javaguycoffee.com/2021/03/20/arraylist-yuan-ma-fen-xi/</id>
-    <published>2021-03-20T15:07:35.000Z</published>
-    <updated>2021-03-27T15:37:48.530Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、概览&quot;&gt;&lt;a href=&quot;#1、概览&quot; class=&quot;headerlink&quot; title=&quot;1、概览&quot;&gt;&lt;/a&gt;1、概览&lt;/h1&gt;&lt;h2 id=&quot;1-1、基本特点&quot;&gt;&lt;a href=&quot;#1-1、基本特点&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
-    
-    <category term="Jdk源码" scheme="https://javaguycoffee.com/categories/Java/Jdk%E6%BA%90%E7%A0%81/"/>
-    
-    <category term="Java容器" scheme="https://javaguycoffee.com/categories/Java/Jdk%E6%BA%90%E7%A0%81/Java%E5%AE%B9%E5%99%A8/"/>
-    
-    
-    <category term="ArrayList" scheme="https://javaguycoffee.com/tags/ArrayList/"/>
-    
-    <category term="jdk源码" scheme="https://javaguycoffee.com/tags/jdk%E6%BA%90%E7%A0%81/"/>
-    
-    <category term="Java容器" scheme="https://javaguycoffee.com/tags/Java%E5%AE%B9%E5%99%A8/"/>
-    
-    <category term="序列化" scheme="https://javaguycoffee.com/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    
-    <category term="fail-fast" scheme="https://javaguycoffee.com/tags/fail-fast/"/>
-    
-    <category term="forEach" scheme="https://javaguycoffee.com/tags/forEach/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的个人博客搭建笔记</title>
-    <link href="https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji/"/>
-    <id>https://javaguycoffee.com/2021/03/19/wo-de-ge-ren-bo-ke-da-jian-bi-ji/</id>
-    <published>2021-03-19T01:33:31.000Z</published>
-    <updated>2021-03-30T01:36:49.002Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、搭建hexo博客，并部署到GitHub-Pages&quot;&gt;&lt;a href=&quot;#1、搭建hexo博客，并部署到GitHub-Pages&quot; class=&quot;headerlink&quot; title=&quot;1、搭建hexo博客，并部署到GitHub</summary>
-        
-      
-    
-    
-    
-    <category term="博客" scheme="https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/"/>
-    
-    <category term="hexo" scheme="https://javaguycoffee.com/categories/%E5%8D%9A%E5%AE%A2/hexo/"/>
-    
-    
-    <category term="hexo" scheme="https://javaguycoffee.com/tags/hexo/"/>
-    
-    <category term="GitHub" scheme="https://javaguycoffee.com/tags/GitHub/"/>
-    
-    <category term="nodejs" scheme="https://javaguycoffee.com/tags/nodejs/"/>
-    
-    <category term="typora" scheme="https://javaguycoffee.com/tags/typora/"/>
-    
-    <category term="OSS" scheme="https://javaguycoffee.com/tags/OSS/"/>
-    
-    <category term="PicGo" scheme="https://javaguycoffee.com/tags/PicGo/"/>
-    
-    <category term="DNSPod" scheme="https://javaguycoffee.com/tags/DNSPod/"/>
-    
-    <category term="GoDaddy" scheme="https://javaguycoffee.com/tags/GoDaddy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL MVCC相关源码阅读笔记</title>
-    <link href="https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/"/>
-    <id>https://javaguycoffee.com/2021/03/18/mysql-mvcc-xiang-guan-yuan-ma-yue-du-bi-ji/</id>
-    <published>2021-03-18T11:01:46.000Z</published>
-    <updated>2021-03-27T16:36:34.229Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;9、MVCC&quot;&gt;&lt;a href=&quot;#9、MVCC&quot; class=&quot;headerlink&quot; title=&quot;9、MVCC&quot;&gt;&lt;/a&gt;9、MVCC&lt;/h2&gt;&lt;p&gt;&lt;code&gt;MVCC&lt;/code&gt;在&lt;code&gt;MySQL</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="https://javaguycoffee.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
-    
-    <category term="MVCC" scheme="https://javaguycoffee.com/tags/MVCC/"/>
-    
-    <category term="ReadView" scheme="https://javaguycoffee.com/tags/ReadView/"/>
-    
-    <category term="InnoDB" scheme="https://javaguycoffee.com/tags/InnoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://javaguycoffee.com/2021/03/18/hello-world/"/>
-    <id>https://javaguycoffee.com/2021/03/18/hello-world/</id>
-    <published>2021-03-18T01:33:31.000Z</published>
-    <updated>2021-04-04T16:01:33.334Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
