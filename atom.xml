@@ -6,7 +6,7 @@
   <link href="https://javaguycoffee.com/atom.xml" rel="self"/>
   
   <link href="https://javaguycoffee.com/"/>
-  <updated>2021-06-14T03:16:11.647Z</updated>
+  <updated>2021-06-14T08:37:23.307Z</updated>
   <id>https://javaguycoffee.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://javaguycoffee.com/2021/06/14/hashmap-yuan-ma-fen-xi/"/>
     <id>https://javaguycoffee.com/2021/06/14/hashmap-yuan-ma-fen-xi/</id>
     <published>2021-06-14T02:40:52.000Z</published>
-    <updated>2021-06-14T03:16:11.647Z</updated>
+    <updated>2021-06-14T08:37:23.307Z</updated>
     
     
       
@@ -34,6 +34,12 @@
     
     
     
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="Java容器" scheme="https://javaguycoffee.com/categories/Java/Java%E5%AE%B9%E5%99%A8/"/>
+    
+    
+    <category term="HashMap" scheme="https://javaguycoffee.com/tags/HashMap/"/>
     
   </entry>
   
@@ -69,7 +75,7 @@
     <link href="https://javaguycoffee.com/2021/06/02/20210603/"/>
     <id>https://javaguycoffee.com/2021/06/02/20210603/</id>
     <published>2021-06-02T12:02:45.000Z</published>
-    <updated>2021-06-12T06:28:03.468Z</updated>
+    <updated>2021-06-14T08:38:20.723Z</updated>
     
     
       
@@ -82,6 +88,12 @@
     
     
     
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="MySQL5.7代价模型" scheme="https://javaguycoffee.com/tags/MySQL5-7%E4%BB%A3%E4%BB%B7%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
   
@@ -90,7 +102,7 @@
     <link href="https://javaguycoffee.com/2021/05/28/java-mian-jing/"/>
     <id>https://javaguycoffee.com/2021/05/28/java-mian-jing/</id>
     <published>2021-05-28T03:17:19.000Z</published>
-    <updated>2021-06-12T06:28:03.472Z</updated>
+    <updated>2021-06-14T08:41:44.683Z</updated>
     
     
       
@@ -103,6 +115,42 @@
     
     
     
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="面经" scheme="https://javaguycoffee.com/categories/Java/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+    <category term="Linux" scheme="https://javaguycoffee.com/tags/Linux/"/>
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
+    
+    <category term="ElasticSearch" scheme="https://javaguycoffee.com/tags/ElasticSearch/"/>
+    
+    <category term="Nginx" scheme="https://javaguycoffee.com/tags/Nginx/"/>
+    
+    <category term="计算机网络" scheme="https://javaguycoffee.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="操作系统" scheme="https://javaguycoffee.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="集合框架" scheme="https://javaguycoffee.com/tags/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/"/>
+    
+    <category term="JVM" scheme="https://javaguycoffee.com/tags/JVM/"/>
+    
+    <category term="并发编程" scheme="https://javaguycoffee.com/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    <category term="Redis" scheme="https://javaguycoffee.com/tags/Redis/"/>
+    
+    <category term="框架" scheme="https://javaguycoffee.com/tags/%E6%A1%86%E6%9E%B6/"/>
+    
+    <category term="基础知识" scheme="https://javaguycoffee.com/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+    <category term="项目" scheme="https://javaguycoffee.com/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="设计模式" scheme="https://javaguycoffee.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="正则表达式" scheme="https://javaguycoffee.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+    <category term="系统设计" scheme="https://javaguycoffee.com/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
@@ -177,7 +225,7 @@
     <link href="https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/"/>
     <id>https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/</id>
     <published>2021-05-13T03:55:47.000Z</published>
-    <updated>2021-06-12T06:28:03.474Z</updated>
+    <updated>2021-06-14T08:47:05.300Z</updated>
     
     
       
@@ -194,6 +242,20 @@
     
     <category term="阅读笔记" scheme="https://javaguycoffee.com/categories/Lab/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
     
+    
+    <category term="代价估算" scheme="https://javaguycoffee.com/tags/%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97/"/>
+    
+    <category term="逻辑查询优化" scheme="https://javaguycoffee.com/tags/%E9%80%BB%E8%BE%91%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="物理查询优化" scheme="https://javaguycoffee.com/tags/%E7%89%A9%E7%90%86%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="索引优化" scheme="https://javaguycoffee.com/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="优化器" scheme="https://javaguycoffee.com/tags/%E4%BC%98%E5%8C%96%E5%99%A8/"/>
+    
+    <category term="执行器" scheme="https://javaguycoffee.com/tags/%E6%89%A7%E8%A1%8C%E5%99%A8/"/>
+    
+    <category term="多表连接" scheme="https://javaguycoffee.com/tags/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/"/>
     
   </entry>
   
@@ -235,7 +297,7 @@
     <link href="https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/"/>
     <id>https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/</id>
     <published>2021-05-11T08:38:00.000Z</published>
-    <updated>2021-05-16T05:40:01.473Z</updated>
+    <updated>2021-06-14T08:43:30.433Z</updated>
     
     
       
@@ -248,6 +310,12 @@
     
     
     
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="PushdownDB" scheme="https://javaguycoffee.com/tags/PushdownDB/"/>
     
   </entry>
   
@@ -542,7 +610,7 @@
     <link href="https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/"/>
     <id>https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/</id>
     <published>2021-04-05T08:25:25.000Z</published>
-    <updated>2021-05-16T05:40:01.472Z</updated>
+    <updated>2021-06-14T08:44:24.237Z</updated>
     
     
       
@@ -555,6 +623,12 @@
     
     
     
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="Debug" scheme="https://javaguycoffee.com/categories/Lab/Debug/"/>
+    
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
     
   </entry>
   
@@ -616,7 +690,7 @@
     <link href="https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/"/>
     <id>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</id>
     <published>2021-04-03T11:37:30.000Z</published>
-    <updated>2021-05-16T05:40:01.471Z</updated>
+    <updated>2021-06-14T08:44:44.481Z</updated>
     
     
       
@@ -629,6 +703,12 @@
     
     
     
+    <category term="Linux" scheme="https://javaguycoffee.com/categories/Linux/"/>
+    
+    <category term="基础知识" scheme="https://javaguycoffee.com/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+    
+    <category term="shell" scheme="https://javaguycoffee.com/tags/shell/"/>
     
   </entry>
   

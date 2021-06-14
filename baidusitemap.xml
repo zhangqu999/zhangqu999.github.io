@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/</loc>
+    <loc>https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/05/28/java-mian-jing/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/06/02/20210603/</loc>
     <lastmod>2021-06-14</lastmod>
   </url>
   <url>
     <loc>https://javaguycoffee.com/2021/06/14/hashmap-yuan-ma-fen-xi/</loc>
+    <lastmod>2021-06-14</lastmod>
+  </url>
+  <url>
+    <loc>https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/</loc>
     <lastmod>2021-06-14</lastmod>
   </url>
   <url>
@@ -15,18 +39,6 @@
   <url>
     <loc>https://javaguycoffee.com/2021/05/27/20210527-1/</loc>
     <lastmod>2021-06-14</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/05/13/shu-ju-ku-cha-xun-you-hua-qi-de-yi-zhu-yue-du-bi-ji/</loc>
-    <lastmod>2021-06-12</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/05/28/java-mian-jing/</loc>
-    <lastmod>2021-06-12</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/06/02/20210603/</loc>
-    <lastmod>2021-06-12</lastmod>
   </url>
   <url>
     <loc>https://javaguycoffee.com/2021/05/19/20210520/</loc>
@@ -42,18 +54,6 @@
   </url>
   <url>
     <loc>https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/</loc>
-    <lastmod>2021-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/05/11/pushdowndb-yue-du-bi-ji/</loc>
-    <lastmod>2021-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/04/05/mse-xi-tong-debug-ji-lu/</loc>
-    <lastmod>2021-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</loc>
     <lastmod>2021-05-16</lastmod>
   </url>
   <url>
