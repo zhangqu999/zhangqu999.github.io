@@ -38,6 +38,33 @@
   </entry>
   
   <entry>
+    <title>Java反射机制</title>
+    <link href="https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/"/>
+    <id>https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/</id>
+    <published>2021-06-03T07:46:41.000Z</published>
+    <updated>2021-06-14T08:35:07.743Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;反射（Reflection） 是 Java 程序开发语言的特征之一，它允许运行中的 Java</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="JavaSE" scheme="https://javaguycoffee.com/categories/Java/JavaSE/"/>
+    
+    
+    <category term="反射" scheme="https://javaguycoffee.com/tags/%E5%8F%8D%E5%B0%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>20210603</title>
     <link href="https://javaguycoffee.com/2021/06/02/20210603/"/>
     <id>https://javaguycoffee.com/2021/06/02/20210603/</id>
@@ -602,51 +629,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>招聘管理系统环境搭建部署记录</title>
-    <link href="https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/"/>
-    <id>https://javaguycoffee.com/2021/04/02/zhao-pin-guan-li-xi-tong-huan-jing-da-jian-bu-shu-ji-lu/</id>
-    <published>2021-04-02T07:27:04.000Z</published>
-    <updated>2021-05-16T05:40:01.474Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、本地环境搭建&quot;&gt;&lt;a href=&quot;#1、本地环境搭建&quot; class=&quot;headerlink&quot; title=&quot;1、本地环境搭建&quot;&gt;&lt;/a&gt;1、本地环境搭建&lt;/h1&gt;&lt;h2 id=&quot;1-1、后端环境&quot;&gt;&lt;a href=&quot;#1-1、后端环境&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="SpringBoot" scheme="https://javaguycoffee.com/categories/SpringBoot/"/>
-    
-    <category term="项目实战" scheme="https://javaguycoffee.com/categories/SpringBoot/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
-    
-    
-    <category term="nodejs" scheme="https://javaguycoffee.com/tags/nodejs/"/>
-    
-    <category term="Java" scheme="https://javaguycoffee.com/tags/Java/"/>
-    
-    <category term="SpringBoot" scheme="https://javaguycoffee.com/tags/SpringBoot/"/>
-    
-    <category term="Vue" scheme="https://javaguycoffee.com/tags/Vue/"/>
-    
-    <category term="前后端分离" scheme="https://javaguycoffee.com/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"/>
-    
-    <category term="招聘管理系统" scheme="https://javaguycoffee.com/tags/%E6%8B%9B%E8%81%98%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="本科毕设" scheme="https://javaguycoffee.com/tags/%E6%9C%AC%E7%A7%91%E6%AF%95%E8%AE%BE/"/>
-    
-    <category term="Maven" scheme="https://javaguycoffee.com/tags/Maven/"/>
-    
-    <category term="Nginx" scheme="https://javaguycoffee.com/tags/Nginx/"/>
-    
-    <category term="yarn" scheme="https://javaguycoffee.com/tags/yarn/"/>
     
   </entry>
   
