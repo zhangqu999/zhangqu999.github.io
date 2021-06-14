@@ -4,11 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot Java MySQL MA JavaGuy Math 算法">
+    <meta name="keywords" content="20210527, SpringBoot Java MySQL MA JavaGuy Math 算法">
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
-    <meta name="description" content="title: 20210527top: falsecover: falsepassword: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377toc: true">
+    <meta name="description" content="1、MySQL查询优化进一步学习1.1、子查询优化MySQL支持的子查询优化策略如下：
+
+使用MySQL trace工具，跟踪优化器对SQL的整个优化执行过程。
+首先建三张表，并添加索引
+DROP TABLE IF EXISTS `t1`;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JavaGuy的博客</title>
+    <title>20210527 | JavaGuy的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -254,7 +258,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = '91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -267,13 +271,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        
+                        20210527
                     </div>
                 </div>
             </div>
@@ -383,11 +387,44 @@
                 <div class="col s7">
                     
                     <div class="article-tag">
-                        <span class="chip bg-color">无标签</span>
+                        
+                        <a href="/tags/%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">子查询优化</span>
+                        </a>
+                        
+                        <a href="/tags/%E6%9D%A1%E4%BB%B6%E5%8C%96%E7%AE%80/" target="_blank">
+                            <span class="chip bg-color">条件化简</span>
+                        </a>
+                        
+                        <a href="/tags/%E6%B6%88%E9%99%A4%E5%A4%96%E8%BF%9E%E6%8E%A5/" target="_blank">
+                            <span class="chip bg-color">消除外连接</span>
+                        </a>
+                        
+                        <a href="/tags/%E8%AF%AD%E4%B9%89%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">语义优化</span>
+                        </a>
+                        
+                        <a href="/tags/%E9%9D%9ESPJ%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">非SPJ优化</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/Lab/" class="post-category" target="_blank">
+                            Lab
+                        </a>
+                        
+                        <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                            周会总结报告
+                        </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -395,7 +432,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-12
+                    2021-05-27
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -432,12 +469,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>title: 20210527<br>top: false<br>cover: false<br>password: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377<br>toc: true<br>mathjax: true<br>date: 2021-05-26 09:35:37<br>summary:<br>tags:<br>categories:</p>
-<ul>
-<li>Lab</li>
-<li>周会总结报告</li>
-</ul>
-<h1 id="1、MySQL查询优化进一步学习"><a href="#1、MySQL查询优化进一步学习" class="headerlink" title="1、MySQL查询优化进一步学习"></a>1、MySQL查询优化进一步学习</h1><h2 id="1-1、子查询优化"><a href="#1-1、子查询优化" class="headerlink" title="1.1、子查询优化"></a>1.1、子查询优化</h2><p>MySQL支持的子查询优化策略如下：</p>
+                <h1 id="1、MySQL查询优化进一步学习"><a href="#1、MySQL查询优化进一步学习" class="headerlink" title="1、MySQL查询优化进一步学习"></a>1、MySQL查询优化进一步学习</h1><h2 id="1-1、子查询优化"><a href="#1-1、子查询优化" class="headerlink" title="1.1、子查询优化"></a>1.1、子查询优化</h2><p>MySQL支持的子查询优化策略如下：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210526094636680.png" alt="image-20210526094636680"></p>
 <p>使用MySQL trace工具，跟踪优化器对SQL的整个优化执行过程。</p>
 <p>首先建三张表，并添加索引</p>
@@ -562,10 +594,8 @@ where (`t_1`.`t_1_id` = `t_2`.`t_2_id`)
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210526162737388.png" alt="image-20210526162737388"></p>
 <p>与上面唯一不同的是第一行的possible_keys为NULL</p>
 <p>优化后的查询语句如下：</p>
-<pre class="line-numbers language-SQL"><code class="language-SQL">select sql_no_cache `t_1`.`t_1_id` AS `t_1_id`,`t_1`.`t_1_col_1` AS `t_1_col_1`,`t_1`.`t_1_col_2` AS `t_1_col_2`,`t_2`.`t_2_id` AS `t_2_id`,`t_2`.`t_2_col_1` AS `t_2_col_1`,`t_2`.`t_2_col_2` AS `t_2_col_2` 
-from `t_1` left join `t_2` 
-on(`t_1`.`t_1_id` = `t_2`.`t_2_id`)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-SQL"><code class="language-SQL">select sql_no_cache `t_1`.`t_1_id` AS `t_1_id`,`t_1`.`t_1_col_1` AS `t_1_col_1`,`t_1`.`t_1_col_2` AS `t_1_col_2`,`t_2`.`t_2_id` AS `t_2_id`,`t_2`.`t_2_col_1` AS `t_2_col_1`,`t_2`.`t_2_col_2` AS `t_2_col_2` from `t_1` left join `t_2` on(`t_1`.`t_1_id` = `t_2`.`t_2_id`)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以看到仍然是left join并没有转为内连接</p>
 <h2 id="1-4、语义优化"><a href="#1-4、语义优化" class="headerlink" title="1.4、语义优化"></a>1.4、语义优化</h2><h3 id="1-4-1、检测空回答集"><a href="#1-4-1、检测空回答集" class="headerlink" title="1.4.1、检测空回答集"></a>1.4.1、检测空回答集</h3><p>首先，建表插入数据</p>
 <pre class="line-numbers language-SQL"><code class="language-SQL">create table student(name varchar(30) not null, age int);
@@ -893,9 +923,9 @@ order by `tmp1`.`b`
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《》
+                    《20210527》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/06/12/20210527/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/05/27/20210527-1/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JavaGuy
             </a> 采用
@@ -1197,36 +1227,41 @@ order by `tmp1`.`b`
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/06/12/20210527/">
+                <a href="/2021/05/28/java-mian-jing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Java面经">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Java面经</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            title: 20210527top: falsecover: falsepassword: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377toc: true
+                            1、计算机网络1.1、网络模型与相关协议
+​    OSI七层模型:物理层，数据链路层，网络层，运输层，会话层，表示层， 应用层。
+
+
+​    TCP/IP5层模型：物理层，数据链路层，网络层，运输层，应用层。
+
+
+​    TCP/IP
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-28
+                        </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1237,34 +1272,66 @@ order by `tmp1`.`b`
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/02/20210603/">
+                <a href="/2021/05/19/20210520/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="20210603">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="20210520">
                         
-                        <span class="card-title">20210603</span>
+                        <span class="card-title">20210520</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、MySQL5.7 代价模型浅析1.1、代价模型mysql 5.7代价计算相对之前的版本有较大的改进。例如
+                            一、运行张轲学长代码
 
-代价模型参数可以动态配置，可以适应不同的硬件
-区分考虑数据在内存和在磁盘中的代价
-代价精度提升为浮点型
-jion计算时不仅要考虑
+二、查询优化器系统学习1、数据管理系统的查询优化1.1、数据库调优1.1.1、目标使数据库有更高的吞吐量和更短的响应时间。
+1.1.2、常见调优方法
+人工调优
+
+基于案例的调优（静态）
+
+自调优
+
+Oracle实现的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-02
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-19
                             </span>
                         <span class="publish-author">
                             
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Lab/" class="post-category" target="_blank">
+                                    Lab
+                                </a>
+                            
+                            <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                                    周会总结报告
+                                </a>
+                            
+                            
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">查询优化</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97/" target="_blank">
+                        <span class="chip bg-color">代价估算</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95/" target="_blank">
+                        <span class="chip bg-color">多表连接算法</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1420,6 +1487,25 @@ jion计算时不仅要考虑
     
 
 </main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
 
 
     <footer class="page-footer bg-color">
