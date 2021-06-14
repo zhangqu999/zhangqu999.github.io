@@ -44,6 +44,57 @@
   </entry>
   
   <entry>
+    <title>常见设计模式总结</title>
+    <link href="https://javaguycoffee.com/2021/06/04/chang-jian-she-ji-mo-shi-zong-jie/"/>
+    <id>https://javaguycoffee.com/2021/06/04/chang-jian-she-ji-mo-shi-zong-jie/</id>
+    <published>2021-06-04T08:51:04.000Z</published>
+    <updated>2021-06-14T09:12:05.817Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;!-- GFM-TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#%E4%B8%80%E6%A6%82%E8%BF%B0&quot;&gt;一、概述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="设计模式" scheme="https://javaguycoffee.com/categories/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="单例模式" scheme="https://javaguycoffee.com/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="简单工厂" scheme="https://javaguycoffee.com/tags/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/"/>
+    
+    <category term="工厂方法" scheme="https://javaguycoffee.com/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="抽象工厂" scheme="https://javaguycoffee.com/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/"/>
+    
+    <category term="生成器(Builder)" scheme="https://javaguycoffee.com/tags/%E7%94%9F%E6%88%90%E5%99%A8-Builder/"/>
+    
+    <category term="原型模式" scheme="https://javaguycoffee.com/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="模板方法" scheme="https://javaguycoffee.com/tags/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="观察者模式" scheme="https://javaguycoffee.com/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="适配器模式" scheme="https://javaguycoffee.com/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="装饰者模式" scheme="https://javaguycoffee.com/tags/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="代理模式" scheme="https://javaguycoffee.com/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java反射机制</title>
     <link href="https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/"/>
     <id>https://javaguycoffee.com/2021/06/03/java-fan-she-ji-zhi/</id>
@@ -682,33 +733,6 @@
     <category term="RabbitMQ" scheme="https://javaguycoffee.com/tags/RabbitMQ/"/>
     
     <category term="Nginx" scheme="https://javaguycoffee.com/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux常用命令</title>
-    <link href="https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/"/>
-    <id>https://javaguycoffee.com/2021/04/03/linux-chang-yong-ming-ling/</id>
-    <published>2021-04-03T11:37:30.000Z</published>
-    <updated>2021-06-14T08:44:44.481Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1、shell简介&quot;&gt;&lt;a href=&quot;#1、shell简介&quot; class=&quot;headerlink&quot; title=&quot;1、shell简介&quot;&gt;&lt;/a&gt;1、shell简介&lt;/h1&gt;&lt;h2 id=&quot;1-1、简介&quot;&gt;&lt;a href=&quot;#1-1、简介&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://javaguycoffee.com/categories/Linux/"/>
-    
-    <category term="基础知识" scheme="https://javaguycoffee.com/categories/Linux/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="shell" scheme="https://javaguycoffee.com/tags/shell/"/>
     
   </entry>
   
