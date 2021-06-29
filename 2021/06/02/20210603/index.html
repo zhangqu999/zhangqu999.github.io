@@ -8,12 +8,7 @@
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
-    <meta name="description" content="1、MySQL5.7 代价模型浅析1.1、代价模型mysql 5.7代价计算相对之前的版本有较大的改进。例如
-
-代价模型参数可以动态配置，可以适应不同的硬件
-区分考虑数据在内存和在磁盘中的代价
-代价精度提升为浮点型
-jion计算时不仅要考虑">
+    <meta name="description" content="1、MySQL5.7 .19代价模型1.1、代价模型MySQL5.7代价分为IO，CPU，远程操作和内存代价，目前内存代价没有考虑。代价分为server层和engine层。server层主要是cpu的代价，而engine层主要是io的代价。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -272,7 +267,7 @@ jion计算时不仅要考虑">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -388,28 +383,11 @@ jion计算时不仅要考虑">
                 <div class="col s7">
                     
                     <div class="article-tag">
-                        
-                        <a href="/tags/MySQL5-7%E4%BB%A3%E4%BB%B7%E6%A8%A1%E5%9E%8B/" target="_blank">
-                            <span class="chip bg-color">MySQL5.7代价模型</span>
-                        </a>
-                        
+                        <span class="chip bg-color">无标签</span>
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                        <a href="/categories/Lab/" class="post-category" target="_blank">
-                            Lab
-                        </a>
-                        
-                        <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
-                            周会总结报告
-                        </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -431,7 +409,7 @@ jion计算时不仅要考虑">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.3k
                 </div>
                 
 
@@ -454,14 +432,9 @@ jion计算时不仅要考虑">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1、MySQL5-7-代价模型浅析"><a href="#1、MySQL5-7-代价模型浅析" class="headerlink" title="1、MySQL5.7 代价模型浅析"></a>1、MySQL5.7 代价模型浅析</h1><h2 id="1-1、代价模型"><a href="#1-1、代价模型" class="headerlink" title="1.1、代价模型"></a>1.1、代价模型</h2><p>mysql 5.7<em>代价</em>计算相对之前的版本有较大的改进。例如</p>
-<ul>
-<li>代价模型参数可以动态配置，可以适应不同的硬件</li>
-<li>区分考虑数据在内存和在磁盘中的代价</li>
-<li>代价精度提升为浮点型</li>
-<li>jion计算时不仅要考虑condition,还要考虑condition上的filter，具体参见参数condition_fanout_filter</li>
-</ul>
-<p>MySQL5.7代价分为IO，CPU，远程操作和内存代价，目前内存代价没有考虑。代价分为<strong>server</strong>层和<strong>engine</strong>层。<strong>server层主要是cpu的代价，而engine层主要是io的代价</strong>。 5.7 引入了两个系统表mysql.server_cost和mysql.engine_cost来分别配置这两个层的代价</p>
+                <h1 id="1、MySQL5-7-19代价模型"><a href="#1、MySQL5-7-19代价模型" class="headerlink" title="1、MySQL5.7 .19代价模型"></a>1、MySQL5.7 .19代价模型</h1><h2 id="1-1、代价模型"><a href="#1-1、代价模型" class="headerlink" title="1.1、代价模型"></a>1.1、代价模型</h2><p>MySQL5.7代价分为IO，CPU，远程操作和内存代价，目前内存代价没有考虑。代价分为<strong>server</strong>层和<strong>engine</strong>层。<strong>server层主要是cpu的代价，而engine层主要是io的代价</strong>。 5.7 引入了两个系统表mysql.server_cost和mysql.engine_cost来分别配置这两个层的代价</p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603082223935.png" alt="image-20210603082223935"></p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603082250596.png" alt="image-20210603082250596"></p>
 <ul>
 <li><p>server_cost：</p>
 <ul>
@@ -486,10 +459,9 @@ jion计算时不仅要考虑">
 UPDATE mysql.engine_cost
   SET cost_value =2.0
   WHERE cost_name ='io_block_read_cost';
-# FLUSH OPTIMIZER_COSTS 生效，只对新连接有效，老连接无效。
 FLUSH OPTIMIZER_COSTS;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="1-3、代价分析示例"><a href="#1-3、代价分析示例" class="headerlink" title="1.3、代价分析示例"></a>1.3、代价分析示例</h2><p>建表插数据</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="1-3、代价分析例子"><a href="#1-3、代价分析例子" class="headerlink" title="1.3、代价分析例子"></a>1.3、代价分析例子</h2><p>建表插数据</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> t1<span class="token punctuation">(</span><span class="token number">c1</span> <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span> <span class="token number">c2</span> <span class="token keyword">int</span> <span class="token keyword">unique</span><span class="token punctuation">,</span><span class="token number">c3</span> <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token keyword">engine</span><span class="token operator">=</span><span class="token keyword">innodb</span><span class="token punctuation">;</span>
 <span class="token keyword">create</span> <span class="token keyword">table</span> t6<span class="token punctuation">(</span><span class="token number">d1</span> <span class="token keyword">int</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span> <span class="token number">c2</span> <span class="token keyword">int</span> <span class="token keyword">unique</span><span class="token punctuation">,</span><span class="token number">c3</span> <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token keyword">engine</span><span class="token operator">=</span><span class="token keyword">innodb</span><span class="token punctuation">;</span>
 
@@ -504,7 +476,7 @@ FLUSH OPTIMIZER_COSTS;
     <span class="token keyword">set</span> optimizer_trace <span class="token operator">=</span><span class="token string">"enabled=on"</span><span class="token punctuation">;</span>
 <span class="token keyword">END</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>cost参数都取默认值，以下示例中会用到row_evaluate_cost(0.2),io_block_read_cost(1.0),io_block_read_cost(1.0),memory_block_read_cost(1.0)</p>
+<p>cost参数都取默认值，以下示例中会用到ROW_EVALUATE_COST(0.2),IO_BLOCK_READ_COST(1.0),MEMORY_BLOCK_READ_COST(1.0)</p>
 <p>执行下面SQL：</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">explain</span> <span class="token keyword">select</span> <span class="token number">c1</span><span class="token punctuation">,</span><span class="token number">c2</span> <span class="token keyword">from</span> t1 <span class="token keyword">where</span> <span class="token number">c2</span> <span class="token operator">></span><span class="token number">10</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -568,6 +540,20 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
 <p>因此IO代价 = 1.099* 1 = 1.099</p>
 <p>CPU代价通过row_evaluate_cost进行计算，经过过滤条件得到的total_rows为91，因此CPU代价=91*0.2+0.01=18.21</p>
 <p>最终索引扫描总代价=1.099+18.21=19.309</p>
+<p>再看下面一条SQL：</p>
+<pre class="line-numbers language-SQL"><code class="language-SQL">select * from t1 where c2 > 10;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603080818381.png" alt="image-20210603080818381"></p>
+<p>查看optimizer_trace, 可以看出全表扫描代价为23.1，通过c2上的索引扫描代价为110.21， 最后选择全表扫描。</p>
+<p>全表扫描代价23.1分析和上面例子一样。上一个例子通过c2索引扫描代价为19.309，因为是覆盖索引不需要回表，所以代价较少。而此例是需要回表的。</p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603081418596.png" alt="image-20210603081418596"></p>
+<p>进入read_cost里面可以看到，IO代价是需要回表的</p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603081539668.png" alt="image-20210603081539668"></p>
+<p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210603081821027.png" alt="image-20210603081821027"></p>
+<p>MySQL默认处理方式是每行代价是1，即默认认为每一行都对应聚集索引的一个page</p>
+<p>因此最终IO代价=1+91=92</p>
+<p>CPU代价和上面一样，是91 * 0.2 + 0.01 = 18.21；</p>
+<p>因此最终代价为92+18.21=110.21</p>
 
             </div>
             <hr />
@@ -1034,19 +1020,19 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/06/03/java-fan-she-ji-zhi/">
+                <a href="/2021/06/03/java-gong-cheng-shi-xiu-lian-zhi-dao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Java反射机制">
+                        <img src="/medias/featureimages/28.jpg" class="responsive-img" alt="Java工程师修炼之道">
                         
-                        <span class="card-title">Java反射机制</span>
+                        <span class="card-title">Java工程师修炼之道</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            反射（Reflection） 是 Java 程序开发语言的特征之一，它允许运行中的 Java 程序对自身进行检查，或者说“自审”，并能直接操作程序的内部属性和方法。它并非Java语言独有，反射是所有注解实现的原理，尤其在框架设计中，有不可替
+                            1、后端技术导言2、Java项目与工程化3、开发框架4、Spring5、数据存储5.1、MySQL5.1.1、存储引擎5.1.2、字符集和校对规则5.1.3、索引的使用5.1.4、查询缓存的使用5.1.5、数据同步中的binlog5.1.6
                         
                     </div>
                     <div class="publish-info">
@@ -1055,27 +1041,8 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Java/" class="post-category" target="_blank">
-                                    Java
-                                </a>
-                            
-                            <a href="/categories/Java/JavaSE/" class="post-category" target="_blank">
-                                    JavaSE
-                                </a>
-                            
-                            
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%8F%8D%E5%B0%84/" target="_blank">
-                        <span class="chip bg-color">反射</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1091,7 +1058,7 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java面经">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Java面经">
                         
                         <span class="card-title">Java面经</span>
                     </div>
@@ -1115,87 +1082,8 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Java/" class="post-category" target="_blank">
-                                    Java
-                                </a>
-                            
-                            <a href="/categories/Java/%E9%9D%A2%E7%BB%8F/" class="post-category" target="_blank">
-                                    面经
-                                </a>
-                            
-                            
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/" target="_blank">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/tags/MySQL/" target="_blank">
-                        <span class="chip bg-color">MySQL</span>
-                    </a>
-                    
-                    <a href="/tags/ElasticSearch/" target="_blank">
-                        <span class="chip bg-color">ElasticSearch</span>
-                    </a>
-                    
-                    <a href="/tags/Nginx/" target="_blank">
-                        <span class="chip bg-color">Nginx</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" target="_blank">
-                        <span class="chip bg-color">计算机网络</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" target="_blank">
-                        <span class="chip bg-color">操作系统</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/" target="_blank">
-                        <span class="chip bg-color">集合框架</span>
-                    </a>
-                    
-                    <a href="/tags/JVM/" target="_blank">
-                        <span class="chip bg-color">JVM</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" target="_blank">
-                        <span class="chip bg-color">并发编程</span>
-                    </a>
-                    
-                    <a href="/tags/Redis/" target="_blank">
-                        <span class="chip bg-color">Redis</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%A1%86%E6%9E%B6/" target="_blank">
-                        <span class="chip bg-color">框架</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_blank">
-                        <span class="chip bg-color">基础知识</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%A1%B9%E7%9B%AE/" target="_blank">
-                        <span class="chip bg-color">项目</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_blank">
-                        <span class="chip bg-color">设计模式</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" target="_blank">
-                        <span class="chip bg-color">正则表达式</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" target="_blank">
-                        <span class="chip bg-color">系统设计</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1379,7 +1267,7 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">231.6k</span>
+            <span class="white-color">244.8k</span>
             
 
             <br>
