@@ -4,21 +4,24 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="腾讯面经, SpringBoot Java MySQL MA JavaGuy Math 算法">
+    <meta name="keywords" content="Dubbo笔记, SpringBoot Java MySQL MA JavaGuy Math 算法">
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
-    <meta name="description" content="· 腾讯篇 
-Java 基础
-4.1.0 JAVA 中的几种基本数据类型是什么，各自占用多少字节。
+    <meta name="description" content="1、分布式系统相关概念1.1、大型互联网公司架构目标
+传统项目和互联网项目
 
-1字节：byte，boolean（不同操作系统不同）
+互联网项目：天猫，微信，百度
+用户群体：网民
+用户零忍耐
 
-2字节：char，short
 
-4字节：int，float
+传统项目：OA，HR，CRM
+用户群体：企业员工
+员工忍耐度较高
 
-8字节：double">
+
+用户体验：美观、功能、速度、稳">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +29,7 @@ Java 基础
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>腾讯面经 | JavaGuy的博客</title>
+    <title>Dubbo笔记 | JavaGuy的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -277,13 +280,13 @@ Java 基础
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        腾讯面经
+                        Dubbo笔记
                     </div>
                 </div>
             </div>
@@ -399,13 +402,26 @@ Java 基础
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/Java/" class="post-category" target="_blank">
+                            Java
+                        </a>
+                        
+                        <a href="/categories/Java/Dubbo/" class="post-category" target="_blank">
+                            Dubbo
+                        </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-10
+                    2021-07-15
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -419,14 +435,14 @@ Java 基础
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    402
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    1 分
                 </div>
                 
                 
@@ -442,174 +458,70 @@ Java 基础
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>· <strong>腾讯篇</strong> </p>
-<p>Java 基础</p>
-<p>4.1.0 JAVA 中的几种基本数据类型是什么，各自占用多少字节。</p>
+                <h1 id="1、分布式系统相关概念"><a href="#1、分布式系统相关概念" class="headerlink" title="1、分布式系统相关概念"></a>1、分布式系统相关概念</h1><h2 id="1-1、大型互联网公司架构目标"><a href="#1-1、大型互联网公司架构目标" class="headerlink" title="1.1、大型互联网公司架构目标"></a>1.1、大型互联网公司架构目标</h2><ul>
+<li><p>传统项目和互联网项目</p>
 <ul>
-<li><p>1字节：byte，boolean（不同操作系统不同）</p>
-</li>
-<li><p>2字节：char，short</p>
-</li>
-<li><p>4字节：int，float</p>
-</li>
-<li><p>8字节：double，long</p>
-</li>
+<li>互联网项目：天猫，微信，百度<ul>
+<li>用户群体：网民</li>
+<li>用户零忍耐</li>
 </ul>
-<p>4.1.1 String 类能被继承吗，为什么。</p>
-<p>不能。因为String类被final关键字修饰，是一个不可变的类，其内部实现是一个final char[] data，data的地址是不可变的。</p>
-<p>4.1.2 String，Stringbuffer，StringBuilder 的区别。</p>
+</li>
+<li>传统项目：OA，HR，CRM<ul>
+<li>用户群体：企业员工</li>
+<li>员工忍耐度较高</li>
+</ul>
+</li>
+<li>用户体验：美观、功能、速度、稳定性</li>
+<li>如何衡量一个网站是否速度快：打开新页面0.36秒，页面跳转0.018秒</li>
+</ul>
+</li>
+<li><p>互联网项目特点</p>
 <ul>
-<li><p>内部实现上：String是用的final char[]，StringBuffer和StringBuilder采用的是继承自AbstractStringBuilder的char[] value，因此value的地址是可变的，因此会有扩容机制进行数组拷贝</p>
-</li>
-<li><p>线程安全上：String因为是不可变的类，因此是线程安全的；StringBuffer里面大部分方法都加了Syncronized关键字进行同步，因此也是线程安全的；StringBuilder没有同步，多线程同时访问会有一致性问题，单线程没有问题，并且效率要比StringBuffer高</p>
-</li>
-<li><p>使用上：如果很少对字符串做修改，大部分操作都是读，选择String；如果经常要修改字符串内容：单线程用StringBuilder，多线程用StringBuffer</p>
-</li>
+<li>用户多</li>
+<li>流量大，并发高</li>
+<li>海量数据</li>
+<li>易受攻击</li>
+<li>功能繁琐</li>
+<li>变更快</li>
 </ul>
-<p>4.1.3 ArrayList 和 LinkedList 有什么区别。</p>
+</li>
+<li><p>高性能</p>
 <ul>
-<li>内部实现上：ArrayList是一个Object[], LinkedList是一个双向链表</li>
-<li>使用上：读多写少用ArrayList，经常要修改，删除元素用LinkedList</li>
-<li>线程安全上：两者都是线程不安全的</li>
+<li>衡量网站性能指标<ul>
+<li>响应时间：执行一个请求从开始到最后所花费的时间</li>
+<li>并发数<ul>
+<li>并发连接数：每秒服务器连接的TCP数量</li>
+<li>请求数：也称QPS</li>
+<li>并发用户数：单位时间内有多少用户</li>
 </ul>
-<p>4.1.4 讲讲类的实例化顺序，比如父类静态数据，构造函数，字段，子类静态数据，构造函数，字段，当 new 的时候，他们的执行顺序。</p>
+</li>
+<li>吞度量：<ul>
+<li>QPS：每秒查询数</li>
+<li>TPS：每秒事务数</li>
+<li>一个事务指：一个客户机向服务器发送请求后服务器做出反应的过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>高可用：网站服务一直可以访问</p>
+</li>
+<li><p>可伸缩：通过硬件增加/减少，提高/降低处理能力</p>
+</li>
+<li><p>高可扩展：系统间耦合低，方便通过新增/移除方式，增加/减少新的功能模块</p>
+</li>
+<li><p>安全性：提供网站安全访问和数据加密，安全存储等策略</p>
+</li>
+<li><p>敏捷性：随需应变，快速响应</p>
+</li>
+<li><p>集群和分布式</p>
 <ul>
-<li><p>类加载过程：JVM遇到一条new指针时，首先会在常量池中检查是否有该类的符号引用，如果有，还要检查该类是否被加载，解析，初始化过。如果没有，需要先执行类加载过程。</p>
-<ul>
-<li><p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210610112508664.png" alt="image-20210610112508664"></p>
-<ul>
-<li><p>加载：主要做下面三件事情</p>
-<ul>
-<li><p>通过全类名获取定义此类的二进制字节流</p>
-<ul>
-<li><p>类加载器：JVM内置了三个类加载器</p>
-<ul>
-<li>BootstrapClassLoader：最顶层加载器，用c++实现，负责加载%JAVA_HOME%/lib目录下的所有jar包和类</li>
-<li>ExtensionClassLoader：主要负责加载%JRE_HOME%/lib/ext目录下的jar包和类</li>
-<li>AppClassLoader：主要负责加载当前应用classpath下的所有jar包和类</li>
-</ul>
-</li>
-<li><p>双亲委派模型</p>
-<p>类加载的时候，会先判断该类是否已经加载过了，如果是，直接返回；否则系统会选择一个类加载器进行加载。加载的时候会将该请求委派给父类的loadClass()方法进行处理，最终都会交由最顶层BootstrapClassLoader进行处理。</p>
-<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210610114248281.png" alt="image-20210610114248281"></p>
-<p>只要当父类加载器无法处理时，才会给子类处理。</p>
-<p>好处:</p>
-<ul>
-<li>避免了类的重复加载，JVM区分类的方式并非类名，不同加载器加载同一个类文件，最后得到的是不同的类，这样保障了程序的稳定</li>
-<li>保证了Java核心API不被篡改</li>
+<li>集群：很多人一起，干一样的事</li>
+<li>分布式：很多人一起，干不一样的事，合起来是一件大事</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>将字节流代表的静态存储结构转换成方法区的运行时数据结构</p>
-</li>
-<li><p>在内存生成一个代表该类的Class对象，作为方法区这些数据的访问入口</p>
-</li>
-</ul>
-</li>
-<li><p>验证：校验class字节流是否符合当前jvm规范</p>
-</li>
-<li><p>准备：为<strong>类变量</strong>分配内存并设置变量的初始值(<strong>默认值</strong>)。如果是final修饰的对象则是赋值声明值</p>
-</li>
-<li><p>解析：将常量池的符号引用替换为直接引用</p>
-</li>
-<li><p>初始化：执行类构造器<clinit>(<strong>注意不是对象构造器</strong>)，为<strong>类变量</strong>赋值，执行静态代码块。jvm会保证子类的<client>执行之前，父类的<client>先执行完毕</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>类加载完成后，会给对象在堆内存中分配内存，分配方式有指针碰撞和空闲列表两种，分别对应的是标记-整理和标记-清除算法</p>
-<ul>
-<li>指针碰撞：内存分为用过和没用过两部分，中间一个分界指针，需要分配内存时，就往未使用部分移动对象大小长度就可以了，适用于内存规整的情况</li>
-<li>空闲列表：将内存分成很多块，记录未使用的块，当需要分配内存时，找一个合适大小的块，然后更新空闲列表，适用于内存不规整的情况</li>
-<li>多线程同步问题解决方案：<ul>
-<li>CAS + 失败重试：多个线程使用CAS的方式更新指针，多线程下只有一个线程可以更新完成，其他线程通过不断重试完成内存指针的重新移动</li>
-<li>TLAB：每个线程提前分配一块内存空间，这个内存空间就是线程本地缓冲TLAB；这样线程每次需要分配内存时，先从TLAB里面取，空间不够的时候再去用同步机制申请一块新的TLAB，这样就降低了同步锁的申请次数</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>初始化零值：内存分配完之后，JVM为给该对象的实例字段分配初始零值</p>
-</li>
-<li><p>设置对象头：存放对象的一些元数据</p>
-<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210610121116523.png" alt="image-20210610121116523"></p>
-</li>
-<li><p>执行构造函数</p>
-<p>- </p>
-</li>
-<li><p>创建对象引用并压入虚拟机栈</p>
-</li>
-</ul>
-<p>完整流程：</p>
-<p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210610121332013.png" alt="image-20210610121332013"></p>
-<p>4.1.5 用过哪些 Map 类，都有什么区别，HashMap 是线程安全的吗,并发下使用的 Map 是什么，他们内部原理分别是什么，比如存储方式，hashcode，扩容，默认容量等。</p>
-<p>4.1.6 JAVA8 的 ConcurrentHashMap 为什么放弃了分段锁，有什么问题吗，如果你来设计，你如何设计。</p>
-<p>4.1.7 有没有有顺序的 Map 实现类，如果有，他们是怎么保证有序的。</p>
-<p>4.1.8 抽象类和接口的区别，类可以继承多个类么，接口可以继承多个接口么,类可以实现多个接口么。</p>
-<p>4.1.9 继承和聚合的区别在哪。</p>
-<p>4.2.0 IO 模型有哪些，讲讲你理解的 nio ，他和 bio，aio 的区别是啥，谈谈 reactor 模型。</p>
-<p>4.2.1 反射的原理，反射创建类实例的三种方式是什么。</p>
-<p>4.2.2 反射中，Class.forName 和 ClassLoader 区别 。</p>
-<p>4.2.3 描述动态代理的几种实现方式，分别说出相应的优缺点。</p>
-<p>4.2.4 动态代理与 cglib 实现的区别。</p>
-<p>4.2.5 为什么CGlib 方式可以对接口实现代理。</p>
-<p>4.2.6 final 的用途。</p>
-<p>4.2.7 写出三种单例模式实现 。</p>
-<p>4.2.8 如何在父类中为子类自动完成所有的 hashcode 和 equals 实现？这么做有何优劣。</p>
-<p>4.2.9 请结合OO 设计理念，谈谈访问修饰符 public、private、protected、default 在应用设计中的作用。</p>
-<p>4.3.0 深拷贝和浅拷贝区别。</p>
-<p>4.3.1 数组和链表数据结构描述，各自的时间复杂度。</p>
-<p>4.3.2 error 和exception 的区别，CheckedException，RuntimeException 的区别。</p>
-<p>4.3.3 请列出 5 个运行时异常。</p>
-<p>4.3.4 在自己的代码中，如果创建一个 java.lang.String 类，这个类是否可以被类加载器加载？ 为什么。</p>
-<p>4.3.5 说一说你对 java.lang.Object 对象中 hashCode 和 equals 方法的理解。在什么场景下需要重新实现这两个方法。</p>
-<p>4.3.6 在 jdk1.5 中，引入了泛型，泛型的存在是用来解决什么问题。</p>
-<p>4.3.7 这样的a.hashcode() 有什么用，与 a.equals(b)有什么关系。</p>
-<p>4.3.8 有没有可能 2 个不相等的对象有相同的 hashcode。</p>
-<p>4.3.9 Java 中的 HashSet 内部是如何工作的。</p>
-<p>4.4.0 什么是序列化，怎么序列化，为什么序列化，反序列化会遇到什么问题，如何解决。</p>
-<p>4.4.1 java8 的新特性。</p>
-<p>4.4.2 JVM什么情况下会发生栈内存溢出。</p>
-<p>4.4.3 JVM 的内存结构，Eden 和 Survivor 比例。</p>
-<p>4.4.4 JVM 内存为什么要分成新生代，老年代，持久代。新生代中为什么要分为Eden 和Survivor。</p>
-<p>4.4.5 JVM 中一次完整的 GC 流程是怎样的，对象如何晋升到老年代，说说你知道的几种主要的 JVM 参数。</p>
-<p>4.4.6 你知道哪几种垃圾收集器，各自的优缺点，重点讲下 cms 和 G1，包括原理，流程，优缺点。</p>
-<p>4.4.7 垃圾回收算法的实现原理。</p>
-<p>4.4.8 当出现了内存溢出，你怎么排错。</p>
-<p>4.4.9 JVM 内存模型的相关知识了解多少，比如重排序，内存屏障，happen-before，主内存， 工作内存等。</p>
-<p>4.5.0 简单说说你了解的类加载器，可以打破双亲委派么，怎么打破。</p>
-<p>4.5.1 讲讲JAVA 的反射机制。</p>
-<p>4.5.2 你们线上应用的 JVM 参数有哪些。</p>
-<p>4.5.3 g1 和 cms 区别,吞吐量优先和响应优先的垃圾收集器选择。</p>
-<p>4.5.4 怎么打出线程栈信息。开源框架</p>
-<p>4.5.5 简单讲讲 tomcat 结构，以及其类加载器流程，线程模型等。</p>
-<p>4.5.6 tomcat 如何调优，涉及哪些参数 。</p>
-<p>4.5.7 讲讲 Spring 加载流程。</p>
-<p>4.5.8 Spring AOP 的实现原理。</p>
-<p>4.5.9 讲讲 Spring 事务的传播属性。</p>
-<p>4.6.0 Spring 如何管理事务的。</p>
-<p>4.6.1 Spring 怎么配置事务（具体说出一些关键的 xml 元素）。</p>
-<p>4.6.2 说说你对 Spring  的理解，非单例注入的原理？它的生命周期？循环注入的原理，aop 的实现原理，说说 aop 中的几个术语，它们是怎么相互工作的。</p>
-<p>4.6.3 Springmvc 中 DispatcherServlet 初始化过程。</p>
-<p>4.6.4 netty 的线程模型，netty 如何基于 reactor 模型上实现的。</p>
-<p>4.6.5 为什么选择 netty。</p>
-<p>4.6.6 什么是 TCP 粘包，拆包。解决方式是什么。</p>
-<p>4.6.7 netty 的 fashwheeltimer 的用法，实现原理，是否出现过调用不够准时，怎么解决。</p>
-<p>4.6.8 netty 的心跳处理在弱网下怎么办。</p>
-<p>4.6.9 netty 的通讯协议是什么样的。</p>
-<p>4.7.0 springmvc 用到的注解，作用是什么，原理。</p>
-<p>4.7.1 springboot 启动机制。操作系统</p>
-<p>4.7.2 Linux 系统下你关注过哪些内核参数，说说你知道的。</p>
-<p>4.7.3 Linux 下 IO 模型有几种，各自的含义是什么。</p>
-<p>4.7.4 epoll 和poll 有什么区别。</p>
-<p>4.7.5 平时用到哪些 Linux 命令。</p>
-<p>4.7.6 用一行命令查看文件的最后五行。</p>
-<p>4.7.7 用一行命令输出正在运行的 java 进程。</p>
-<p>4.7.8 介绍下你理解的操作系统中线程切换过程。</p>
-<p>4.7.9 进程和线程的区别。</p>
-<p>4.8.0 top 命令之后有哪些内容，有什么作用。</p>
-<p>4.8.1 线上 CPU 爆高，请问你如何找到问题所在。</p>
 
             </div>
             <hr />
@@ -768,9 +680,9 @@ Java 基础
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《腾讯面经》
+                    《Dubbo笔记》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/06/10/teng-xun-mian-jing/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/07/15/dubbo-bi-ji/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JavaGuy
             </a> 采用
@@ -1072,29 +984,43 @@ Java 基础
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/06/14/hashmap-yuan-ma-fen-xi/">
+                <a href="/2021/07/15/dubbo-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="HashMap源码分析">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Dubbo笔记">
                         
-                        <span class="card-title">HashMap源码分析</span>
+                        <span class="card-title">Dubbo笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、概览HashMap 最早出现在 JDK 1.2中，底层基于散列算法实现。HashMap 允许 null 键和 null 值，在计算哈键的哈希值时，null 键哈希值为 0。HashMap 并不保证键值对的顺序，这意味着在进行某些操作后，
+                            1、分布式系统相关概念1.1、大型互联网公司架构目标
+传统项目和互联网项目
+
+互联网项目：天猫，微信，百度
+用户群体：网民
+用户零忍耐
+
+
+传统项目：OA，HR，CRM
+用户群体：企业员工
+员工忍耐度较高
+
+
+用户体验：美观、功能、速度、稳
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-07-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1103,22 +1029,15 @@ Java 基础
                                     Java
                                 </a>
                             
-                            <a href="/categories/Java/Java%E5%AE%B9%E5%99%A8/" class="post-category" target="_blank">
-                                    Java容器
+                            <a href="/categories/Java/Dubbo/" class="post-category" target="_blank">
+                                    Dubbo
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/HashMap/" target="_blank">
-                        <span class="chip bg-color">HashMap</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -1129,30 +1048,42 @@ Java 基础
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/07/20210610/">
+                <a href="/2021/07/08/interview-summary/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="20210610">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="interview_summary">
                         
-                        <span class="card-title">20210610</span>
+                        <span class="card-title">interview_summary</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            主要工作：对接张柯学长工作1、代价估算模块1.1、CEHJ主要代码是best_access_path里增加的一段代码
-//如果没有索引，且满足HJ条件，则使用HJ
-if (best_ref->key == MAX_KEY)
-      {
+                            1、Java基础2、Java集合框架3、JVM4、Java并发编程4.1、进程与线程4.1.1、进程与线程
+程序：由指令和数据组成，但指令需要加载到CPU执行，数据要加载到内存，还涉及到磁盘，网络等设备
 
+进程
+
+加载指令、管理内存、管理I
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-07-08
                             </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            <a href="/categories/Java/%E9%9D%A2%E7%BB%8F/" class="post-category" target="_blank">
+                                    面经
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -1339,7 +1270,7 @@ if (best_ref->key == MAX_KEY)
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">245.6k</span>
+            <span class="white-color">249.6k</span>
             
 
             <br>
