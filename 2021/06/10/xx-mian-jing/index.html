@@ -418,14 +418,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.7k
+                    5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    18 分
                 </div>
                 
                 
@@ -614,8 +614,82 @@
 <p>2、项目</p>
 <p>3、实习中做的业务，遇到的问题，怎么解决的？</p>
 <p>4、重构项目有什么好处？公司项目的发布流程</p>
+<p>重构代码的好处：</p>
+<ul>
+<li>可维护性：因为源代码更容易阅读，对于代码作者的意图就更容易把握，所以修复bug就比较容易些。<ul>
+<li>手段：<ul>
+<li>通过将大型的函数或者组件缩减为一组单独的、命名良好的、单一目的的函数或者组件来实现。</li>
+<li>可以通过将一些方法移到一个更合适的类中。</li>
+<li>删除误导性注释</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可扩展性<ul>
+<li>如果应用程序使用了可识别的<strong>设计模式</strong>，它会更容易扩展应用程序的功能，而且这些设计模式可能提供了一些以前不存在的灵活性。</li>
+</ul>
+</li>
+</ul>
+<p>公司项目的发布流程：</p>
+<ul>
+<li>提交测试<ul>
+<li>开发人员在功能开发完毕后首先配置开发环境，并将系统部署至开发环境。在开发环境经过自测通过后提交测试代码，并开始撰写上线方案。并提交相关技术负责人审核，在审核过后邮件给相关测试人员。</li>
+<li>测试人员根据模块功能文档并制定测试方案，测试用例，特别注意临界点测试方案</li>
+<li>测试人员通过自动化部署平台根据提供的分支号依照上线方案进行自动化部署，涉及数据库操作可提请DBA操作。</li>
+<li>记录各种数据测试结果及测试问题，并交由相关开发人员进行二次迭代处理，该点须交付测试结果报告。</li>
+<li> 内测完毕后交由相关业务及需求人员进行集成测试，并请测试人员记录测试结果及问题，交由相关开发人员进行再次迭代。该点须交付测试方案测试结果报告。</li>
+</ul>
+</li>
+<li>预热发布<ul>
+<li>测试人员在测试环境测试并跟踪修改bug达到上线标准（没有A、B级bug，C 级bug达到要求）时。开始部署预热环境，测试人员对现有功能在预热环境上进行验收测试（重新执行case）。紧急Bug修改走补丁/hotfix流程。不影响功能的bug留到下次版本解决，确认达到上线标准。</li>
+<li>如达到上线标准，测试人员发起邮件通知相关开发人员、产品人员，准备正式上线发布流程。</li>
+</ul>
+</li>
+<li>正式上线<ul>
+<li>在测试人员确认项目具备上线条件下，正式上线前，开发负责人须发起部署大会，召集相关开发人员、测试人员、产品人员、运维人员讨论此次部署事项(介绍项目的相应负责人员，数据库脚本执行，部署顺序，应用程序关联，部署时间点，部署回滚方案，包括数据库回滚和应用程序回滚)，最后生成会议纪要并发送邮件。</li>
+<li>确认上线之后，测试人员邮件上线方案，数据库脚本，应用分支号给运维人员及DBA，DBA应提前执行数据库脚本，应用部署须通过自动化部署平台进行部署，部署系统应在应用系统中记录当前分支号，以便后续应用回滚使用。在部署中出现错误，及时通知相关开发人员。如若问题不能在计划内时间解决，执行回滚方案。</li>
+<li>运维，DBA在操作完成时均需要回复邮件，并说明操作步骤结果。</li>
+<li>发布完成后运维人员回复邮件通知测试人员、业务及需求人员进行线上测试。测试结果及问题,提交至开发人员。如若出现问题不能在计划内时间解决，执行回滚方案，并进行迭代改进。</li>
+<li>（紧急Bug修改走补丁/hotfix流程，不影响功能的bug留到下次版本解决。）。测试通过后测试人员回复邮件，发布结束。</li>
+</ul>
+</li>
+<li>应用服务监控<ul>
+<li>运维人员添加新增外部应用服务监控和新增云主机的系统监控</li>
+<li>运维人员对相关业务保持上线后正式生产系统进行有计划地监控其服务的性能和可用性，及时发现问题处理及反馈问题。</li>
+</ul>
+</li>
+<li>总结报告<ul>
+<li>上线成功后，撰写或总结系统需求、架构以及开发文档进行备案。</li>
+</ul>
+</li>
+</ul>
 <p>5、算法题：LC739：每日温度（单调栈）</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">dailyTemperatures</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temperatures<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Deque<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stk <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayDeque</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> n <span class="token operator">=</span> temperatures<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>stk<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> temperatures<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> temperatures<span class="token punctuation">[</span>stk<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> pre <span class="token operator">=</span> stk<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">[</span>pre<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">-</span> pre<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            stk<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>6、volatile、sleep和wait之间区别？原理？</p>
+<p>volatile关键字的作用主要是下面两个：</p>
+<ul>
+<li>保证变量修改的可见性</li>
+<li>禁止JVM进行指令重排（在单例模式双重校验锁里有用到）</li>
+</ul>
+<p>sleep和wait</p>
+<ul>
+<li>最主要区别是：sleep没有释放锁，wait释放了锁</li>
+<li>wait通常被用于线程间通信，sleep通常被用于暂停执行</li>
+<li>wait方法调用后，线程一般不会自动苏醒，需要其他线程调用同一个对象上的notify或notifyAll方法。sleep方法执行完后，会自动苏醒。当然调用wait(long timeout)超时后会自动苏醒</li>
+</ul>
 <p>7、Lock介绍一下？子类，底层实现？讲讲yield方法？</p>
 <p>8、AtomicInteger底层实现？CAS和ABA问题，为什么要加volatile关键字？可以不加嘛？</p>
 <p>9、怎么实现多线程打印奇偶数1,2？（ReentrantLock，wait和notify实现）</p>
@@ -1216,8 +1290,31 @@ if (best_ref->key == MAX_KEY)
                             </span>
                         <span class="publish-author">
                             
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Lab/" class="post-category" target="_blank">
+                                    Lab
+                                </a>
+                            
+                            <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                                    周会总结报告
+                                </a>
+                            
+                            
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HJ/" target="_blank">
+                        <span class="chip bg-color">HJ</span>
+                    </a>
+                    
+                    <a href="/tags/Pushdown/" target="_blank">
+                        <span class="chip bg-color">Pushdown</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1401,7 +1498,7 @@ if (best_ref->key == MAX_KEY)
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">249.6k</span>
+            <span class="white-color">277.2k</span>
             
 
             <br>

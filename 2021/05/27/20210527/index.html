@@ -4,11 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringBoot Java MySQL MA JavaGuy Math 算法">
+    <meta name="keywords" content="20210527, SpringBoot Java MySQL MA JavaGuy Math 算法">
     <meta name="baidu-site-verification" content="code-r7CYm21B6o" />
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48" />
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7" />
-    <meta name="description" content="title: 20210527top: falsecover: falsepassword: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377toc: true">
+    <meta name="description" content="1、MySQL查询优化进一步学习1.1、子查询优化MySQL支持的子查询优化策略如下：
+
+使用MySQL trace工具，跟踪优化器对SQL的整个优化执行过程。
+首先建三张表，并添加索引
+DROP TABLE IF EXISTS `t1`;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JavaGuy的博客</title>
+    <title>20210527 | JavaGuy的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -254,7 +258,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = '91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -267,13 +271,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        
+                        20210527
                     </div>
                 </div>
             </div>
@@ -383,11 +387,44 @@
                 <div class="col s7">
                     
                     <div class="article-tag">
-                        <span class="chip bg-color">无标签</span>
+                        
+                        <a href="/tags/%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">子查询优化</span>
+                        </a>
+                        
+                        <a href="/tags/%E6%9D%A1%E4%BB%B6%E5%8C%96%E7%AE%80/" target="_blank">
+                            <span class="chip bg-color">条件化简</span>
+                        </a>
+                        
+                        <a href="/tags/%E6%B6%88%E9%99%A4%E5%A4%96%E8%BF%9E%E6%8E%A5/" target="_blank">
+                            <span class="chip bg-color">消除外连接</span>
+                        </a>
+                        
+                        <a href="/tags/%E8%AF%AD%E4%B9%89%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">语义优化</span>
+                        </a>
+                        
+                        <a href="/tags/%E9%9D%9ESPJ%E4%BC%98%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">非SPJ优化</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/Lab/" class="post-category" target="_blank">
+                            Lab
+                        </a>
+                        
+                        <a href="/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/" class="post-category" target="_blank">
+                            周会总结报告
+                        </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -395,7 +432,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-22
+                    2021-05-27
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -432,12 +469,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>title: 20210527<br>top: false<br>cover: false<br>password: 91a6f824b85ba9ed6e7cf599364e2f8bc897a465357160c6425c8eacd8883377<br>toc: true<br>mathjax: true<br>date: 2021-05-26 09:35:37<br>summary:<br>tags:<br>categories:</p>
-<ul>
-<li>Lab</li>
-<li>周会总结报告</li>
-</ul>
-<h1 id="1、MySQL查询优化进一步学习"><a href="#1、MySQL查询优化进一步学习" class="headerlink" title="1、MySQL查询优化进一步学习"></a>1、MySQL查询优化进一步学习</h1><h2 id="1-1、子查询优化"><a href="#1-1、子查询优化" class="headerlink" title="1.1、子查询优化"></a>1.1、子查询优化</h2><p>MySQL支持的子查询优化策略如下：</p>
+                <h1 id="1、MySQL查询优化进一步学习"><a href="#1、MySQL查询优化进一步学习" class="headerlink" title="1、MySQL查询优化进一步学习"></a>1、MySQL查询优化进一步学习</h1><h2 id="1-1、子查询优化"><a href="#1-1、子查询优化" class="headerlink" title="1.1、子查询优化"></a>1.1、子查询优化</h2><p>MySQL支持的子查询优化策略如下：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210526094636680.png" alt="image-20210526094636680"></p>
 <p>使用MySQL trace工具，跟踪优化器对SQL的整个优化执行过程。</p>
 <p>首先建三张表，并添加索引</p>
@@ -893,9 +925,9 @@ order by `tmp1`.`b`
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《》
+                    《20210527》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/06/22/20210527/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2021/05/27/20210527/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JavaGuy
             </a> 采用
@@ -1201,58 +1233,36 @@ order by `tmp1`.`b`
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/06/25/mian-jing/">
+                <a href="/2021/05/28/java-mian-jing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="面经">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java面经">
                         
-                        <span class="card-title">面经</span>
+                        <span class="card-title">Java面经</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2021-6-251、问算法实习内容2、HashMap和HashTable区别
-线程安全性上：HashMap是不安全的，HashTable是线程安全的，里面都有Syncronized关键字
-效率问题：HashMap比HashTable高，目
+                            1、计算机网络1.1、网络模型与相关协议
+​    OSI七层模型:物理层，数据链路层，网络层，运输层，会话层，表示层， 应用层。
+
+
+​    TCP/IP5层模型：物理层，数据链路层，网络层，运输层，应用层。
+
+
+​    TCP/IP
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-25
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-28
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Java/" class="post-category" target="_blank">
-                                    Java
-                                </a>
-                            
-                            <a href="/categories/Java/%E9%9D%A2%E7%BB%8F/" class="post-category" target="_blank">
-                                    面经
-                                </a>
-                            
-                            
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/HashMap/" target="_blank">
-                        <span class="chip bg-color">HashMap</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_blank">
-                        <span class="chip bg-color">线程池</span>
-                    </a>
-                    
-                    <a href="/tags/Mybatis/" target="_blank">
-                        <span class="chip bg-color">Mybatis</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1264,29 +1274,28 @@ order by `tmp1`.`b`
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/21/20210623/">
+                <a href="/2021/05/27/20210527-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="20210623">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="20210527">
                         
-                        <span class="card-title">20210623</span>
+                        <span class="card-title">20210527</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本周工作总结：
-在三台CentOS7服务器上做一个单体Maven项目的持续集成流程测试（从GitLab拉取指定分支代码，代码检测，编译，打包部署，发送构建结果邮件），包括：
+                            1、MySQL查询优化进一步学习1.1、子查询优化MySQL支持的子查询优化策略如下：
 
-带参数的自动化构建流程
-邮件服务器
-SonarCube代码审查（
+使用MySQL trace工具，跟踪优化器对SQL的整个优化执行过程。
+首先建三张表，并添加索引
+DROP TABLE IF EXISTS `t1`;
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-21
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-27
                             </span>
                         <span class="publish-author">
                             
@@ -1307,40 +1316,24 @@ SonarCube代码审查（
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Maven/" target="_blank">
-                        <span class="chip bg-color">Maven</span>
+                    <a href="/tags/%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">子查询优化</span>
                     </a>
                     
-                    <a href="/tags/Jenkins/" target="_blank">
-                        <span class="chip bg-color">Jenkins</span>
+                    <a href="/tags/%E6%9D%A1%E4%BB%B6%E5%8C%96%E7%AE%80/" target="_blank">
+                        <span class="chip bg-color">条件化简</span>
                     </a>
                     
-                    <a href="/tags/SonarCube/" target="_blank">
-                        <span class="chip bg-color">SonarCube</span>
+                    <a href="/tags/%E6%B6%88%E9%99%A4%E5%A4%96%E8%BF%9E%E6%8E%A5/" target="_blank">
+                        <span class="chip bg-color">消除外连接</span>
                     </a>
                     
-                    <a href="/tags/Docker/" target="_blank">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/%E8%AF%AD%E4%B9%89%E4%BC%98%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">语义优化</span>
                     </a>
                     
-                    <a href="/tags/K8S/" target="_blank">
-                        <span class="chip bg-color">K8S</span>
-                    </a>
-                    
-                    <a href="/tags/SpringCloud/" target="_blank">
-                        <span class="chip bg-color">SpringCloud</span>
-                    </a>
-                    
-                    <a href="/tags/GitLab/" target="_blank">
-                        <span class="chip bg-color">GitLab</span>
-                    </a>
-                    
-                    <a href="/tags/Tomcat/" target="_blank">
-                        <span class="chip bg-color">Tomcat</span>
-                    </a>
-                    
-                    <a href="/tags/Jdk/" target="_blank">
-                        <span class="chip bg-color">Jdk</span>
+                    <a href="/tags/%E9%9D%9ESPJ%E4%BC%98%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">非SPJ优化</span>
                     </a>
                     
                 </div>
@@ -1500,6 +1493,25 @@ SonarCube代码审查（
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
     <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
@@ -1507,7 +1519,7 @@ SonarCube代码审查（
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">249.6k</span>
+            <span class="white-color">277.2k</span>
             
 
             <br>
