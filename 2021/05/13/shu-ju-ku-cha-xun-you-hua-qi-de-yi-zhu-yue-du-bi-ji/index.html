@@ -432,14 +432,14 @@ Redo Logfile Siz">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    25.6k
+                    25.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    97 分
+                    95 分
                 </div>
                 
                 
@@ -1213,7 +1213,7 @@ Redo Logfile Siz">
 <h3 id="12-1-2、基本对象"><a href="#12-1-2、基本对象" class="headerlink" title="12.1.2、基本对象"></a>12.1.2、基本对象</h3><p>MySQL和查询优化相关的基本对象主要有：关系（table.h里的TABLE_LIST），索引（sql_class.h里的Key），连接表（sql_select.h里的JOIN_TAB）</p>
 <h4 id="12-1-2-1、关系"><a href="#12-1-2-1、关系" class="headerlink" title="12.1.2.1、关系"></a>12.1.2.1、关系</h4><p>MySQL在TABLE_LIST存放了查询优化阶段用到的信息以及其他阶段用到的信息，是一个逻辑上的表结构。在存储层，由TABLE结构体(table.h里)表示表对象</p>
 <p>结构体TABLE_LIST定义如下：</p>
-<pre class="line-numbers language-CPP"><code class="language-CPP">struct TABLE_LIST &#123;
+<pre class="line-numbers language-CPP"><code class="language-CPP">struct TABLE_LIST {
       //表所属数据库，表名，别名
   const char *db, *table_name, *alias;
     //模式名
@@ -1250,22 +1250,22 @@ Redo Logfile Siz">
   thr_lock_type lock_type;
       //是否被缓存
   bool        cacheable_table;    /* stop PS caching */
-&#125;
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="12-1-2-2、索引"><a href="#12-1-2-2、索引" class="headerlink" title="12.1.2.2、索引"></a>12.1.2.2、索引</h4><p>MySQL通过Key类定义索引的类型和索引的关键信息，其中KEY_CREATE_INFO包括了索引列、索引算法等，如下图</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210517175055037.png" alt="image-20210517175055037"></p>
 <p>首先在sql.lex.h里定义了6种索引类型</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">enum</span> keytype <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">enum</span> keytype <span class="token punctuation">{</span>
   KEYTYPE_PRIMARY<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">//主键索引</span>
   KEYTYPE_UNIQUE<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">//唯一索引</span>
   KEYTYPE_MULTIPLE<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//多重索引</span>
   KEYTYPE_FULLTEXT<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//全文索引</span>
   KEYTYPE_SPATIAL<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//空间索引</span>
   KEYTYPE_FOREIGN <span class="token comment" spellcheck="true">//外键索引</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后在sql_class.h里定义了索引类Key：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Key</span> <span class="token operator">:</span><span class="token keyword">public</span> Sql_alloc <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Key</span> <span class="token operator">:</span><span class="token keyword">public</span> Sql_alloc <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//索引类型</span>
   keytype type<span class="token punctuation">;</span>
   <span class="token comment" spellcheck="true">//索引元信息，如索引算法、名称、注释等</span>
@@ -1274,19 +1274,19 @@ Redo Logfile Siz">
   List<span class="token operator">&lt;</span>Key_part_spec<span class="token operator">></span> columns<span class="token punctuation">;</span>
   LEX_STRING name<span class="token punctuation">;</span>
   <span class="token keyword">bool</span> generated<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>索引元信息中的<code>enum ha_key_alg algorithm</code>支持的索引算法如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">enum</span> ha_key_alg <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">enum</span> ha_key_alg <span class="token punctuation">{</span>
   HA_KEY_ALG_UNDEF<span class="token operator">=</span>    <span class="token number">0</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">/* Not specified (old file) */</span>
   HA_KEY_ALG_BTREE<span class="token operator">=</span>    <span class="token number">1</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">/* B-tree算法，默认使用       */</span>
   HA_KEY_ALG_RTREE<span class="token operator">=</span>    <span class="token number">2</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">/* R-tree算法，用于空间搜索 */</span>
   HA_KEY_ALG_HASH<span class="token operator">=</span>    <span class="token number">3</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">/* HASH算法，用于堆表搜索 */</span>
   HA_KEY_ALG_FULLTEXT<span class="token operator">=</span>    <span class="token number">4</span>        <span class="token comment" spellcheck="true">/* 全文索引，用于MyISAM存储引擎的表 */</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="12-1-2-3、连接表"><a href="#12-1-2-3、连接表" class="headerlink" title="12.1.2.3、连接表"></a>12.1.2.3、连接表</h4><p>连接表是介于关系（TABLE_LIST类）与连接类（JOIN类）之间的一个过渡对象，存放了关系的一些相关信息，也存放了连接操作需要的一些信息，因此称为连接表。其定义如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">JOIN_TAB</span> <span class="token operator">:</span> <span class="token keyword">public</span> Sql_alloc<span class="token punctuation">,</span> <span class="token keyword">public</span> QEP_shared_owner <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">JOIN_TAB</span> <span class="token operator">:</span> <span class="token keyword">public</span> Sql_alloc<span class="token punctuation">,</span> <span class="token keyword">public</span> QEP_shared_owner <span class="token punctuation">{</span>
   TABLE_LIST    <span class="token operator">*</span>table_ref<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">/**&lt; points to table reference               */</span>
 <span class="token comment" spellcheck="true">//第一个可用的索引</span>
   Key_use       <span class="token operator">*</span>m_keyuse<span class="token punctuation">;</span>
@@ -1306,11 +1306,11 @@ Redo Logfile Siz">
   TABLE_LIST    <span class="token operator">*</span>emb_sj_nest<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">/// @returns semijoin strategy for this table.</span>
   uint <span class="token function">get_sj_strategy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="12-1-3、连接对象与执行计划"><a href="#12-1-3、连接对象与执行计划" class="headerlink" title="12.1.3、连接对象与执行计划"></a>12.1.3、连接对象与执行计划</h3><p>MySQL查询优化相关的连接对象主要有连接类（JOIN）、约束条件（Item）和位置（POSITION）等</p>
 <h4 id="12-1-3-1、连接类（JOIN）"><a href="#12-1-3-1、连接类（JOIN）" class="headerlink" title="12.1.3.1、连接类（JOIN）"></a>12.1.3.1、连接类（JOIN）</h4><p>sql_optimizer.h里的JOIN类是连接操作对应的查询语句的连接关系内容，是优化和执行的基本单位，也是优化结果（查询执行计划）的存储对象，其定义如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">JOIN</span> <span class="token operator">:</span><span class="token keyword">public</span> Sql_alloc <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">JOIN</span> <span class="token operator">:</span><span class="token keyword">public</span> Sql_alloc <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">//语法分析之后得到的查询树</span>
   SELECT_LEX <span class="token operator">*</span><span class="token keyword">const</span> select_lex<span class="token punctuation">;</span>
       <span class="token comment" spellcheck="true">//进行集合操作的查询语句</span>
@@ -1370,7 +1370,7 @@ Redo Logfile Siz">
   <span class="token keyword">void</span> <span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment" spellcheck="true">//prepare连接结果</span>
   <span class="token keyword">bool</span> <span class="token function">prepare_result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="12-1-3-2、约束条件"><a href="#12-1-3-2、约束条件" class="headerlink" title="12.1.3.2、约束条件"></a>12.1.3.2、约束条件</h4><p>约束条件是指where或join/on或having子句中的谓词表达式，其分为两种：一种是限制条件，用来过滤单表的元组；另一种是连接条件，满足连接条件的元组才会连接，连接条件表达式一般包括两个或两个以上关系的变量。</p>
 <p>MySQL用Item类表示约束条件表达式，这是一个父类，由一系列子类继承该父类，Item_equal类与Item类之间关系如下：</p>
@@ -1382,9 +1382,9 @@ Redo Logfile Siz">
                     Item
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>约束条件类Item的定义如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Item</span> <span class="token operator">:</span> <span class="token keyword">public</span> Parse_tree_node <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Item</span> <span class="token operator">:</span> <span class="token keyword">public</span> Parse_tree_node <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//Item是一个多用途对象，可以存放连接类中的where，having条件等</span>
-  <span class="token keyword">enum</span> Type <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>INVALID_ITEM<span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token keyword">enum</span> Type <span class="token punctuation">{</span>INVALID_ITEM<span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
              FIELD_ITEM<span class="token punctuation">,</span> FUNC_ITEM<span class="token punctuation">,</span> SUM_FUNC_ITEM<span class="token punctuation">,</span> STRING_ITEM<span class="token punctuation">,</span>
          INT_ITEM<span class="token punctuation">,</span> REAL_ITEM<span class="token punctuation">,</span> NULL_ITEM<span class="token punctuation">,</span> VARBIN_ITEM<span class="token punctuation">,</span>
          COPY_STR_ITEM<span class="token punctuation">,</span> FIELD_AVG_ITEM<span class="token punctuation">,</span> DEFAULT_VALUE_ITEM<span class="token punctuation">,</span>
@@ -1393,7 +1393,7 @@ Redo Logfile Siz">
              SUBSELECT_ITEM<span class="token punctuation">,</span> ROW_ITEM<span class="token punctuation">,</span> CACHE_ITEM<span class="token punctuation">,</span> TYPE_HOLDER<span class="token punctuation">,</span>
              PARAM_ITEM<span class="token punctuation">,</span> TRIGGER_FIELD_ITEM<span class="token punctuation">,</span> DECIMAL_ITEM<span class="token punctuation">,</span>
              XPATH_NODESET<span class="token punctuation">,</span> XPATH_NODESET_CMP<span class="token punctuation">,</span>
-             VIEW_FIXER_ITEM<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+             VIEW_FIXER_ITEM<span class="token punctuation">}</span><span class="token punctuation">;</span>
     
   <span class="token comment" spellcheck="true">/*
   将一个Item类转化为一个Filed类返回,例如：
@@ -1403,13 +1403,13 @@ Redo Logfile Siz">
   */</span>
       Field <span class="token operator">*</span><span class="token function">tmp_table_field_from_field_type</span><span class="token punctuation">(</span>TABLE <span class="token operator">*</span>table<span class="token punctuation">,</span> <span class="token keyword">bool</span> fixed_length<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Item语法树</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210517205411374.png" alt="image-20210517205411374"></p>
 <p>等值条件类COND_EQUAL：</p>
 <pre class="line-numbers language-CPP"><code class="language-CPP">class COND_EQUAL: public Sql_alloc
-&#123;
+{
 public:
     //本层以及本层以下的成员个数（条件有嵌套）
   uint max_members;       
@@ -1418,23 +1418,23 @@ public:
 //当前等式表达式
   List<Item_equal> current_level;
   COND_EQUAL()
-  &#123; 
+  { 
     upper_levels= 0;
-  &#125;
-&#125;;
+  }
+};
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>表示等式的类Item_equal，格式如field1=field2、field=const</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Item_equal</span><span class="token operator">:</span> <span class="token keyword">public</span> Item_bool_func <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Item_equal</span><span class="token operator">:</span> <span class="token keyword">public</span> Item_bool_func <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//表达式的因子，如field1=field2中的field1和field2</span>
   List<span class="token operator">&lt;</span>Item_field<span class="token operator">></span> fields<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//常量因子</span>
   Item <span class="token operator">*</span>const_item<span class="token punctuation">;</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="12-1-3-3、位置"><a href="#12-1-3-3、位置" class="headerlink" title="12.1.3.3、位置"></a>12.1.3.3、位置</h4><p>在连接顺序中，位置是指被连接的表的位置。这个位置上存储了被访问的表、被使用的访问方法、半连接策略的选择、半连接优化状态等。MySQL多表连接算法支持的是从左到右的类似左深树的连接方式，但左深树是一个树形结构，而MySQL的多表连接算法连接表的过程是一个平面结构，先对表进行排序，然后从左到右地连接排好序的表，然后确定当前连接方式的花费。</p>
 <p>位置st_position结构体的定义如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> st_position <span class="token operator">:</span> <span class="token keyword">public</span> Sql_alloc <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> st_position <span class="token operator">:</span> <span class="token keyword">public</span> Sql_alloc <span class="token punctuation">{</span>
 <span class="token comment" spellcheck="true">//rows_fetched = selectivity(access_condition) * cardinality(table)</span>
   <span class="token keyword">double</span> rows_fetched<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//访问表的花费</span>
@@ -1444,7 +1444,7 @@ public:
       <span class="token comment" spellcheck="true">/**
   索引信息
     NULL  -  'index' or 'range' or 'index_merge' or 'ALL' access is used.
-    Other - [eq_]ref[_or_null] access is used. Pointer to &amp;#123;t.keypart1 = expr&amp;#125;
+    Other - [eq_]ref[_or_null] access is used. Pointer to {t.keypart1 = expr}
   */</span>
   Key_use <span class="token operator">*</span>key<span class="token punctuation">;</span>
       <span class="token comment" spellcheck="true">//半连接优化策略</span>
@@ -1485,7 +1485,7 @@ public:
   */</span>
   table_map sjm_scan_need_tables<span class="token punctuation">;</span>
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="12-1-4、代价估算类"><a href="#12-1-4、代价估算类" class="headerlink" title="12.1.4、代价估算类"></a>12.1.4、代价估算类</h3><p>主要包括四个层面：</p>
 <ul>
@@ -1495,7 +1495,7 @@ public:
 <li>内存操作花费</li>
 </ul>
 <p>代价估算类Cost_estimate定义如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Cost_estimate</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Cost_estimate</span> <span class="token punctuation">{</span>
        <span class="token comment" spellcheck="true">//IO操作花费</span>
   <span class="token keyword">double</span> io_cost<span class="token punctuation">;</span> 
       <span class="token comment" spellcheck="true">//CPU操作花费</span>
@@ -1505,36 +1505,36 @@ public:
       <span class="token comment" spellcheck="true">//内存操作花费</span>
   <span class="token keyword">double</span> mem_cost<span class="token punctuation">;</span> 
     <span class="token comment" spellcheck="true">//5.7.19版本暂时没有考虑内存操作花费</span>
-      <span class="token keyword">double</span> <span class="token function">total_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token keyword">return</span> io_cost <span class="token operator">+</span> cpu_cost <span class="token operator">+</span> import_cost<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token keyword">double</span> <span class="token function">total_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>  <span class="token punctuation">{</span> <span class="token keyword">return</span> io_cost <span class="token operator">+</span> cpu_cost <span class="token operator">+</span> import_cost<span class="token punctuation">;</span> <span class="token punctuation">}</span>
       <span class="token comment" spellcheck="true">/// Add to IO cost</span>
   <span class="token keyword">void</span> <span class="token function">add_io</span><span class="token punctuation">(</span><span class="token keyword">double</span> add_io_cost<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">is_max_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     io_cost<span class="token operator">+</span><span class="token operator">=</span> add_io_cost<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
   <span class="token comment" spellcheck="true">/// Add to CPU cost</span>
   <span class="token keyword">void</span> <span class="token function">add_cpu</span><span class="token punctuation">(</span><span class="token keyword">double</span> add_cpu_cost<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">is_max_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     cpu_cost<span class="token operator">+</span><span class="token operator">=</span> add_cpu_cost<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
   <span class="token comment" spellcheck="true">/// Add to import cost</span>
   <span class="token keyword">void</span> <span class="token function">add_import</span><span class="token punctuation">(</span><span class="token keyword">double</span> add_import_cost<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">is_max_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     import_cost<span class="token operator">+</span><span class="token operator">=</span> add_import_cost<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
   <span class="token comment" spellcheck="true">/// Add to memory cost</span>
   <span class="token keyword">void</span> <span class="token function">add_mem</span><span class="token punctuation">(</span><span class="token keyword">double</span> add_mem_cost<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">is_max_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     mem_cost<span class="token operator">+</span><span class="token operator">=</span> add_mem_cost<span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在DsMrr_impl::get_disk_sweep_mrr_cost方法里，还是添加了内存操作花费，只是目前暂不考虑，将来的版本会考虑</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">  <span class="token comment" spellcheck="true">/*
@@ -1617,40 +1617,40 @@ flatten_subqueries<span class="token comment" spellcheck="true">//将子查询�
 apply_local_transforms
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="13-2-1-2、remove-redundant-subquery-clauses"><a href="#13-2-1-2、remove-redundant-subquery-clauses" class="headerlink" title="13.2.1.2、remove_redundant_subquery_clauses"></a>13.2.1.2、remove_redundant_subquery_clauses</h4><p>MySQL定义的子查询类型如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"> <span class="token keyword">enum</span> subs_type <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>UNKNOWN_SUBS<span class="token punctuation">,</span> SINGLEROW_SUBS<span class="token punctuation">,</span>
-          EXISTS_SUBS<span class="token punctuation">,</span> IN_SUBS<span class="token punctuation">,</span> ALL_SUBS<span class="token punctuation">,</span> ANY_SUBS<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"> <span class="token keyword">enum</span> subs_type <span class="token punctuation">{</span>UNKNOWN_SUBS<span class="token punctuation">,</span> SINGLEROW_SUBS<span class="token punctuation">,</span>
+          EXISTS_SUBS<span class="token punctuation">,</span> IN_SUBS<span class="token punctuation">,</span> ALL_SUBS<span class="token punctuation">,</span> ANY_SUBS<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><code>remove_redundant_subquery_clauses</code>的主要代码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//用于去除冗余的orderby，distinct和group by子句</span>
 <span class="token keyword">void</span> SELECT_LEX<span class="token operator">::</span><span class="token function">remove_redundant_subquery_clauses</span> <span class="token punctuation">(</span>THD <span class="token operator">*</span>thd<span class="token punctuation">,</span>
                                                    <span class="token keyword">int</span> hidden_group_field_count<span class="token punctuation">,</span>
-                                                   <span class="token keyword">int</span> hidden_order_field_count<span class="token punctuation">)</span>  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                                   <span class="token keyword">int</span> hidden_order_field_count<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>subq_predicate<span class="token operator">-</span><span class="token operator">></span><span class="token function">substype</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> Item_subselect<span class="token operator">::</span>SINGLEROW_SUBS<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//不处理简单的行子查询</span>
         <span class="token keyword">return</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//去除order by子句</span>
-     <span class="token keyword">if</span> <span class="token punctuation">(</span>order_list<span class="token punctuation">.</span>elements<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span>order_list<span class="token punctuation">.</span>elements<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token function">empty_order_list</span><span class="token punctuation">(</span>hidden_order_field_count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//去除distinct子句</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_distinct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_distinct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">remove_base_options</span><span class="token punctuation">(</span>SELECT_DISTINCT<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
      <span class="token comment" spellcheck="true">//去除group by子句（如果没有聚合函数和having子句）</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>group_list<span class="token punctuation">.</span>elements <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">agg_func_used</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">having_cond</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>group_list<span class="token punctuation">.</span>elements <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">agg_func_used</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">having_cond</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span>ORDER <span class="token operator">*</span>g<span class="token operator">=</span> group_list<span class="token punctuation">.</span>first<span class="token punctuation">;</span> g <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span> g<span class="token operator">=</span> g<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
           <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>g<span class="token operator">-</span><span class="token operator">></span>item <span class="token operator">==</span> g<span class="token operator">-</span><span class="token operator">></span>item_ptr<span class="token punctuation">)</span>
             <span class="token punctuation">(</span><span class="token operator">*</span>g<span class="token operator">-</span><span class="token operator">></span>item<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">walk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>Item<span class="token operator">::</span>clean_up_after_removal<span class="token punctuation">,</span> walk_subquery<span class="token punctuation">,</span>
                              <span class="token keyword">reinterpret_cast</span><span class="token operator">&lt;</span>uchar<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         group_list<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span>hidden_group_field_count<span class="token operator">--</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
           all_fields<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           ref_ptrs<span class="token punctuation">[</span>all_fields<span class="token punctuation">.</span>elements<span class="token punctuation">]</span><span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="13-2-1-3、resolve-subquery"><a href="#13-2-1-3、resolve-subquery" class="headerlink" title="13.2.1.3、resolve_subquery"></a>13.2.1.3、resolve_subquery</h4><p>主要用于对子查询进行各种优化，可优化方式如下：</p>
 <ul>
@@ -1661,9 +1661,9 @@ apply_local_transforms
 <li>使用值替代标量子查询</li>
 </ul>
 <p>主要代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> SELECT_LEX<span class="token operator">::</span><span class="token function">resolve_subquery</span><span class="token punctuation">(</span>THD <span class="token operator">*</span>thd<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> SELECT_LEX<span class="token operator">::</span><span class="token function">resolve_subquery</span><span class="token punctuation">(</span>THD <span class="token operator">*</span>thd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>in_predicate<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//IN操作</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/*
     如果左操作数和右操作数的列数量不同，报错退出函数
       Check if the left and right expressions have the same # of
@@ -1671,11 +1671,11 @@ apply_local_transforms
         (oe1, oe2) IN (SELECT ie1, ie2, ie3 ...)
     */</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>item_list<span class="token punctuation">.</span>elements <span class="token operator">!=</span> in_predicate<span class="token operator">-</span><span class="token operator">></span>left_expr<span class="token operator">-</span><span class="token operator">></span><span class="token function">cols</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       <span class="token function">my_error</span><span class="token punctuation">(</span>ER_OPERAND_COLUMNS<span class="token punctuation">,</span> <span class="token function">MYF</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> in_predicate<span class="token operator">-</span><span class="token operator">></span>left_expr<span class="token operator">-</span><span class="token operator">></span><span class="token function">cols</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
   
       <span class="token comment" spellcheck="true">/*
       如果满足以下10点，子查询就可以被扁平化为半连接操作（在flatten_subqueries函数里实现）
@@ -1710,7 +1710,7 @@ apply_local_transforms
       outer<span class="token operator">-</span><span class="token operator">></span>leaf_table_count <span class="token operator">&amp;&amp;</span>                                        <span class="token comment" spellcheck="true">// 9</span>
       <span class="token operator">!</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">active_options</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">|</span> outer<span class="token operator">-</span><span class="token operator">></span><span class="token function">active_options</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>
        SELECT_STRAIGHT_JOIN<span class="token punctuation">)</span><span class="token punctuation">)</span>                                           <span class="token comment" spellcheck="true">//10</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">DBUG_PRINT</span><span class="token punctuation">(</span><span class="token string">"info"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">"Subquery is semi-join conversion candidate"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">/* Notify in the subquery predicate where it belongs in the query graph */</span>
@@ -1719,11 +1719,11 @@ apply_local_transforms
     <span class="token comment" spellcheck="true">/* Register the subquery for further processing in flatten_subqueries() */</span>
     outer<span class="token operator">-</span><span class="token operator">></span>sj_candidates<span class="token operator">-</span><span class="token operator">></span><span class="token function">push_back</span><span class="token punctuation">(</span>in_predicate<span class="token punctuation">)</span><span class="token punctuation">;</span>
     chose_semijoin<span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span> 
     <span class="token comment" spellcheck="true">//如果不可以使用半连接优化，调用select_transformer->select_in_like_transformer函数进行子查询优化(IN/ALL/ANY/SOME)</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>chose_semijoin <span class="token operator">&amp;&amp;</span> subq_predicate<span class="token operator">-</span><span class="token operator">></span><span class="token function">select_transformer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">==</span> Item_subselect<span class="token operator">::</span>RES_ERROR<span class="token punctuation">)</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="13-2-1-4、flatten-subqueries：转换子查询为半连接"><a href="#13-2-1-4、flatten-subqueries：转换子查询为半连接" class="headerlink" title="13.2.1.4、flatten_subqueries：转换子查询为半连接"></a>13.2.1.4、flatten_subqueries：转换子查询为半连接</h4><p>即把子查询的表对象上拉到from子句，让from子句原先的表对象和子查询中被上拉的表对象进行半连接操作，从而达到扁平化子查询的效果</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210519110113223.png" alt="image-20210519110113223"></p>
@@ -1731,10 +1731,10 @@ apply_local_transforms
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210519110138660.png" alt="image-20210519110138660"></p>
 <p>转换后，经过条件替换函数replace_subcondition的处理，条件部分发生了较大变化（如subq_where合并到父查询的where子句中，生成新条件oe=ie）。</p>
 <p>flatten_subqueries实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> SELECT_LEX<span class="token operator">::</span><span class="token function">flatten_subqueries</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> SELECT_LEX<span class="token operator">::</span><span class="token function">flatten_subqueries</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//1、自底向上，转换各子句中存在的子查询</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>subq<span class="token operator">=</span> subq_begin<span class="token punctuation">;</span> subq <span class="token operator">&lt;</span> subq_end<span class="token punctuation">;</span> subq<span class="token operator">++</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
            <span class="token comment" spellcheck="true">//目前版本（5.7.19）仅支持IN格式的子查询</span>
         <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">substype</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> Item_subselect<span class="token operator">::</span>IN_SUBS<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//获得子句中的查询语句</span>
@@ -1745,7 +1745,7 @@ apply_local_transforms
         <span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>sj_convert_priority<span class="token operator">=</span> 
           <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>unit<span class="token operator">-</span><span class="token operator">></span>uncacheable <span class="token operator">&amp;</span> UNCACHEABLE_DEPENDENT<span class="token punctuation">)</span> <span class="token operator">?</span> MAX_TABLES <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span>
           child_select<span class="token operator">-</span><span class="token operator">></span>leaf_table_count<span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     
     <span class="token comment" spellcheck="true">/*
     2、对子查询进行转换，转换前先排序，排序规则是：
@@ -1759,7 +1759,7 @@ apply_local_transforms
     uint table_count<span class="token operator">=</span> leaf_table_count<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//2.2、对排好序的所有子查询进行转换前的准备工作：条件替换</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>subq<span class="token operator">=</span> subq_begin<span class="token punctuation">;</span> subq <span class="token operator">&lt;</span> subq_end<span class="token punctuation">;</span> subq<span class="token operator">++</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// Add the tables in the subquery nest plus one in case of materialization:</span>
         <span class="token keyword">const</span> uint tables_added<span class="token operator">=</span>
           <span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>unit<span class="token operator">-</span><span class="token operator">></span><span class="token function">first_select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>leaf_table_count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
@@ -1771,10 +1771,10 @@ apply_local_transforms
                     <span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>embedding_join_nest<span class="token operator">-</span><span class="token operator">></span><span class="token function">join_cond_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">replace_subcondition</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> tree<span class="token punctuation">,</span> <span class="token operator">*</span>subq<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token function">Item_int</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> FALSE<span class="token punctuation">)</span><span class="token punctuation">)</span>
           <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* purecov: inspected */</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//2.3、对所有排好序的子查询进行转换</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>subq<span class="token operator">=</span> subq_begin<span class="token punctuation">;</span> subq <span class="token operator">&lt;</span> subq_end<span class="token punctuation">;</span> subq<span class="token operator">++</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>sj_chosen<span class="token punctuation">)</span>
           <span class="token keyword">continue</span><span class="token punctuation">;</span>
         <span class="token function">OPT_TRACE_TRANSFORM</span><span class="token punctuation">(</span>trace<span class="token punctuation">,</span> oto0<span class="token punctuation">,</span> oto1<span class="token punctuation">,</span>
@@ -1783,11 +1783,11 @@ apply_local_transforms
         oto1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"chosen"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">convert_subquery_to_semijoin</span><span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token punctuation">)</span>
           <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     
     <span class="token comment" spellcheck="true">//3、对于第2步不能通过convert_subquery_to_semijoin函数处理的子查询，将IN转换为EXISTS格式</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>subq<span class="token operator">=</span> subq_begin<span class="token punctuation">;</span> subq <span class="token operator">&lt;</span> subq_end<span class="token punctuation">;</span> subq<span class="token operator">++</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
     SELECT_LEX <span class="token operator">*</span>save_select_lex<span class="token operator">=</span> thd<span class="token operator">-</span><span class="token operator">></span>lex<span class="token operator">-</span><span class="token operator">></span><span class="token function">current_select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     thd<span class="token operator">-</span><span class="token operator">></span>lex<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_current_select</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>subq<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>unit<span class="token operator">-</span><span class="token operator">></span><span class="token function">first_select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//实现每个子查询中的优化</span>
@@ -1798,42 +1798,42 @@ apply_local_transforms
         <span class="token comment" spellcheck="true">//将IN转换为EXISTS格式</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">replace_subcondition</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> tree<span class="token punctuation">,</span> <span class="token operator">*</span>subq<span class="token punctuation">,</span> substitute<span class="token punctuation">,</span> do_fix_fields<span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
     
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="13-2-1-5、select-transformer：子查询优化"><a href="#13-2-1-5、select-transformer：子查询优化" class="headerlink" title="13.2.1.5、select_transformer：子查询优化"></a>13.2.1.5、select_transformer：子查询优化</h4><p>select_transformer是父类Item_subselect的一个方法，被4个子类Item_singlerow_subselect、Item_in_subselect、Item_allany_subselect、Item_exists_subselect继承，根据具体类型实现各自的优化。其内部是调用select_in_like_transformer函数来完成子查询的优化的</p>
 <p>select_in_like_transformer的代码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">Item_subselect<span class="token operator">::</span>trans_res
 Item_in_subselect<span class="token operator">::</span><span class="token function">select_in_like_transformer</span><span class="token punctuation">(</span>SELECT_LEX <span class="token operator">*</span>select<span class="token punctuation">,</span>
-                                              Comp_creator <span class="token operator">*</span>func<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                              Comp_creator <span class="token operator">*</span>func<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//如果子查询对应优化器不存在，创建一个优化器</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>optimizer<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     Prepared_stmt_arena_holder <span class="token function">ps_arena_holder</span><span class="token punctuation">(</span>thd<span class="token punctuation">)</span><span class="token punctuation">;</span>
     optimizer<span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">Item_in_optimizer</span><span class="token punctuation">(</span>left_expr<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
     thd<span class="token operator">-</span><span class="token operator">></span>lex<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_current_select</span><span class="token punctuation">(</span>select<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token comment" spellcheck="true">//如果IN谓词的左操作数只有一列，则认为是标量IN子查询</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>left_expr<span class="token operator">-</span><span class="token operator">></span><span class="token function">cols</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
       res<span class="token operator">=</span> <span class="token function">single_value_transformer</span><span class="token punctuation">(</span>select<span class="token punctuation">,</span> func<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">else</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">/* we do not support row operation for ALL/ANY/SOME */</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>func <span class="token operator">!=</span> <span class="token operator">&amp;</span>eq_creator<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         <span class="token function">my_error</span><span class="token punctuation">(</span>ER_OPERAND_COLUMNS<span class="token punctuation">,</span> <span class="token function">MYF</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span>RES_ERROR<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
        <span class="token comment" spellcheck="true">//否则则认为是行式IN子查询</span>
       res<span class="token operator">=</span> <span class="token function">row_value_transformer</span><span class="token punctuation">(</span>select<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>                                            
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>                                            
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-2、JOIN-optimize：优化器的主入口方法"><a href="#13-2-2、JOIN-optimize：优化器的主入口方法" class="headerlink" title="13.2.2、JOIN::optimize：优化器的主入口方法"></a>13.2.2、JOIN::optimize：优化器的主入口方法</h3><p>包括逻辑查询优化和物理查询优化，得到最终查询执行计划。实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> JOIN<span class="token operator">::</span><span class="token function">optimize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    apply_local_transforms <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> JOIN<span class="token operator">::</span><span class="token function">optimize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    apply_local_transforms <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//将外连接转换为内连接（递归调用）</span>
           <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">simplify_joins</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>top_join_list<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>m_where_cond<span class="token punctuation">)</span><span class="token punctuation">)</span>
               <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1842,17 +1842,17 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
               <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//给每个嵌套连接分配一个bit位，构建bitmap</span>
         <span class="token function">build_bitmap_for_nested_joins</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>top_join_list<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     
     <span class="token comment" spellcheck="true">//对查询语句中的临时关系或视图对象，使用optimize_derived函数创建临时表或物化临时关系，便于后续使用</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>select_lex<span class="token operator">-</span><span class="token operator">></span>materialized_derived_table_count<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span>TABLE_LIST <span class="token operator">*</span>tl<span class="token operator">=</span> select_lex<span class="token operator">-</span><span class="token operator">></span>leaf_tables<span class="token punctuation">;</span> tl<span class="token punctuation">;</span> tl<span class="token operator">=</span> tl<span class="token operator">-</span><span class="token operator">></span>next_leaf<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>tl<span class="token operator">-</span><span class="token operator">></span><span class="token function">is_view_or_derived</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> tl<span class="token operator">-</span><span class="token operator">></span><span class="token function">optimize_derived</span><span class="token punctuation">(</span>thd<span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//优化where子句</span>
     <span class="token function">optimize_cond</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>where_cond<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cond_equal<span class="token punctuation">,</span>
                       <span class="token operator">&amp;</span>select_lex<span class="token operator">-</span><span class="token operator">></span>top_join_list<span class="token punctuation">,</span> <span class="token operator">&amp;</span>select_lex<span class="token operator">-</span><span class="token operator">></span>cond_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1860,11 +1860,11 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
     <span class="token function">optimize_cond</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>having_cond<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cond_equal<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span>
                       <span class="token operator">&amp;</span>select_lex<span class="token operator">-</span><span class="token operator">></span>having_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//对没有group子句且调用了count(*), min() and max()函数的情况进行优化</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>tables_list <span class="token operator">&amp;&amp;</span> implicit_grouping<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>tables_list <span class="token operator">&amp;&amp;</span> implicit_grouping<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token comment" spellcheck="true">//对每个单表（叶子表）上满足上述条件的情况进行优化</span>
           <span class="token function">opt_sum_query</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> select_lex<span class="token operator">-</span><span class="token operator">></span>leaf_tables<span class="token punctuation">,</span> all_fields<span class="token punctuation">,</span>
                             where_cond<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//计算最优连接次序，初始化JOIN对象</span>
     <span class="token function">make_join_plan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//小优化：对常量表提前解锁</span>
@@ -1881,10 +1881,10 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
     <span class="token function">make_join_readinfo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> no_jbuf_after<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//初始化临时表</span>
     <span class="token function">make_tmp_tables_info</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-3、JOIN-make-join-plan：计算最优的查询优化执行计划"><a href="#13-2-3、JOIN-make-join-plan：计算最优的查询优化执行计划" class="headerlink" title="13.2.3、JOIN::make_join_plan：计算最优的查询优化执行计划"></a>13.2.3、JOIN::make_join_plan：计算最优的查询优化执行计划</h3><p>实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> JOIN<span class="token operator">::</span><span class="token function">make_join_plan</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> JOIN<span class="token operator">::</span><span class="token function">make_join_plan</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//初始化连接次序优化的临时数组</span>
     <span class="token function">init_planner_arrays</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token comment" spellcheck="true">//求解传播表之间的依赖关系</span>
@@ -1892,11 +1892,11 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
     <span class="token comment" spellcheck="true">//将表之间的依赖关系写到优化器跟踪信息里</span>
     <span class="token function">trace_table_dependencies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//获取索引信息</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>where_cond <span class="token operator">||</span> select_lex<span class="token operator">-</span><span class="token operator">></span>outer_join<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>where_cond <span class="token operator">||</span> select_lex<span class="token operator">-</span><span class="token operator">></span>outer_join<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">update_ref_and_keys</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>keyuse_array<span class="token punctuation">,</span> join_tab<span class="token punctuation">,</span> tables<span class="token punctuation">,</span> where_cond<span class="token punctuation">,</span>
                             cond_equal<span class="token punctuation">,</span> <span class="token operator">~</span>select_lex<span class="token operator">-</span><span class="token operator">></span>outer_join<span class="token punctuation">,</span> select_lex<span class="token punctuation">,</span>
                             <span class="token operator">&amp;</span>sargables<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//基于表之间的依赖关系，可以把一些用于半连接计算的表拉到上层，避开用半连接计算</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>select_lex<span class="token operator">-</span><span class="token operator">></span>sj_pullout_done <span class="token operator">&amp;&amp;</span> select_lex<span class="token operator">-</span><span class="token operator">></span>sj_nests<span class="token punctuation">.</span>elements <span class="token operator">&amp;&amp;</span>
       <span class="token function">pull_out_semijoin_tables</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -1905,19 +1905,19 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
     <span class="token function">extract_const_tables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//基于函数依赖提取常量表</span>
     <span class="token function">extract_func_dependent_tables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">estimate_rowcount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">estimate_rowcount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span>JOIN_TAB <span class="token operator">*</span>tab<span class="token operator">=</span> join_tab<span class="token punctuation">;</span> tab <span class="token operator">&lt;</span> tab_end<span class="token punctuation">;</span> tab<span class="token operator">++</span><span class="token punctuation">)</span>
-          <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+          <span class="token punctuation">{</span>
             <span class="token keyword">const</span> Cost_model_table <span class="token operator">*</span><span class="token keyword">const</span> cost_model<span class="token operator">=</span> tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">table</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">cost_model</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//如果是常量表，元组数最多是1</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> JT_SYSTEM <span class="token operator">||</span> tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> JT_CONST<span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">{</span>
           <span class="token comment" spellcheck="true">// Only one matching row and one block to read</span>
           tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_records</span><span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span>found_records<span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           tab<span class="token operator">-</span><span class="token operator">></span>worst_seeks<span class="token operator">=</span> cost_model<span class="token operator">-</span><span class="token operator">></span><span class="token function">page_read_cost</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           tab<span class="token operator">-</span><span class="token operator">></span>read_time<span class="token operator">=</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span>ha_rows<span class="token operator">></span><span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span>worst_seeks<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token keyword">continue</span><span class="token punctuation">;</span>
-         <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
             <span class="token comment" spellcheck="true">//计算非常量表的元组数、获取数据的时间花费和最坏搜索因子</span>
             tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_records</span><span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span>found_records<span class="token operator">=</span> tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">table</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span>stats<span class="token punctuation">.</span>records<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token keyword">const</span> Cost_estimate table_scan_time<span class="token operator">=</span> tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">table</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span><span class="token function">table_scan_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1935,17 +1935,17 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
             <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>tab<span class="token operator">-</span><span class="token operator">></span>const_keys<span class="token punctuation">.</span><span class="token function">is_clear_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>                        <span class="token comment" spellcheck="true">// (1)</span>
                 <span class="token punctuation">(</span><span class="token operator">!</span>tl<span class="token operator">-</span><span class="token operator">></span>embedding <span class="token operator">||</span>                                        <span class="token comment" spellcheck="true">// (2)</span>
                  <span class="token punctuation">(</span>tl<span class="token operator">-</span><span class="token operator">></span>embedding <span class="token operator">&amp;&amp;</span> tl<span class="token operator">-</span><span class="token operator">></span>embedding<span class="token operator">-</span><span class="token operator">></span><span class="token function">sj_cond</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>            <span class="token comment" spellcheck="true">// (3)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">{</span>
               ha_rows records<span class="token operator">=</span> <span class="token function">get_quick_record_count</span><span class="token punctuation">(</span>thd<span class="token punctuation">,</span> tab<span class="token punctuation">,</span> row_limit<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             <span class="token keyword">else</span>
-           <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//否则执行全表扫描</span>
+           <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//否则执行全表扫描</span>
               <span class="token function">Opt_trace_object</span><span class="token punctuation">(</span>trace<span class="token punctuation">,</span> <span class="token string">"table_scan"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
                 <span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"rows"</span><span class="token punctuation">,</span> tab<span class="token operator">-</span><span class="token operator">></span>found_records<span class="token punctuation">)</span><span class="token punctuation">.</span>
                 <span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"cost"</span><span class="token punctuation">,</span> tab<span class="token operator">-</span><span class="token operator">></span>read_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-          <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//为了利用好索引，对索引对象上的keyuse值进行更新</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">plan_is_const</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
           <span class="token function">optimize_keyuse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1963,30 +1963,30 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">get_best_combination</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-4、choose-table-order：求解多表连接最优连接路径"><a href="#13-2-4、choose-table-order：求解多表连接最优连接路径" class="headerlink" title="13.2.4、choose_table_order：求解多表连接最优连接路径"></a>13.2.4、choose_table_order：求解多表连接最优连接路径</h3><p>choose_table_order函数选择一个算法求解最优路径，实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> Optimize_table_order<span class="token operator">::</span><span class="token function">choose_table_order</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> Optimize_table_order<span class="token operator">::</span><span class="token function">choose_table_order</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
    <span class="token comment" spellcheck="true">//如果全是常量表，不用做多表连接的优化</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>join<span class="token operator">-</span><span class="token operator">></span>const_tables <span class="token operator">==</span> join<span class="token operator">-</span><span class="token operator">></span>tables<span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token function">memcpy</span><span class="token punctuation">(</span>join<span class="token operator">-</span><span class="token operator">></span>best_positions<span class="token punctuation">,</span> join<span class="token operator">-</span><span class="token operator">></span>positions<span class="token punctuation">,</span>
        <span class="token keyword">sizeof</span><span class="token punctuation">(</span>POSITION<span class="token punctuation">)</span> <span class="token operator">*</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">)</span><span class="token punctuation">;</span>
     join<span class="token operator">-</span><span class="token operator">></span>best_read<span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
     join<span class="token operator">-</span><span class="token operator">></span>best_rowcount<span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//确定是否采用SQL语句指定的次序（SQL中通过hit指定straight join）来生成多表连接执行计划</span>
     <span class="token keyword">const</span> <span class="token keyword">bool</span> straight_join<span class="token operator">=</span>join<span class="token operator">-</span><span class="token operator">></span>select_lex<span class="token operator">-</span><span class="token operator">></span><span class="token function">active_options</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> SELECT_STRAIGHT_JOIN<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//如果存在半连接，则采用物化方法进行优化</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>emb_sjm_nest<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
     <span class="token function">merge_sort</span><span class="token punctuation">(</span>join<span class="token operator">-</span><span class="token operator">></span>best_ref <span class="token operator">+</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">,</span>
                join<span class="token operator">-</span><span class="token operator">></span>best_ref <span class="token operator">+</span> join<span class="token operator">-</span><span class="token operator">></span>tables<span class="token punctuation">,</span>
                <span class="token function">Join_tab_compare_embedded_first</span><span class="token punctuation">(</span>emb_sjm_nest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     join_tables<span class="token operator">=</span> emb_sjm_nest<span class="token operator">-</span><span class="token operator">></span>sj_inner_tables<span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token comment" spellcheck="true">//否则，需要对多表连接进行优化求解最优路径</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token comment" spellcheck="true">//否则，需要对多表连接进行优化求解最优路径</span>
+      <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//使用用户指定的表连接次序对表排序</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>straight_join<span class="token punctuation">)</span>
           <span class="token function">merge_sort</span><span class="token punctuation">(</span>join<span class="token operator">-</span><span class="token operator">></span>best_ref <span class="token operator">+</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">,</span>
@@ -1998,50 +1998,50 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
                      <span class="token function">Join_tab_compare_default</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//所有基表去掉常量表就是要连接的表</span>
         join_tables<span class="token operator">=</span> join<span class="token operator">-</span><span class="token operator">></span>all_table_map <span class="token operator">&amp;</span> <span class="token operator">~</span>join<span class="token operator">-</span><span class="token operator">></span>const_table_map<span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
      <span class="token keyword">if</span> <span class="token punctuation">(</span>straight_join<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//如果使用用户指定次序连接，查询优化器不再优化</span>
             <span class="token function">optimize_straight_join</span><span class="token punctuation">(</span>join_tables<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">else</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//否则使用贪心算法进行搜索</span>
+      <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">//否则使用贪心算法进行搜索</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">greedy_search</span><span class="token punctuation">(</span>join_tables<span class="token punctuation">)</span><span class="token punctuation">)</span>
           <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//修改半连接策略并估算花费</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fix_semijoin_strategies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
             <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-5、make-join-select：对条件求值，下推连接条件到表中"><a href="#13-2-5、make-join-select：对条件求值，下推连接条件到表中" class="headerlink" title="13.2.5、make_join_select：对条件求值，下推连接条件到表中"></a>13.2.5、make_join_select：对条件求值，下推连接条件到表中</h3><p>make_join_select函数主要用于分解连接条件（where和on等条件），下推连接条件到表中，实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">static</span> <span class="token keyword">bool</span> <span class="token function">make_join_select</span><span class="token punctuation">(</span>JOIN <span class="token operator">*</span>join<span class="token punctuation">,</span> Item <span class="token operator">*</span>cond<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">static</span> <span class="token keyword">bool</span> <span class="token function">make_join_select</span><span class="token punctuation">(</span>JOIN <span class="token operator">*</span>join<span class="token punctuation">,</span> Item <span class="token operator">*</span>cond<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//1、优化点：把列上的非NULL语义加入到条件中，有利于条件判断（语义优化技术）</span>
     <span class="token function">add_not_null_conds</span><span class="token punctuation">(</span>join<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//2、抽取表达式中的常量</span>
-     <span class="token keyword">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span> <span class="token punctuation">{</span>
          const_cond<span class="token operator">=</span> <span class="token function">make_cond_for_table</span><span class="token punctuation">(</span>cond<span class="token punctuation">,</span> join<span class="token operator">-</span><span class="token operator">></span>const_table_map<span class="token punctuation">,</span>
                                     <span class="token punctuation">(</span>table_map<span class="token punctuation">)</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
          <span class="token function">and_conditions</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>const_cond<span class="token punctuation">,</span> join<span class="token operator">-</span><span class="token operator">></span>best_ref<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">condition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token comment" spellcheck="true">//3、遍历每个表，对可能的条件进行下推</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>uint i<span class="token operator">=</span>join<span class="token operator">-</span><span class="token operator">></span>const_tables <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> join<span class="token operator">-</span><span class="token operator">></span>tables <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>uint i<span class="token operator">=</span>join<span class="token operator">-</span><span class="token operator">></span>const_tables <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> join<span class="token operator">-</span><span class="token operator">></span>tables <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
          Item <span class="token operator">*</span>push_cond<span class="token operator">=</span> <span class="token function">make_cond_for_table</span><span class="token punctuation">(</span>tmp<span class="token punctuation">,</span> tab<span class="token operator">-</span><span class="token operator">></span>table_ref<span class="token operator">-</span><span class="token operator">></span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>tab<span class="token operator">-</span><span class="token operator">></span>table_ref<span class="token operator">-</span><span class="token operator">></span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>push_cond<span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">table</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span><span class="token function">cond_push</span><span class="token punctuation">(</span>push_cond<span class="token punctuation">)</span><span class="token punctuation">)</span>
                 tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">table</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span>pushed_cond<span class="token operator">=</span> push_cond<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-6、make-join-readinfo：为连接的每个表构造信息"><a href="#13-2-6、make-join-readinfo：为连接的每个表构造信息" class="headerlink" title="13.2.6、make_join_readinfo：为连接的每个表构造信息"></a>13.2.6、make_join_readinfo：为连接的每个表构造信息</h3><p>make_join_readinfo函数用于确认连接是否要排序，并建立半连接的消除重复的策略；为连接中的每个非常量表增加缓存、下推索引条件等方式的信息处理。实现代码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">make_join_readinfo</span><span class="token punctuation">(</span>JOIN <span class="token operator">*</span>join<span class="token punctuation">,</span> uint no_jbuf_after<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">make_join_readinfo</span><span class="token punctuation">(</span>JOIN <span class="token operator">*</span>join<span class="token punctuation">,</span> uint no_jbuf_after<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//建立半连接重复元组消除策略</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">setup_semijoin_dups_elimination</span><span class="token punctuation">(</span>join<span class="token punctuation">,</span> no_jbuf_after<span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span>uint i<span class="token operator">=</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> join<span class="token operator">-</span><span class="token operator">></span>tables<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span>uint i<span class="token operator">=</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> join<span class="token operator">-</span><span class="token operator">></span>tables<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">use_join_cache</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> JOIN_CACHE<span class="token operator">::</span>ALG_NONE<span class="token punctuation">)</span>
                   qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">init_join_cache</span><span class="token punctuation">(</span>tab<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//初始化连接缓存对象</span>
-          <span class="token keyword">switch</span> <span class="token punctuation">(</span>qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+          <span class="token keyword">switch</span> <span class="token punctuation">(</span>qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">case</span> JT_EQ_REF<span class="token operator">:</span>
             <span class="token keyword">case</span> JT_REF_OR_NULL<span class="token operator">:</span>
             <span class="token keyword">case</span> JT_REF<span class="token operator">:</span>
@@ -2060,73 +2060,73 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
             <span class="token keyword">case</span> JT_INDEX_SCAN<span class="token operator">:</span>
                <span class="token comment" spellcheck="true">//动态快速扫描</span>
               <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span>use_quick <span class="token operator">==</span> QS_DYNAMIC_RANGE<span class="token punctuation">)</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">{</span>
                 join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_status_no_good_index_used</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>statistics<span class="token punctuation">)</span>
                   join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">inc_status_select_range_check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span>
+              <span class="token punctuation">{</span>
                   <span class="token keyword">if</span> <span class="token punctuation">(</span>statistics<span class="token punctuation">)</span>
-                  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">{</span>
                       <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">)</span>
                           join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">inc_status_select_scan</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                       <span class="token keyword">else</span>
                           join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">inc_status_select_full_join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
               <span class="token keyword">break</span><span class="token punctuation">;</span>
             <span class="token keyword">case</span> JT_RANGE<span class="token operator">:</span>
             <span class="token keyword">case</span> JT_INDEX_MERGE<span class="token operator">:</span>
               <span class="token keyword">if</span> <span class="token punctuation">(</span>statistics<span class="token punctuation">)</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">{</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> join<span class="token operator">-</span><span class="token operator">></span>const_tables<span class="token punctuation">)</span>
                   join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">inc_status_select_range</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token keyword">else</span>
                   join<span class="token operator">-</span><span class="token operator">></span>thd<span class="token operator">-</span><span class="token operator">></span><span class="token function">inc_status_select_full_range_join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
               <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>table<span class="token operator">-</span><span class="token operator">></span>no_keyread <span class="token operator">&amp;&amp;</span> qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> JT_RANGE<span class="token punctuation">)</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">{</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>table<span class="token operator">-</span><span class="token operator">></span>covering_keys<span class="token punctuation">.</span><span class="token function">is_set</span><span class="token punctuation">(</span>qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">quick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token punctuation">{</span>
                   <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span>qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">quick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>index <span class="token operator">!=</span> MAX_KEY<span class="token punctuation">)</span><span class="token punctuation">;</span>
                   table<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_keyread</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>table<span class="token operator">-</span><span class="token operator">></span>key_read<span class="token punctuation">)</span>
                   qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">push_index_cond</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">quick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span>
                                            <span class="token operator">&amp;</span>trace_refine_table<span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
               <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>filter_effect <span class="token operator">!=</span> COND_FILTER_STALE_NO_CONST<span class="token punctuation">)</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">{</span>
                 <span class="token keyword">double</span> rows_w_const_cond<span class="token operator">=</span> qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>rows_fetched<span class="token punctuation">;</span>
                 qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>rows_fetched<span class="token operator">=</span> <span class="token function">rows2double</span><span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">quick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>records<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>filter_effect <span class="token operator">!=</span> COND_FILTER_STALE<span class="token punctuation">)</span>
-                <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token punctuation">{</span>
                   <span class="token comment" spellcheck="true">// Constant condition moves to filter_effect:</span>
                   <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>rows_fetched <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// avoid division by zero</span>
                     tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>filter_effect<span class="token operator">=</span> <span class="token number">0.0f</span><span class="token punctuation">;</span>
                   <span class="token keyword">else</span>
                     tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>filter_effect<span class="token operator">*</span><span class="token operator">=</span>
                       <span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>rows_w_const_cond<span class="token operator">/</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">position</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>rows_fetched<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
               <span class="token keyword">break</span><span class="token punctuation">;</span>
             <span class="token keyword">case</span> JT_FT<span class="token operator">:</span>
               <span class="token keyword">if</span> <span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">fts_index_access</span><span class="token punctuation">(</span>tab<span class="token punctuation">)</span><span class="token punctuation">)</span>
-              <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+              <span class="token punctuation">{</span>
                 table<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_keyread</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 table<span class="token operator">-</span><span class="token operator">></span>covering_keys<span class="token punctuation">.</span><span class="token function">set_bit</span><span class="token punctuation">(</span>tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">ft_func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
               <span class="token keyword">break</span><span class="token punctuation">;</span>
             <span class="token keyword">default</span><span class="token operator">:</span>
               <span class="token function">DBUG_PRINT</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"Table type %d found"</span><span class="token punctuation">,</span>qep_tab<span class="token operator">-</span><span class="token operator">></span><span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* purecov: deadcode */</span>
               <span class="token function">DBUG_ASSERT</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
               <span class="token keyword">break</span><span class="token punctuation">;</span>                    <span class="token comment" spellcheck="true">/* purecov: deadcode */</span>
-           <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-2-7、JOIN-exec：执行查询执行计划"><a href="#13-2-7、JOIN-exec：执行查询执行计划" class="headerlink" title="13.2.7、JOIN::exec：执行查询执行计划"></a>13.2.7、JOIN::exec：执行查询执行计划</h3><p>JOIN::exec函数根据查询执行计划，完成SQL语句的执行。实现如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> JOIN<span class="token operator">::</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> JOIN<span class="token operator">::</span><span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//准备连接结果</span>
      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">prepare_result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         DBUG_VOID_RETURN<span class="token punctuation">;</span>
@@ -2134,7 +2134,7 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
     query_result<span class="token operator">-</span><span class="token operator">></span><span class="token function">send_result_set_metadata</span><span class="token punctuation">(</span><span class="token operator">*</span>fields<span class="token punctuation">,</span>Protocol<span class="token operator">::</span>SEND_NUM_ROWS <span class="token operator">|</span> Protocol<span class="token operator">::</span>SEND_EOF<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//完成执行</span>
       error<span class="token operator">=</span> <span class="token function">do_select</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="13-3、代价估算"><a href="#13-3、代价估算" class="headerlink" title="13.3、代价估算"></a>13.3、代价估算</h2><p>MySQL代价估算属于物理优化的范畴，是比较多表连接路径优劣的重要依据，计算的过程依赖统计模块提供的统计信息。</p>
 <h3 id="13-3-1、查询代价估算模型"><a href="#13-3-1、查询代价估算模型" class="headerlink" title="13.3.1、查询代价估算模型"></a>13.3.1、查询代价估算模型</h3><p>MySQL使用代价估算公式 Cost = io_cost + cpu_cost + import_cost，对单个对象的某种扫描方式的花费进行了计算，整体上考虑IO，CPU和远程操作代价。</p>
@@ -2170,7 +2170,7 @@ Item_in_subselect<span class="token operator">::</span><span class="token functi
 ha_rows <span class="token function">check_quick_select</span><span class="token punctuation">(</span>PARAM <span class="token operator">*</span>param<span class="token punctuation">,</span> uint idx<span class="token punctuation">,</span> <span class="token keyword">bool</span> index_only<span class="token punctuation">,</span>
                            SEL_ARG <span class="token operator">*</span>tree<span class="token punctuation">,</span> <span class="token keyword">bool</span> update_tbl_stats<span class="token punctuation">,</span> 
            
-                           uint <span class="token operator">*</span>mrr_flags<span class="token punctuation">,</span> uint <span class="token operator">*</span>bufsize<span class="token punctuation">,</span> Cost_estimate <span class="token operator">*</span>cost<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                           uint <span class="token operator">*</span>mrr_flags<span class="token punctuation">,</span> uint <span class="token operator">*</span>bufsize<span class="token punctuation">,</span> Cost_estimate <span class="token operator">*</span>cost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//传递信息到seq，通过seq把check_quick_select的参数传到multi_range_read_info_const函数里</span>
     seq<span class="token punctuation">.</span>keyno<span class="token operator">=</span> idx<span class="token punctuation">;</span>
     seq<span class="token punctuation">.</span>real_keyno<span class="token operator">=</span> keynr<span class="token punctuation">;</span>
@@ -2192,7 +2192,7 @@ ha_rows <span class="token function">check_quick_select</span><span class="token
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token comment" spellcheck="true">//根据索引利用MRR技术，获取行数、花费等信息</span>
     rows<span class="token operator">=</span> file<span class="token operator">-</span><span class="token operator">></span><span class="token function">multi_range_read_info_const</span><span class="token punctuation">(</span>keynr<span class="token punctuation">,</span> <span class="token operator">&amp;</span>seq_if<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>seq<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> bufsize<span class="token punctuation">,</span> mrr_flags<span class="token punctuation">,</span> cost<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="13-3-3-2、test-quick-select：快速获取数据方式的代价计算"><a href="#13-3-3-2、test-quick-select：快速获取数据方式的代价计算" class="headerlink" title="13.3.3.2、test_quick_select：快速获取数据方式的代价计算"></a>13.3.3.2、test_quick_select：快速获取数据方式的代价计算</h4><p>test_quick_select函数为MySQL获取数据提供了一种快速获取数据的方式，方便MySQL判断表上的数据量。实现代码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">test_quick_select</span><span class="token punctuation">(</span>THD <span class="token operator">*</span>thd<span class="token punctuation">,</span> key_map keys_to_use<span class="token punctuation">,</span>
@@ -2202,29 +2202,29 @@ ha_rows <span class="token function">check_quick_select</span><span class="token
                       <span class="token keyword">const</span> QEP_shared_owner <span class="token operator">*</span>tab<span class="token punctuation">,</span>
                       Item <span class="token operator">*</span>cond<span class="token punctuation">,</span>
                       key_map <span class="token operator">*</span>needed_reg<span class="token punctuation">,</span>
-                      QUICK_SELECT_I <span class="token operator">*</span><span class="token operator">*</span>quick<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                      QUICK_SELECT_I <span class="token operator">*</span><span class="token operator">*</span>quick<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//初始的代价计算</span>
      <span class="token keyword">double</span> scan_time<span class="token operator">=</span>cost_model<span class="token operator">-</span><span class="token operator">></span><span class="token function">row_evaluate_cost</span><span class="token punctuation">(</span><span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token operator">></span><span class="token punctuation">(</span>records<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
       Cost_estimate cost_est<span class="token operator">=</span> head<span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span><span class="token function">table_scan_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       cost_est<span class="token punctuation">.</span><span class="token function">add_io</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       cost_est<span class="token punctuation">.</span><span class="token function">add_cpu</span><span class="token punctuation">(</span>scan_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>head<span class="token operator">-</span><span class="token operator">></span>force_index<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         scan_time<span class="token operator">=</span> DBL_MAX<span class="token punctuation">;</span>
         cost_est<span class="token punctuation">.</span><span class="token function">set_max_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>limit <span class="token operator">&lt;</span> records<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         cost_est<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">// Force to use index</span>
         cost_est<span class="token punctuation">.</span><span class="token function">add_io</span><span class="token punctuation">(</span>head<span class="token operator">-</span><span class="token operator">></span><span class="token function">cost_model</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">page_read_cost</span><span class="token punctuation">(</span>
           <span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token operator">></span><span class="token punctuation">(</span>records<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         cost_est<span class="token punctuation">.</span><span class="token function">add_cpu</span><span class="token punctuation">(</span>scan_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cost_est<span class="token punctuation">.</span><span class="token function">total_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">2.0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>force_quick_range<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cost_est<span class="token punctuation">.</span><span class="token function">total_cost</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">2.0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>force_quick_range<span class="token punctuation">)</span>
         <span class="token function">DBUG_RETURN</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token comment" spellcheck="true">/* No need for quick select */</span>     
     <span class="token comment" spellcheck="true">//根据只读索引计算扫描花费，不用读取表数据即可完成，因此单独计算</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>head<span class="token operator">-</span><span class="token operator">></span>covering_keys<span class="token punctuation">.</span><span class="token function">is_clear_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       <span class="token keyword">int</span> key_for_use<span class="token operator">=</span> <span class="token function">find_shortest_key</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> <span class="token operator">&amp;</span>head<span class="token operator">-</span><span class="token operator">></span>covering_keys<span class="token punctuation">)</span><span class="token punctuation">;</span>
       Cost_estimate key_read_time<span class="token operator">=</span>
         param<span class="token punctuation">.</span>table<span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span><span class="token function">index_scan_cost</span><span class="token punctuation">(</span>key_for_use<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
@@ -2234,15 +2234,15 @@ ha_rows <span class="token function">check_quick_select</span><span class="token
 
       <span class="token keyword">bool</span> chosen<span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>key_read_time <span class="token operator">&lt;</span> cost_est<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         cost_est<span class="token operator">=</span> key_read_time<span class="token punctuation">;</span>
         chosen<span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//计算单表上带有MIN/MAX聚合函数的分组操作花费</span>
     group_trp<span class="token operator">=</span> <span class="token function">get_best_group_min_max</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>param<span class="token punctuation">,</span> tree<span class="token punctuation">,</span> <span class="token operator">&amp;</span>best_cost<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>group_trp<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       param<span class="token punctuation">.</span>table<span class="token operator">-</span><span class="token operator">></span>quick_condition_rows<span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>group_trp<span class="token operator">-</span><span class="token operator">></span>records<span class="token punctuation">,</span>
                                              head<span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span>stats<span class="token punctuation">.</span>records<span class="token punctuation">)</span><span class="token punctuation">;</span>
       Opt_trace_object <span class="token function">grp_summary</span><span class="token punctuation">(</span>trace<span class="token punctuation">,</span>
@@ -2251,45 +2251,45 @@ ha_rows <span class="token function">check_quick_select</span><span class="token
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">unlikely</span><span class="token punctuation">(</span>trace<span class="token operator">-</span><span class="token operator">></span><span class="token function">is_started</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         group_trp<span class="token operator">-</span><span class="token operator">></span><span class="token function">trace_basic_info</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>param<span class="token punctuation">,</span> <span class="token operator">&amp;</span>grp_summary<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>group_trp<span class="token operator">-</span><span class="token operator">></span>cost_est <span class="token operator">&lt;</span> best_cost<span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         grp_summary<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"chosen"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         best_trp<span class="token operator">=</span> group_trp<span class="token punctuation">;</span>
         best_cost<span class="token operator">=</span> best_trp<span class="token operator">-</span><span class="token operator">></span>cost_est<span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
       <span class="token keyword">else</span>
         grp_summary<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"chosen"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add_alnum</span><span class="token punctuation">(</span><span class="token string">"cause"</span><span class="token punctuation">,</span> <span class="token string">"cost"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     
      <span class="token keyword">if</span> <span class="token punctuation">(</span>tree<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
          <span class="token comment" spellcheck="true">//基于索引做范围扫描的最优花费</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>range_trp<span class="token operator">=</span> <span class="token function">get_key_scans_params</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>param<span class="token punctuation">,</span> tree<span class="token punctuation">,</span> FALSE<span class="token punctuation">,</span> TRUE<span class="token punctuation">,</span>
                                              <span class="token operator">&amp;</span>best_cost<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
           best_trp<span class="token operator">=</span> range_trp<span class="token punctuation">;</span>
           best_cost<span class="token operator">=</span> best_trp<span class="token operator">-</span><span class="token operator">></span>cost_est<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>thd<span class="token operator">-</span><span class="token operator">></span>lex<span class="token operator">-</span><span class="token operator">></span>sql_command <span class="token operator">!=</span> SQLCOM_DELETE<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>  <span class="token comment" spellcheck="true">//非删除操作</span>
             param<span class="token punctuation">.</span>index_merge_allowed <span class="token operator">&amp;&amp;</span>
             interesting_order <span class="token operator">!=</span> ORDER<span class="token operator">::</span>ORDER_DESC<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//不支持降序</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">//基于覆盖“ROR交操作”算法求解非覆盖“ROR交操作”</span>
           <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>rori_trp<span class="token operator">=</span> <span class="token function">get_best_ror_intersect</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>param<span class="token punctuation">,</span> tree<span class="token punctuation">,</span> <span class="token operator">&amp;</span>best_cost<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-          <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+          <span class="token punctuation">{</span>
             best_trp<span class="token operator">=</span> rori_trp<span class="token punctuation">;</span>
             best_cost<span class="token operator">=</span> best_trp<span class="token operator">-</span><span class="token operator">></span>cost_est<span class="token punctuation">;</span>
-          <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//计算基于index merge的ROR-UNION操作的花费</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>tree<span class="token operator">-</span><span class="token operator">></span>merges<span class="token punctuation">.</span><span class="token function">is_empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>param<span class="token punctuation">.</span>index_merge_allowed <span class="token operator">&amp;&amp;</span>
             interesting_order <span class="token operator">!=</span> ORDER<span class="token operator">::</span>ORDER_DESC <span class="token operator">&amp;&amp;</span>
             param<span class="token punctuation">.</span>table<span class="token operator">-</span><span class="token operator">></span>file<span class="token operator">-</span><span class="token operator">></span>stats<span class="token punctuation">.</span>records<span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">{</span>
           <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>imerge<span class="token operator">=</span> it<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-          <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+          <span class="token punctuation">{</span>
             new_conj_trp<span class="token operator">=</span> <span class="token function">get_best_disjunct_quick</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>param<span class="token punctuation">,</span> imerge<span class="token punctuation">,</span>
                                                   <span class="token operator">&amp;</span>best_cost<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>new_conj_trp<span class="token punctuation">)</span>
@@ -2298,16 +2298,16 @@ ha_rows <span class="token function">check_quick_select</span><span class="token
             <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>best_conj_trp <span class="token operator">||</span>
                 <span class="token punctuation">(</span>new_conj_trp <span class="token operator">&amp;&amp;</span>
                  new_conj_trp<span class="token operator">-</span><span class="token operator">></span>cost_est <span class="token operator">&lt;</span> best_conj_trp<span class="token operator">-</span><span class="token operator">></span>cost_est<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">{</span>
               best_conj_trp<span class="token operator">=</span> new_conj_trp<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-          <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
           <span class="token keyword">if</span> <span class="token punctuation">(</span>best_conj_trp<span class="token punctuation">)</span>
             best_trp<span class="token operator">=</span> best_conj_trp<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="13-3-4、对存储引擎的调用接口"><a href="#13-3-4、对存储引擎的调用接口" class="headerlink" title="13.3.4、对存储引擎的调用接口"></a>13.3.4、对存储引擎的调用接口</h3><p>MySQL支持插件式多存储引擎，比如Innodb，需要把数据刷新到外存中，也需要从外存中读取数据，IO是必不可少的。因此查询执行计划在生成的过程中，有些估算的数据需要从Innodb存储引擎获取，所以查询优化器存在对存储引擎的调用接口。</p>
@@ -2825,12 +2825,12 @@ Oracle实现的
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97/" target="_blank">
-                        <span class="chip bg-color">代价估算</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_blank">
                         <span class="chip bg-color">查询优化</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97/" target="_blank">
+                        <span class="chip bg-color">代价估算</span>
                     </a>
                     
                     <a href="/tags/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95/" target="_blank">
@@ -3085,7 +3085,7 @@ Oracle实现的
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

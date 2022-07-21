@@ -427,14 +427,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    533
+                    505
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
                 
@@ -482,13 +482,13 @@
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210712104837546.png" alt="image-20210712104837546"></p>
 <h3 id="4-1-3、限制对CPU的使用"><a href="#4-1-3、限制对CPU的使用" class="headerlink" title="4.1.3、限制对CPU的使用"></a>4.1.3、限制对CPU的使用</h3><ul>
 <li><p>sleep</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
- <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">try</span> <span class="token punctuation">{</span>
      Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
      e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>可以用 wait 或 条件变量达到类似的效果</p>
@@ -500,16 +500,16 @@
 </ul>
 </li>
 <li><p>wait</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">synchronized</span><span class="token punctuation">(</span>锁对象<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
- <span class="token keyword">while</span><span class="token punctuation">(</span>条件不满足<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> 
- <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">synchronized</span><span class="token punctuation">(</span>锁对象<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">while</span><span class="token punctuation">(</span>条件不满足<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+ <span class="token keyword">try</span> <span class="token punctuation">{</span>
      锁对象<span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>InterruptedException e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>InterruptedException e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
      e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
  <span class="token comment" spellcheck="true">// do sth...</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>条件变量</p>
@@ -1027,12 +1027,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/K8S/" target="_blank">
-                        <span class="chip bg-color">K8S</span>
-                    </a>
-                    
                     <a href="/tags/Docker/" target="_blank">
                         <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/K8S/" target="_blank">
+                        <span class="chip bg-color">K8S</span>
                     </a>
                     
                     <a href="/tags/DAS/" target="_blank">
@@ -1101,16 +1101,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/" target="_blank">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
                     <a href="/tags/Jenkins/" target="_blank">
                         <span class="chip bg-color">Jenkins</span>
                     </a>
                     
                     <a href="/tags/SonarCube/" target="_blank">
                         <span class="chip bg-color">SonarCube</span>
+                    </a>
+                    
+                    <a href="/tags/Docker/" target="_blank">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                     <a href="/tags/Harbor/" target="_blank">
@@ -1304,7 +1304,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

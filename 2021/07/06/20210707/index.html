@@ -397,16 +397,16 @@
                     
                     <div class="article-tag">
                         
-                        <a href="/tags/Docker/" target="_blank">
-                            <span class="chip bg-color">Docker</span>
-                        </a>
-                        
                         <a href="/tags/Jenkins/" target="_blank">
                             <span class="chip bg-color">Jenkins</span>
                         </a>
                         
                         <a href="/tags/SonarCube/" target="_blank">
                             <span class="chip bg-color">SonarCube</span>
+                        </a>
+                        
+                        <a href="/tags/Docker/" target="_blank">
+                            <span class="chip bg-color">Docker</span>
                         </a>
                         
                         <a href="/tags/Harbor/" target="_blank">
@@ -455,14 +455,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    927
+                    877
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    3 分
                 </div>
                 
                 
@@ -542,7 +542,7 @@
 <pre class="line-numbers language-shell"><code class="language-shell">#FROM java:8
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE
-COPY $&#123;JAR_FILE&#125; app.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 10086    #每个微服务暴露端口不同
 ENTRYPOINT ["java","-jar","/app.jar"]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -560,26 +560,26 @@ ENTRYPOINT ["java","-jar","/app.jar"]
     def harbor_project_name = "tensquare"
     //Harbor的凭证
     def harbor_auth = "a314d803-ad79-446e-9d5c-1ad2459ab409"
-  stage('编译,构建镜像,部署服务') &#123;
+  stage('编译,构建镜像,部署服务') {
     //定义镜像名称
-    def imageName = "$&#123;project_name&#125;:$&#123;tag&#125;"
+    def imageName = "${project_name}:${tag}"
     //编译安装公共工程
     sh "mvn -f tensquare_common clean install"
     //编译构建本地镜像
-    sh "mvn -f $&#123;project_name&#125; clean package dockerfile:build"
+    sh "mvn -f ${project_name} clean package dockerfile:build"
     //给镜像打标签
-    sh "docker tag $&#123;imageName&#125; $&#123;harbor_url&#125;/$&#123;harbor_project_name&#125;/$&#123;imageName&#125;"
+    sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
     //登录Harbor，并上传镜像
-    withCredentials([usernamePassword(credentialsId: "$&#123;harbor_auth&#125;",
-    passwordVariable: 'password', usernameVariable: 'username')]) &#123;
+    withCredentials([usernamePassword(credentialsId: "${harbor_auth}",
+    passwordVariable: 'password', usernameVariable: 'username')]) {
         //登录
-        sh "docker login -u $&#123;username&#125; -p $&#123;password&#125; $&#123;harbor_url&#125;"
+        sh "docker login -u ${username} -p ${password} ${harbor_url}"
         //上传镜像
-        sh "docker push $&#123;harbor_url&#125;/$&#123;harbor_project_name&#125;/$&#123;imageName&#125;"
-    &#125;
+        sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
+    }
     //删除本地镜像
-    sh "docker rmi -f $&#123;imageName&#125;"
-    sh "docker rmi -f $&#123;harbor_url&#125;/$&#123;harbor_project_name&#125;/$&#123;imageName&#125;"
+    sh "docker rmi -f ${imageName}"
+    sh "docker rmi -f ${harbor_url}/${harbor_project_name}/${imageName}"
 
     //远程调用
     sshPublisher(publishers: [sshPublisherDesc(configName: 'master_server',
@@ -589,7 +589,7 @@ ENTRYPOINT ["java","-jar","/app.jar"]
      patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false,
      removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false,
      useWorkspaceInPromotion: false, verbose: false)])
-  &#125;
+  }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>deploy.sh</p>
 <pre class="line-numbers language-shell"><code class="language-shell">#! /bin/sh
@@ -605,7 +605,7 @@ imageName=$harbor_url/$harbor_project_name/$project_name:$tag
 echo "$imageName"
 
 #查询容器是否存在，存在则删除
-containerId=`docker ps -a | grep -w $&#123;project_name&#125;:$&#123;tag&#125;  | awk '&#123;print $1&#125;'`
+containerId=`docker ps -a | grep -w ${project_name}:${tag}  | awk '{print $1}'`
 if [ "$containerId" !=  "" ] ; then
     #停掉容器
     docker stop $containerId
@@ -617,7 +617,7 @@ if [ "$containerId" !=  "" ] ; then
 fi
 
 #查询镜像是否存在，存在则删除
-imageId=`docker images | grep -w $project_name  | awk '&#123;print $3&#125;'`
+imageId=`docker images | grep -w $project_name  | awk '{print $3}'`
 
 if [ "$imageId" !=  "" ] ; then
       
@@ -1208,16 +1208,16 @@ Jenkins和K8S进行
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/K8S/" target="_blank">
-                        <span class="chip bg-color">K8S</span>
+                    <a href="/tags/Jenkins/" target="_blank">
+                        <span class="chip bg-color">Jenkins</span>
                     </a>
                     
                     <a href="/tags/Docker/" target="_blank">
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/Jenkins/" target="_blank">
-                        <span class="chip bg-color">Jenkins</span>
+                    <a href="/tags/K8S/" target="_blank">
+                        <span class="chip bg-color">K8S</span>
                     </a>
                     
                     <a href="/tags/NFS/" target="_blank">
@@ -1411,7 +1411,7 @@ Jenkins和K8S进行
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

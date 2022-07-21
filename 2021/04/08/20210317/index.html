@@ -457,14 +457,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.3k
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    14 分
                 </div>
                 
                 
@@ -495,9 +495,9 @@
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210315233729710.png" alt="image-20210315233729710"></p>
 <p>这样<code>MySQL</code>就可以利用<strong>内部XA</strong>来保证<code>redo log</code>和<code>binlog</code>之间的一致性，进而就能看到<code>2pc</code></p>
 <p>接着我们来回顾下<code>mtr</code>的关键数据结构<code>mtr_t</code></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> mtr_t <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> mtr_t <span class="token punctuation">{</span>
 <span class="token comment" spellcheck="true">/** Impl是mtr_t的内部类用以描述mtr状态 */</span>
-<span class="token keyword">struct</span> Impl <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> Impl <span class="token punctuation">{</span>
 <span class="token comment" spellcheck="true">/** memo stack for locks etc.
 mtr 持有锁的栈 */</span>
 mtr_buf_t m_memo<span class="token punctuation">;</span>
@@ -541,7 +541,7 @@ fil_space_t<span class="token operator">*</span> m_sys_space<span class="token p
 mtr_state_t m_state<span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">/** Owning mini-transaction */</span>
 mtr_t<span class="token operator">*</span> m_mtr<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">/** Start a mini-transaction.*/</span>
 <span class="token comment" spellcheck="true">//@param sync true if it is a synchronous mini-transaction</span>
 <span class="token comment" spellcheck="true">//@param read_only true if read only mini-transaction */</span>
@@ -565,7 +565,7 @@ Impl m_impl<span class="token punctuation">;</span>
 <span class="token keyword">volatile</span> lsn_t m_commit_lsn<span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">/** true if it is synchronous mini-transaction */</span>
 <span class="token keyword">bool</span> m_sync<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在整个<code>B+树</code>索引分裂这一个事务过程中，据调试分析应该是有<code>5</code>个<code>mtr</code>，下面我们来详细看看</p>
 <p>我们从<code>row_ins_clust_index_entry_low</code>入口函数开始看起，第<code>2477</code>行我们能看到下面代码，即开启一个<code>mtr</code>，我们记之为<code>mtr-1</code></p>
@@ -592,11 +592,11 @@ Impl m_impl<span class="token punctuation">;</span>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210317104547971.png" alt="image-20210317104547971"></p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210317104520539.png" alt="image-20210317104520539"></p>
 <p>查看<code>memo_push</code>源码可以发现加锁入栈思路挺简单，就是根据锁类型和锁对象构建<code>mtr_memo_slot_t</code>然后加入到<code>m_impl.m_memo</code>中</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>type <span class="token operator">==</span> MTR_MEMO_PAGE_X_FIX <span class="token operator">||</span> type <span class="token operator">==</span> MTR_MEMO_PAGE_SX_FIX<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>type <span class="token operator">==</span> MTR_MEMO_PAGE_X_FIX <span class="token operator">||</span> type <span class="token operator">==</span> MTR_MEMO_PAGE_SX_FIX<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> 
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> MTR_MEMO_BUF_FIX <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>m_impl<span class="token punctuation">.</span>m_made_dirty<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> MTR_MEMO_BUF_FIX <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>m_impl<span class="token punctuation">.</span>m_made_dirty<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     mtr_memo_slot_t<span class="token operator">*</span>    slot<span class="token punctuation">;</span>
     slot <span class="token operator">=</span> m_impl<span class="token punctuation">.</span>m_memo<span class="token punctuation">.</span>push<span class="token operator">&lt;</span>mtr_memo_slot_t<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span>slot<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -656,11 +656,11 @@ log_start <span class="token operator">=</span> log_ptr <span class="token opera
 log_ptr <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>4)写入行记录上决定唯一性的列的个数，占两个字节</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_is_leaf</span><span class="token punctuation">(</span><span class="token function">page_align</span><span class="token punctuation">(</span>rec<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//对于聚集索引，就是PK上的列数</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_is_leaf</span><span class="token punctuation">(</span><span class="token function">page_align</span><span class="token punctuation">(</span>rec<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//对于聚集索引，就是PK上的列数</span>
     <span class="token function">mach_write_to_2</span><span class="token punctuation">(</span>log_ptr<span class="token punctuation">,</span> <span class="token function">dict_index_get_n_unique_in_tree</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//对于二级索引，就是二级索引列 + PK列个数</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//对于二级索引，就是二级索引列 + PK列个数</span>
     <span class="token function">mach_write_to_2</span><span class="token punctuation">(</span>log_ptr<span class="token punctuation">,</span> <span class="token function">dict_index_get_n_unique_in_tree_nonleaf</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 log_ptr <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>5)写入每个列的长度信息，每个列占两个字节</p>
@@ -686,28 +686,28 @@ log_ptr <span class="token operator">+</span><span class="token operator">=</spa
         log_ptr <span class="token operator">+</span><span class="token operator">=</span> <span class="token function">mach_write_compressed</span><span class="token punctuation">(</span>log_ptr<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们发现这里采用了压缩写入的方法<code>mach_write_compressed</code>，我们阅读<code>mach_write_compressed</code>源码可以发现，它是根据写入数字<code>n</code>的大小来选定1到4个字节来记录整数，从而可以节省<code>redo log</code>空间</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x80</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x80</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/* 0nnnnnnn (7 bits) */</span>
     <span class="token function">mach_write_to_1</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x4000</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x4000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/* 10nnnnnn nnnnnnnn (14 bits) */</span>
     <span class="token function">mach_write_to_2</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> n <span class="token operator">|</span> <span class="token number">0x8000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x200000</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x200000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/* 110nnnnn nnnnnnnn nnnnnnnn (21 bits) */</span>
     <span class="token function">mach_write_to_3</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> n <span class="token operator">|</span> <span class="token number">0xC00000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x10000000</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;</span> <span class="token number">0x10000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/* 1110nnnn nnnnnnnn nnnnnnnn nnnnnnnn (28 bits) */</span>
     <span class="token function">mach_write_to_4</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> n <span class="token operator">|</span> <span class="token number">0xE0000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/* 11110000 nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn (32 bits) */</span>
     <span class="token function">mach_write_to_1</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">0xF0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">mach_write_to_4</span><span class="token punctuation">(</span>b <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>第四步</strong>： 将插入的记录拷贝到<code>redo</code>文件，同时关闭<code>mlog</code></p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">memcpy</span><span class="token punctuation">(</span>log_ptr<span class="token punctuation">,</span> ins_ptr<span class="token punctuation">,</span> rec_size<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -718,26 +718,26 @@ log_ptr <span class="token operator">+</span><span class="token operator">=</spa
 the resources. 
 写redo log，添加脏页到flush list，释放资源*/</span>
 <span class="token keyword">void</span> mtr_t<span class="token operator">::</span>Command<span class="token operator">::</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
     <span class="token function">ut_ad</span><span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_log_mode <span class="token operator">!=</span> MTR_LOG_NONE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">const</span> ulint len <span class="token operator">=</span> <span class="token function">prepare_write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">const</span> ulint len <span class="token operator">=</span> <span class="token function">prepare_write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">finish_write</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">log_flush_order_mutex_enter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">/* It is now safe to release the log mutex because the
     flush_order mutex will ensure that we are the first one
     to insert into the flush list. */</span>
     <span class="token function">log_mutex_exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     m_impl<span class="token operator">-</span><span class="token operator">></span>m_mtr<span class="token operator">-</span><span class="token operator">></span>m_commit_lsn <span class="token operator">=</span> m_end_lsn<span class="token punctuation">;</span>
     <span class="token function">release_blocks</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">log_flush_order_mutex_exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token function">release_latches</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">release_resources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>执行过程如下：</p>
 <p><strong>第一步</strong>：调用<code>mtr_t::Command::prepare_write()</code>，准备写<code>m_log</code>到<code>redo log buffer</code></p>
@@ -750,9 +750,9 @@ the resources.
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2）若当前要写入<code>redo log</code>记录大小超过<code>log buffer</code>的一半，将<code>log buffer</code>扩大为原来两倍</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>buf_size <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>buf_size <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">log_buffer_extend</span><span class="token punctuation">(</span><span class="token punctuation">(</span>len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>3）获取<code>log_sys-&gt;mutex</code>锁</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">log_mutex_enter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -762,20 +762,20 @@ the resources.
 <span class="token function">ut_ad</span><span class="token punctuation">(</span>space<span class="token operator">-</span><span class="token operator">></span>max_lsn <span class="token operator">&lt;=</span> log_sys<span class="token operator">-</span><span class="token operator">></span>lsn<span class="token punctuation">)</span><span class="token punctuation">;</span>
 space<span class="token operator">-</span><span class="token operator">></span>max_lsn <span class="token operator">=</span> log_sys<span class="token operator">-</span><span class="token operator">></span>lsn<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//首先会将space->max_lsn赋值为log_sys->lsn</span>
 
-<span class="token keyword">if</span> <span class="token punctuation">(</span>was_clean<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//即space->max_lsn == 0，表示自上次checkpoint后第一次修改该表空间，调用fil_names_dirty_and_write将该tablespace加入到fil_system->named_spaces链表上，同时调用fil_names_write写入一条类型为MLOG_FILE_NAME的日志</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>was_clean<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//即space->max_lsn == 0，表示自上次checkpoint后第一次修改该表空间，调用fil_names_dirty_and_write将该tablespace加入到fil_system->named_spaces链表上，同时调用fil_names_write写入一条类型为MLOG_FILE_NAME的日志</span>
     <span class="token function">fil_names_dirty_and_write</span><span class="token punctuation">(</span>space<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* This was not the first time of dirtying a
         tablespace since the latest checkpoint. 
         不是从上一次checkpoint后第一次修改该表，则根据mtr中log的个数，选择标识日志头最高位为MLOG_SINGLE_REC_FLAG，或者附加一个1字节的        MLOG_MULTI_REC_END日志。*/</span>
         <span class="token function">ut_ad</span><span class="token punctuation">(</span>n_recs <span class="token operator">==</span> m_impl<span class="token operator">-</span><span class="token operator">></span>m_n_log_recs<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>n_recs <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n_recs <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token function">ut_ad</span><span class="token punctuation">(</span>n_recs <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">/* Flag the single log record as the
             only record in this mini-transaction. */</span>
             <span class="token operator">*</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_log<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
                 <span class="token operator">|</span><span class="token operator">=</span> MLOG_SINGLE_REC_FLAG<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">/* Because this mini-transaction comprises
             multiple log records, append MLOG_MULTI_REC_END
             at the end. */</span>
@@ -783,20 +783,20 @@ space<span class="token operator">-</span><span class="token operator">></span>m
                 <span class="token operator">&amp;</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_log<span class="token punctuation">,</span> MLOG_MULTI_REC_END<span class="token punctuation">,</span>
                 MLOG_1BYTE<span class="token punctuation">)</span><span class="token punctuation">;</span>
             len<span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>5）调用函数<code>log_margin_checkpoint_age</code>检查本次写入</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/* check and attempt a checkpoint if exceeding capacity */</span>
 <span class="token function">log_margin_checkpoint_age</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
     ulint    margin <span class="token operator">=</span> <span class="token function">log_calculate_actual_len</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>margin <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>margin <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* return with warning output to avoid deadlock 
         如果margin size超过redo log文件capacity，则打印一条错误信息*/</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>log_has_printed_chkp_margine_warning
             <span class="token operator">||</span> <span class="token function">difftime</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                log_last_margine_warning_time<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                log_last_margine_warning_time<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             log_has_printed_chkp_margine_warning <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
             log_last_margine_warning_time <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             ib<span class="token operator">::</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"The transaction log files are too"</span>
@@ -804,35 +804,35 @@ space<span class="token operator">-</span><span class="token operator">></span>m
                 <span class="token operator">&lt;&lt;</span> len <span class="token operator">&lt;&lt;</span> <span class="token string">"). So, the last checkpoint age"</span>
                 <span class="token string">" might exceed the log group capacity "</span>
                 <span class="token operator">&lt;&lt;</span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity <span class="token operator">&lt;&lt;</span> <span class="token string">"."</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token comment" spellcheck="true">/* Our margin check should ensure that we never reach this condition.
     Try to do checkpoint once. We cannot keep waiting here as it might
     result in hang in case the current mtr has latch on oldest lsn */</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>log_sys<span class="token operator">-</span><span class="token operator">></span>lsn <span class="token operator">-</span> log_sys<span class="token operator">-</span><span class="token operator">></span>last_checkpoint_lsn <span class="token operator">+</span> margin
-        <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token operator">></span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* The log write of 'len' might overwrite the transaction log
         after the last checkpoint. Makes checkpoint. 
         若本次写入可能覆盖检查点，还需要去强制做一次同步checkpoint*/</span>
         <span class="token keyword">bool</span>    flushed_enough <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>log_sys<span class="token operator">-</span><span class="token operator">></span>lsn <span class="token operator">-</span> <span class="token function">log_buf_pool_get_oldest_modification</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
             <span class="token operator">+</span> margin
-            <span class="token operator">&lt;=</span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token operator">&lt;=</span> log_sys<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             flushed_enough <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         log_sys<span class="token operator">-</span><span class="token operator">></span>check_flush_or_checkpoint <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token function">log_mutex_exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">DEBUG_SYNC_C</span><span class="token punctuation">(</span><span class="token string">"margin_checkpoint_age_rescue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>flushed_enough<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>flushed_enough<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token function">os_thread_sleep</span><span class="token punctuation">(</span><span class="token number">100000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token function">log_checkpoint</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">log_mutex_enter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token keyword">return</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>第二步</strong>：调用<code>mtr_t::Command::finish_write</code>，将日志从mtr中拷贝到公共<code>log buffer</code>，这里有两种方式</p>
 <p>1）如果<code>mtr</code>中日志较小，则调用函数<code>log_reserve_and_write_fast</code>尝试将日志拷贝到<code>log buffer</code>最近的一个<code>block</code></p>
@@ -845,35 +845,35 @@ space<span class="token operator">-</span><span class="token operator">></span>m
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>3）在完成将<code>redo</code> 拷贝到<code>log buffer</code>后，需要调用<code>log_close</code>, 如果最后一个<code>block</code>未写满，则设置该<code>block</code>头部的<code>LOG_BLOCK_FIRST_REC_GROUP</code>信息</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">first_rec_group <span class="token operator">=</span> <span class="token function">log_block_get_first_rec_group</span><span class="token punctuation">(</span>log_block<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>first_rec_group <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>first_rec_group <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* We initialized a new log block which was not written
         full by the current mtr: the next mtr log record group
         will start within this block at the offset data_len */</span>
         <span class="token function">log_block_set_first_rec_group</span><span class="token punctuation">(</span>
             log_block<span class="token punctuation">,</span> <span class="token function">log_block_get_data_len</span><span class="token punctuation">(</span>log_block<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token operator">-</span><span class="token operator">></span>buf_free <span class="token operator">></span> log<span class="token operator">-</span><span class="token operator">></span>max_buf_free<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token operator">-</span><span class="token operator">></span>buf_free <span class="token operator">></span> log<span class="token operator">-</span><span class="token operator">></span>max_buf_free<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         log<span class="token operator">-</span><span class="token operator">></span>check_flush_or_checkpoint <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     checkpoint_age <span class="token operator">=</span> lsn <span class="token operator">-</span> log<span class="token operator">-</span><span class="token operator">></span>last_checkpoint_lsn<span class="token punctuation">;</span>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>checkpoint_age <span class="token operator">>=</span> log<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>checkpoint_age <span class="token operator">>=</span> log<span class="token operator">-</span><span class="token operator">></span>log_group_capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>log_has_printed_chkp_warning
-            <span class="token operator">||</span> <span class="token function">difftime</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span> log_last_warning_time<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token operator">||</span> <span class="token function">difftime</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span> log_last_warning_time<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             log_has_printed_chkp_warning <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
             log_last_warning_time <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             ib<span class="token operator">::</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"The age of the last checkpoint is "</span>
                 <span class="token operator">&lt;&lt;</span> checkpoint_age <span class="token operator">&lt;&lt;</span> <span class="token string">", which exceeds the log"</span>
                 <span class="token string">" group capacity "</span> <span class="token operator">&lt;&lt;</span> log<span class="token operator">-</span><span class="token operator">></span>log_group_capacity
                 <span class="token operator">&lt;&lt;</span> <span class="token string">"."</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>checkpoint_age <span class="token operator">&lt;=</span> log<span class="token operator">-</span><span class="token operator">></span>max_modified_age_sync<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>checkpoint_age <span class="token operator">&lt;=</span> log<span class="token operator">-</span><span class="token operator">></span>max_modified_age_sync<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">goto</span> function_exit<span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     oldest_lsn <span class="token operator">=</span> <span class="token function">buf_pool_get_oldest_modification</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">/*
 满足如下情况时，设置log_sys->check_flush_or_checkpoint为true：
@@ -885,14 +885,14 @@ space<span class="token operator">-</span><span class="token operator">></span>m
 */</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>oldest_lsn
         <span class="token operator">||</span> lsn <span class="token operator">-</span> oldest_lsn <span class="token operator">></span> log<span class="token operator">-</span><span class="token operator">></span>max_modified_age_sync
-        <span class="token operator">||</span> checkpoint_age <span class="token operator">></span> log<span class="token operator">-</span><span class="token operator">></span>max_checkpoint_age_async<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token operator">||</span> checkpoint_age <span class="token operator">></span> log<span class="token operator">-</span><span class="token operator">></span>max_checkpoint_age_async<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         log<span class="token operator">-</span><span class="token operator">></span>check_flush_or_checkpoint <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>第三步</strong>：如果本次修改产生了脏页，获取<code>log_sys-&gt;log_flush_order_mutex</code>，随后释放<code>log_sys-&gt;mutex</code></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">log_flush_order_mutex_enter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">/* It is now safe to release the log mutex because the
     flush_order mutex will ensure that we are the first one
     to insert into the flush list. */</span>
@@ -902,9 +902,9 @@ space<span class="token operator">-</span><span class="token operator">></span>m
 <pre class="line-numbers language-cpp"><code class="language-cpp">m_impl<span class="token operator">-</span><span class="token operator">></span>m_mtr<span class="token operator">-</span><span class="token operator">></span>m_commit_lsn <span class="token operator">=</span> m_end_lsn<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>第五步</strong>：释放<code>log_sys-&gt;log_flush_order_mutex</code>锁</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>m_impl<span class="token operator">-</span><span class="token operator">></span>m_made_dirty<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">log_flush_order_mutex_exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>第六步</strong>：释放当前mtr持有的锁和相关资源</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">release_latches</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1743,7 +1743,7 @@ Quorum+Gossip原理解读
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

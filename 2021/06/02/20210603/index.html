@@ -510,10 +510,10 @@ FLUSH OPTIMIZER_COSTS;
   cost_est<span class="token punctuation">.</span><span class="token function">add_cpu</span><span class="token punctuation">(</span>scan_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>IO代价在table_scan_cost函数里进行计算：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp">Cost_estimate handler<span class="token operator">::</span>table_scan_cost <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp">Cost_estimate handler<span class="token operator">::</span>table_scan_cost <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//估算数据占有的page数 * 每个page的代价</span>
     <span class="token keyword">const</span> <span class="token keyword">double</span> io_cost<span class="token operator">=</span> ha_innobase<span class="token operator">::</span><span class="token function">scan_time</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> table<span class="token operator">-</span><span class="token operator">></span><span class="token function">cost_model</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">page_read_cost</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ha_innobase::scan_time()函数如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//在dict_stats_empty_table里初始化为1    </span>
@@ -1284,7 +1284,7 @@ stat_clustered_index_size <span class="token operator">=</span> m_prebuilt<span 
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

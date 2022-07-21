@@ -440,14 +440,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.5k
+                    4.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分
+                    18 分
                 </div>
                 
                 
@@ -487,17 +487,17 @@ Adds system columns to a table object.
 添加系统列到指定表*/</span>
 <span class="token keyword">void</span> <span class="token function">dict_table_add_system_columns</span><span class="token punctuation">(</span>
     dict_table_t<span class="token operator">*</span>    table<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*!&lt; in/out: table */</span>
-    mem_heap_t<span class="token operator">*</span>    heap<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in: temporary heap */</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    mem_heap_t<span class="token operator">*</span>    heap<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in: temporary heap */</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//添加行id</span>
     <span class="token function">dict_mem_table_add_col</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> <span class="token string">"DB_ROW_ID"</span><span class="token punctuation">,</span> DATA_SYS<span class="token punctuation">,</span> DATA_ROW_ID <span class="token operator">|</span> DATA_NOT_NULL<span class="token punctuation">,</span> DATA_ROW_ID_LEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//添加事务id</span>
     <span class="token function">dict_mem_table_add_col</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> <span class="token string">"DB_TRX_ID"</span><span class="token punctuation">,</span> DATA_SYS<span class="token punctuation">,</span> DATA_TRX_ID <span class="token operator">|</span> DATA_NOT_NULL<span class="token punctuation">,</span> DATA_TRX_ID_LEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//判断是否是内部表</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dict_table_is_intrinsic</span><span class="token punctuation">(</span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dict_table_is_intrinsic</span><span class="token punctuation">(</span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//添加回滚指针</span>
         <span class="token function">dict_mem_table_add_col</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> <span class="token string">"DB_ROLL_PTR"</span><span class="token punctuation">,</span> DATA_SYS<span class="token punctuation">,</span> DATA_ROLL_PTR <span class="token operator">|</span> DATA_NOT_NULL<span class="token punctuation">,</span> DATA_ROLL_PTR_LEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>    
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="9-2-2、undo日志"><a href="#9-2-2、undo日志" class="headerlink" title="9.2.2、undo日志"></a>9.2.2、undo日志</h4><p><code>undo log</code>主要分为两种：</p>
 <ul>
@@ -578,28 +578,28 @@ Opens a read view where exactly the transactions serialized before this
 point in time are seen in the view.
 @param id        Creator transaction id */</span>
 <span class="token keyword">void</span> ReadView<span class="token operator">::</span><span class="token function">prepare</span><span class="token punctuation">(</span>trx_id_t id<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
     <span class="token function">ut_ad</span><span class="token punctuation">(</span><span class="token function">mutex_own</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>mutex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//当前ReadView创建版本号赋值为事务id</span>
     m_creator_trx_id <span class="token operator">=</span> id<span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//高水位赋值为全局系统事务的版本号，即分配给下一个事务的id</span>
     m_low_limit_no <span class="token operator">=</span> m_low_limit_id <span class="token operator">=</span> trx_sys<span class="token operator">-</span><span class="token operator">></span>max_trx_id<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>rw_trx_ids<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>rw_trx_ids<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
        <span class="token comment" spellcheck="true">//如果系统事务的活跃事务列表不为空，则将其拷贝至m_ids</span>
         <span class="token function">copy_trx_ids</span><span class="token punctuation">(</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>rw_trx_ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//否则清空ReadView中的活跃事务列表</span>
         m_ids<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">UT_LIST_GET_LEN</span><span class="token punctuation">(</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>serialisation_list<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">UT_LIST_GET_LEN</span><span class="token punctuation">(</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>serialisation_list<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">const</span> trx_t<span class="token operator">*</span>    trx<span class="token punctuation">;</span>
         trx <span class="token operator">=</span> <span class="token function">UT_LIST_GET_FIRST</span><span class="token punctuation">(</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>serialisation_list<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>trx<span class="token operator">-</span><span class="token operator">></span>no <span class="token operator">&lt;</span> m_low_limit_no<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>trx<span class="token operator">-</span><span class="token operator">></span>no <span class="token operator">&lt;</span> m_low_limit_no<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             m_low_limit_no <span class="token operator">=</span> trx<span class="token operator">-</span><span class="token operator">></span>no<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后，会将这个创建的 <code>ReadView</code> 添加到 <code>MVCC</code> 的 <code>m_views</code> 中。</p>
 <p>此外，<code>ReadView</code>类核心属性有：</p>
@@ -633,14 +633,14 @@ point in time are seen in the view.
 <li>SQL查询走聚集索引</li>
 </ul>
 <p>核心流程在<code>row_search_mvcc</code>方法中</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">==</span> clust_index<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//走聚集索引</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">==</span> clust_index<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//走聚集索引</span>
             <span class="token comment" spellcheck="true">/* Fetch a previous version of the row if the current
             one is not visible in the snapshot; if we have a very
             high force recovery level set, we try to avoid crashes
             by skipping this lookup */</span>
             <span class="token comment" spellcheck="true">//判断rec是否在ReadView可见</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>srv_force_recovery <span class="token operator">&lt;</span> <span class="token number">5</span>
-                <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">lock_clust_rec_cons_read_sees</span><span class="token punctuation">(</span>rec<span class="token punctuation">,</span> index<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> <span class="token function">trx_get_read_view</span><span class="token punctuation">(</span>trx<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">lock_clust_rec_cons_read_sees</span><span class="token punctuation">(</span>rec<span class="token punctuation">,</span> index<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> <span class="token function">trx_get_read_view</span><span class="token punctuation">(</span>trx<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 rec_t<span class="token operator">*</span>    old_vers<span class="token punctuation">;</span>
                 <span class="token comment" spellcheck="true">/* 获取rec的上一个版本，赋值给old_vers*/</span>
                 err <span class="token operator">=</span> <span class="token function">row_sel_build_prev_vers_for_mysql</span><span class="token punctuation">(</span>
@@ -649,19 +649,19 @@ point in time are seen in the view.
                     <span class="token operator">&amp;</span>old_vers<span class="token punctuation">,</span> need_vrow <span class="token operator">?</span> <span class="token operator">&amp;</span>vrow <span class="token operator">:</span> <span class="token constant">NULL</span><span class="token punctuation">,</span>
                     <span class="token operator">&amp;</span>mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">!=</span> DB_SUCCESS<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">!=</span> DB_SUCCESS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token keyword">goto</span> lock_wait_or_error<span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>old_vers <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>old_vers <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token comment" spellcheck="true">/* The row did not exist yet in
                     the read view */</span>
                     <span class="token keyword">goto</span> next_rec<span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
                 <span class="token comment" spellcheck="true">//用于下一次判断</span>
                 rec <span class="token operator">=</span> old_vers<span class="token punctuation">;</span>
                 prev_rec <span class="token operator">=</span> rec<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>视图可见性判断在函数：<code>changes_visible</code>，调用链如下：</p>
 <blockquote>
@@ -677,15 +677,15 @@ point in time are seen in the view.
         trx_id_t        id<span class="token punctuation">,</span>
         <span class="token keyword">const</span> table_name_t<span class="token operator">&amp;</span>    name<span class="token punctuation">)</span> <span class="token keyword">const</span>
         <span class="token function">MY_ATTRIBUTE</span><span class="token punctuation">(</span><span class="token punctuation">(</span>warn_unused_result<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
         <span class="token function">ut_ad</span><span class="token punctuation">(</span>id <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">/*
         1、如果被访问版本的 trx_id 小于 ReadView 中的 m_up_limit_id（低水位），表明被访问版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以        被当前事务访问。
         2、如果被访问版本的 trx_id 与 ReadView 中的 m_creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问
         */</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>id <span class="token operator">&lt;</span> m_up_limit_id <span class="token operator">||</span> id <span class="token operator">==</span> m_creator_trx_id<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>id <span class="token operator">&lt;</span> m_up_limit_id <span class="token operator">||</span> id <span class="token operator">==</span> m_creator_trx_id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
         <span class="token comment" spellcheck="true">//检查该id是否有效</span>
         <span class="token function">check_trx_id_sanity</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -693,12 +693,12 @@ point in time are seen in the view.
         <span class="token comment" spellcheck="true">/*
         如果被访问版本的 trx_id 大于等于 ReadView 中的 m_low_limit_id（高水位），表明被访问版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可        以被当前事务访问
         */</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>id <span class="token operator">>=</span> m_low_limit_id<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>id <span class="token operator">>=</span> m_low_limit_id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>m_ids<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>m_ids<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
            <span class="token comment" spellcheck="true">/* 否则查看m_ids活动列表是否为空，如果为空说明此事务虽然在系统可见最小事务号之后发生，但创建 ReadView 时生成该版本的事务已经被提交，该版本可            以被访问*/</span>
             <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
         <span class="token keyword">const</span> ids_t<span class="token operator">::</span>value_type<span class="token operator">*</span>    p <span class="token operator">=</span> m_ids<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -706,7 +706,7 @@ point in time are seen in the view.
       被访问版本的 trx_id 属性值在 ReadView 的 m_up_limit_id 和 m_low_limit_id 之间，那就需要判断 trx_id 属性值是不是在 m_ids 列表中，这边会通过二分法查找。如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
       */</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">!</span>std<span class="token operator">::</span><span class="token function">binary_search</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> p <span class="token operator">+</span> m_ids<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>判断流程如下：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302143356258.png" alt="image-20210302143356258"></p>
@@ -715,7 +715,7 @@ point in time are seen in the view.
 <p>row_search_mvcc -&gt; row_sel_build_prev_vers_for_mysql -&gt; row_vers_build_for_consistent_read -&gt; trx_undo_prev_version_build</p>
 </blockquote>
 <p><code>trx_undo_prev_version_build</code>源码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">trx_undo_prev_version_build</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">trx_undo_prev_version_build</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//1、获取record的回滚指针roll_ptr</span>
     roll_ptr <span class="token operator">=</span> <span class="token function">row_get_rec_roll_ptr</span><span class="token punctuation">(</span>rec<span class="token punctuation">,</span> index<span class="token punctuation">,</span> offsets<span class="token punctuation">)</span><span class="token punctuation">;</span>
     
@@ -725,9 +725,9 @@ point in time are seen in the view.
     <span class="token comment" spellcheck="true">//3、根据roll_ptr获取undo log，并拷贝给heap，填充到undo_rec中</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">trx_undo_get_undo_rec</span><span class="token punctuation">(</span>
         roll_ptr<span class="token punctuation">,</span> rec_trx_id<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> is_redo_rseg<span class="token punctuation">,</span>
-        index<span class="token operator">-</span><span class="token operator">></span>table<span class="token operator">-</span><span class="token operator">></span>name<span class="token punctuation">,</span> <span class="token operator">&amp;</span>undo_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        index<span class="token operator">-</span><span class="token operator">></span>table<span class="token operator">-</span><span class="token operator">></span>name<span class="token punctuation">,</span> <span class="token operator">&amp;</span>undo_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//4、以下开始解析undo log，填充相应参数</span>
     <span class="token comment" spellcheck="true">//4.1、根据undo_rec读取type，cmpl_info，undo_no，table_id值并填充到对应参数中，读完后将undo_rec剩余部分返回给ptr</span>
     ptr <span class="token operator">=</span> <span class="token function">trx_undo_rec_get_pars</span><span class="token punctuation">(</span>undo_rec<span class="token punctuation">,</span> <span class="token operator">&amp;</span>type<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cmpl_info<span class="token punctuation">,</span> <span class="token operator">&amp;</span>dummy_extern<span class="token punctuation">,</span> <span class="token operator">&amp;</span>undo_no<span class="token punctuation">,</span> <span class="token operator">&amp;</span>table_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -739,17 +739,17 @@ point in time are seen in the view.
     <span class="token comment" spellcheck="true">//4.4、通过undo log剩余部分和前面读取的参数构造update</span>
     ptr <span class="token operator">=</span> <span class="token function">trx_undo_update_rec_get_update</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> index<span class="token punctuation">,</span> type<span class="token punctuation">,</span> trx_id<span class="token punctuation">,</span> roll_ptr<span class="token punctuation">,</span> info_bits<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> heap<span class="token punctuation">,</span> <span class="token operator">&amp;</span>update<span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">row_upd_changes_field_size_or_external</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> update<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">row_upd_changes_field_size_or_external</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> update<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
         
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//5、构建old_vers：先用rec填充，再用update覆盖</span>
         <span class="token comment" spellcheck="true">//5.1、先将rec拷贝到buf，并返回指向buf的指针给old_vers</span>
         <span class="token operator">*</span>old_vers <span class="token operator">=</span> <span class="token function">rec_copy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> rec<span class="token punctuation">,</span> offsets<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">rec_offs_make_valid</span><span class="token punctuation">(</span><span class="token operator">*</span>old_vers<span class="token punctuation">,</span> index<span class="token punctuation">,</span> offsets<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//5.2、使用update覆盖old_vers</span>
         <span class="token function">row_upd_rec_in_place</span><span class="token punctuation">(</span><span class="token operator">*</span>old_vers<span class="token punctuation">,</span> index<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> update<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>SQL查询走辅助索引</li>
@@ -772,33 +772,33 @@ point in time are seen in the view.
                     should be read or passed over
                     by a read cursor */</span>
     <span class="token keyword">const</span> dict_index_t<span class="token operator">*</span>    index<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*!&lt; in: index */</span>
-    <span class="token keyword">const</span> ReadView<span class="token operator">*</span>    view<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in: consistent read view */</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">recv_recovery_is_on</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> ReadView<span class="token operator">*</span>    view<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in: consistent read view */</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">recv_recovery_is_on</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* Temp-tables are not shared across connections and multiple
         transactions from different connections cannot simultaneously
         operate on same temp-table and so read of temp-table is
         always consistent read. */</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//1、取索引页上的最大事务id：max_trx_id</span>
     trx_id_t max_trx_id <span class="token operator">=</span> <span class="token function">page_get_max_trx_id</span><span class="token punctuation">(</span><span class="token function">page_align</span><span class="token punctuation">(</span>rec<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">ut_ad</span><span class="token punctuation">(</span>max_trx_id <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//2、判断max_trx_id是否小于m_up_limit_id</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span>view<span class="token operator">-</span><span class="token operator">></span><span class="token function">sees</span><span class="token punctuation">(</span>max_trx_id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-c++"><code class="language-c++">    /**
     @param id        transaction to check
     @return true if view sees transaction id */
     bool sees(trx_id_t id) const
-    &#123;
+    {
         return(id < m_up_limit_id);
-    &#125;
+    }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="9-3、MVCC类定义"><a href="#9-3、MVCC类定义" class="headerlink" title="9.3、MVCC类定义"></a>9.3、MVCC类定义</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/** The MVCC read view manager */</span>
-<span class="token keyword">class</span> <span class="token class-name">MVCC</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">MVCC</span> <span class="token punctuation">{</span>
 <span class="token keyword">public</span><span class="token operator">:</span>
     <span class="token comment" spellcheck="true">/**
     Allocate and create a view.
@@ -807,12 +807,12 @@ point in time are seen in the view.
                 caller. Must be freed by calling close()
     @param trx        transaction creating the view
    */</span>
-    <span class="token keyword">void</span> <span class="token function">view_open</span><span class="token punctuation">(</span>ReadView<span class="token operator">*</span><span class="token operator">&amp;</span> view<span class="token punctuation">,</span> trx_t<span class="token operator">*</span> trx<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">view_open</span><span class="token punctuation">(</span>ReadView<span class="token operator">*</span><span class="token operator">&amp;</span> view<span class="token punctuation">,</span> trx_t<span class="token operator">*</span> trx<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">ut_ad</span><span class="token punctuation">(</span><span class="token operator">!</span>srv_read_only_mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token comment" spellcheck="true">/** If no new RW transaction has been started since the last view
         was created then reuse the the existing view. */</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             uintptr_t    p <span class="token operator">=</span> <span class="token keyword">reinterpret_cast</span><span class="token operator">&lt;</span>uintptr_t<span class="token operator">></span><span class="token punctuation">(</span>view<span class="token punctuation">)</span><span class="token punctuation">;</span>
             view <span class="token operator">=</span> <span class="token keyword">reinterpret_cast</span><span class="token operator">&lt;</span>ReadView<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span>p <span class="token operator">&amp;</span> <span class="token operator">~</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token function">ut_ad</span><span class="token punctuation">(</span>view<span class="token operator">-</span><span class="token operator">></span>m_closed<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -825,32 +825,32 @@ point in time are seen in the view.
             Therefore we must set the low limit id after we reset the
             closed status after the check. */</span>
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">trx_is_autocommit_non_locking</span><span class="token punctuation">(</span>trx<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> view<span class="token operator">-</span><span class="token operator">></span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">trx_is_autocommit_non_locking</span><span class="token punctuation">(</span>trx<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> view<span class="token operator">-</span><span class="token operator">></span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 view<span class="token operator">-</span><span class="token operator">></span>m_closed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>view<span class="token operator">-</span><span class="token operator">></span>m_low_limit_id <span class="token operator">==</span> <span class="token function">trx_sys_get_max_trx_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>view<span class="token operator">-</span><span class="token operator">></span>m_low_limit_id <span class="token operator">==</span> <span class="token function">trx_sys_get_max_trx_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token keyword">return</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
                     view<span class="token operator">-</span><span class="token operator">></span>m_closed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
             <span class="token function">mutex_enter</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token function">UT_LIST_REMOVE</span><span class="token punctuation">(</span>m_views<span class="token punctuation">,</span> view<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
             <span class="token function">mutex_enter</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>trx_sys<span class="token operator">-</span><span class="token operator">></span>mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
             view <span class="token operator">=</span> <span class="token function">get_view</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
             view<span class="token operator">-</span><span class="token operator">></span><span class="token function">prepare</span><span class="token punctuation">(</span>trx<span class="token operator">-</span><span class="token operator">></span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
             view<span class="token operator">-</span><span class="token operator">></span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token function">UT_LIST_ADD_FIRST</span><span class="token punctuation">(</span>m_views<span class="token punctuation">,</span> view<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token function">ut_ad</span><span class="token punctuation">(</span><span class="token operator">!</span>view<span class="token operator">-</span><span class="token operator">></span><span class="token function">is_closed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token function">ut_ad</span><span class="token punctuation">(</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
         <span class="token function">trx_sys_mutex_exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token comment" spellcheck="true">/**
     Close a view created by the above function.
@@ -871,10 +871,10 @@ point in time are seen in the view.
     判断一个视图是否处于活动和有效状态
     @return true if the view is active and valid */</span>
     <span class="token keyword">static</span> <span class="token keyword">bool</span> <span class="token function">is_view_active</span><span class="token punctuation">(</span>ReadView<span class="token operator">*</span> view<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
         <span class="token function">ut_a</span><span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token keyword">reinterpret_cast</span><span class="token operator">&lt;</span>ReadView<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token number">0x1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span>view <span class="token operator">!=</span> <span class="token constant">NULL</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">(</span><span class="token function">intptr_t</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 <span class="token keyword">private</span><span class="token operator">:</span>
 
@@ -897,7 +897,7 @@ point in time are seen in the view.
     creator trx id set to TRX_ID_MAX 
     活跃或者已经关闭的 Read View 的链表*/</span>
     view_list_t        m_views<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="9-4、RR在RC基础上解决不可重复读的问题"><a href="#9-4、RR在RC基础上解决不可重复读的问题" class="headerlink" title="9.4、RR在RC基础上解决不可重复读的问题"></a>9.4、RR在RC基础上解决不可重复读的问题</h3><p>图一：</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210302145710523.png" alt="image-20210302145710523"></p>
@@ -1673,7 +1673,7 @@ point in time are seen in the view.
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

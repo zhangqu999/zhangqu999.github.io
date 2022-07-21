@@ -433,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.5k
+                    3.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    17 分
+                    16 分
                 </div>
                 
                 
@@ -460,35 +460,35 @@
 <li>再细看事务，在一个事务中，构造<code>B树</code>分裂或者合并场景，看<code>MySQL</code>是如何实现的。</li>
 </ul>
 <h1 id="1、B-树索引分裂"><a href="#1、B-树索引分裂" class="headerlink" title="1、B+树索引分裂"></a>1、B+树索引分裂</h1><p>入口函数是：<code>storage/innobase/row/row0ins.cc</code>下的<code>row_ins_index_entry</code>，分为聚集索引和辅助索引插入两类，源码如下：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_index_is_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp">    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_index_is_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token function">row_ins_clust_index_entry</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token function">row_ins_sec_index_entry</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们首先来看看聚集索引的插入函数：<code>row_ins_clust_index_entry</code>，其核心源码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//以BTR_MODIFY_LEAF模式(乐观模式)调用row_ins_clust_index_entry_low</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_table_is_intrinsic</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span>
-    <span class="token operator">&amp;&amp;</span> <span class="token function">dict_index_is_auto_gen_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">dict_index_is_auto_gen_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     err <span class="token operator">=</span> <span class="token function">row_ins_sorted_clust_index_entry</span><span class="token punctuation">(</span>
         BTR_MODIFY_LEAF<span class="token punctuation">,</span> index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
     err <span class="token operator">=</span> <span class="token function">row_ins_clust_index_entry_low</span><span class="token punctuation">(</span>
         flags<span class="token punctuation">,</span> BTR_MODIFY_LEAF<span class="token punctuation">,</span> index<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> entry<span class="token punctuation">,</span>
         n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> dup_chk_only<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token comment" spellcheck="true">//以BTR_MODIFY_TREE模式（悲观模式）调用row_ins_clust_index_entry_low</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_table_is_intrinsic</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span>
-    <span class="token operator">&amp;&amp;</span> <span class="token function">dict_index_is_auto_gen_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;&amp;</span> <span class="token function">dict_index_is_auto_gen_clust</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     err <span class="token operator">=</span> <span class="token function">row_ins_sorted_clust_index_entry</span><span class="token punctuation">(</span>
         BTR_MODIFY_TREE<span class="token punctuation">,</span> index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
     err <span class="token operator">=</span> <span class="token function">row_ins_clust_index_entry_low</span><span class="token punctuation">(</span>
         flags<span class="token punctuation">,</span> BTR_MODIFY_TREE<span class="token punctuation">,</span> index<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> entry<span class="token punctuation">,</span>
         n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> dup_chk_only<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面我们来看看<code>row_ins_clust_index_entry_low</code>函数</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">dberr_t <span class="token function">row_ins_clust_index_entry_low</span><span class="token punctuation">(</span>
@@ -504,14 +504,14 @@
     que_thr_t<span class="token operator">*</span>    thr<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*!&lt; in: query thread */</span>
     <span class="token keyword">bool</span>        dup_chk_only<span class="token punctuation">)</span>
                 <span class="token comment" spellcheck="true">/*!&lt; in: if true, just do duplicate check
-                and return. don't execute actual insert. */</span>      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                and return. don't execute actual insert. */</span>      <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//mode==BTR_MODIFY_LEAF,调用乐观插入方法btr_cur_optimistic_insert</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>mode <span class="token operator">!=</span> BTR_MODIFY_TREE<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mode <span class="token operator">!=</span> BTR_MODIFY_TREE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             err <span class="token operator">=</span> <span class="token function">btr_cur_optimistic_insert</span><span class="token punctuation">(</span>
                 flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>offsets<span class="token punctuation">,</span> <span class="token operator">&amp;</span>offsets_heap<span class="token punctuation">,</span>
                 entry<span class="token punctuation">,</span> <span class="token operator">&amp;</span>insert_rec<span class="token punctuation">,</span> <span class="token operator">&amp;</span>big_rec<span class="token punctuation">,</span>
                 n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> <span class="token operator">&amp;</span>mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">//mode==BTR_MODIFY_TREE,首先会进行乐观插入</span>
             err <span class="token operator">=</span> <span class="token function">btr_cur_optimistic_insert</span><span class="token punctuation">(</span>
                 flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span>
@@ -519,16 +519,16 @@
                 entry<span class="token punctuation">,</span> <span class="token operator">&amp;</span>insert_rec<span class="token punctuation">,</span> <span class="token operator">&amp;</span>big_rec<span class="token punctuation">,</span>
                 n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> <span class="token operator">&amp;</span>mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//乐观插入失败了，就尝试悲观插入btr_cur_pessimistic_insert</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">==</span> DB_FAIL<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>err <span class="token operator">==</span> DB_FAIL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 err <span class="token operator">=</span> <span class="token function">btr_cur_pessimistic_insert</span><span class="token punctuation">(</span>
                     flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span>
                     <span class="token operator">&amp;</span>offsets<span class="token punctuation">,</span> <span class="token operator">&amp;</span>offsets_heap<span class="token punctuation">,</span>
                     entry<span class="token punctuation">,</span> <span class="token operator">&amp;</span>insert_rec<span class="token punctuation">,</span> <span class="token operator">&amp;</span>big_rec<span class="token punctuation">,</span>
                     n_ext<span class="token punctuation">,</span> thr<span class="token punctuation">,</span> <span class="token operator">&amp;</span>mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
     
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>接下来重点看看<code>btr_cur_pessimistic_insert</code>函数，源码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/*************************************************************/</span><span class="token comment" spellcheck="true">/**
@@ -558,7 +558,7 @@ dberr_t <span class="token function">btr_cur_pessimistic_insert</span><span clas
                 NULL */</span>
     ulint        n_ext<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*!&lt; in: number of externally stored columns */</span>
     que_thr_t<span class="token operator">*</span>    thr<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*!&lt; in: query thread or NULL */</span>
-    mtr_t<span class="token operator">*</span>        mtr<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in/out: mini-transaction */</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    mtr_t<span class="token operator">*</span>        mtr<span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">/*!&lt; in/out: mini-transaction */</span> <span class="token punctuation">{</span>
     
     <span class="token comment" spellcheck="true">//1、检查锁，如果是聚集索引，还要记录undo日志和回滚段指针（trx_undo_report_row_operation）</span>
     err <span class="token operator">=</span> <span class="token function">btr_cur_ins_lock_and_undo</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> entry<span class="token punctuation">,</span>
@@ -573,18 +573,18 @@ dberr_t <span class="token function">btr_cur_pessimistic_insert</span><span clas
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_zip_rec_needs_ext</span><span class="token punctuation">(</span><span class="token function">rec_get_converted_size</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">)</span><span class="token punctuation">,</span>
                    <span class="token function">dict_table_is_comp</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">,</span>
                    <span class="token function">dtuple_get_n_fields</span><span class="token punctuation">(</span>entry<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                   <span class="token function">dict_table_page_size</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                   <span class="token function">dict_table_page_size</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* The record is so big that we have to store some fields
         externally on separate database pages */</span>
         
-        big_rec_vec <span class="token operator">=</span> <span class="token function">dtuple_convert_big_rec</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> entry<span class="token punctuation">,</span> <span class="token operator">&amp;</span>n_ext<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        big_rec_vec <span class="token operator">=</span> <span class="token function">dtuple_convert_big_rec</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> entry<span class="token punctuation">,</span> <span class="token operator">&amp;</span>n_ext<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">page_zip_rec_needs_ext</span><span class="token punctuation">(</span><span class="token function">rec_get_converted_size</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> entry<span class="token punctuation">,</span>
                                  <span class="token operator">*</span>n_ext<span class="token punctuation">)</span><span class="token punctuation">,</span>
                       <span class="token function">dict_table_is_comp</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">,</span>
                       <span class="token function">dict_index_get_n_fields</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                      <span class="token function">dict_table_page_size</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                      <span class="token function">dict_table_page_size</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token function">dict_index_get_n_unique_in_tree</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-             i <span class="token operator">&lt;</span> <span class="token function">dtuple_get_n_fields</span><span class="token punctuation">(</span>entry<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+             i <span class="token operator">&lt;</span> <span class="token function">dtuple_get_n_fields</span><span class="token punctuation">(</span>entry<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             ulint    savings<span class="token punctuation">;</span>
 
             dfield <span class="token operator">=</span> <span class="token function">dtuple_get_nth_field</span><span class="token punctuation">(</span>entry<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//获取数据项的第n个字段</span>
@@ -598,34 +598,34 @@ dberr_t <span class="token function">btr_cur_pessimistic_insert</span><span clas
                 <span class="token operator">||</span> <span class="token function">dfield_is_ext</span><span class="token punctuation">(</span>dfield<span class="token punctuation">)</span>
                 <span class="token operator">||</span> <span class="token function">dfield_get_len</span><span class="token punctuation">(</span>dfield<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> local_len
                 <span class="token operator">||</span> <span class="token function">dfield_get_len</span><span class="token punctuation">(</span>dfield<span class="token punctuation">)</span>
-                <span class="token operator">&lt;=</span> BTR_EXTERN_LOCAL_STORED_MAX_SIZE<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token operator">&lt;=</span> BTR_EXTERN_LOCAL_STORED_MAX_SIZE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">goto</span> skip_field<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
             savings <span class="token operator">=</span> <span class="token function">dfield_get_len</span><span class="token punctuation">(</span>dfield<span class="token punctuation">)</span> <span class="token operator">-</span> local_len<span class="token punctuation">;</span>
 
             <span class="token comment" spellcheck="true">/* Check that there would be savings */</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>longest <span class="token operator">>=</span> savings<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>longest <span class="token operator">>=</span> savings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">goto</span> skip_field<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
             <span class="token comment" spellcheck="true">/*在是用DYNAMIC和COMPRESSED格式时，任何最大长度小于256字节的非BLOB列都是本地存储；而对于REDUNDANT和COMPACT类型而言，最大不超过788字节时                都会本地存储。 */</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">DATA_BIG_COL</span><span class="token punctuation">(</span>ifield<span class="token operator">-</span><span class="token operator">></span>col<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">DATA_BIG_COL</span><span class="token punctuation">(</span>ifield<span class="token operator">-</span><span class="token operator">></span>col<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">goto</span> skip_field<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
             longest_i <span class="token operator">=</span> i<span class="token punctuation">;</span>
             longest <span class="token operator">=</span> savings<span class="token punctuation">;</span>
 
 skip_field<span class="token operator">:</span>
             <span class="token keyword">continue</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token comment" spellcheck="true">//找不到满足要求的最大列，返回NULL</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>longest<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>longest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">/* Cannot shorten more */</span>
             <span class="token function">mem_heap_free</span><span class="token punctuation">(</span>heap<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
         <span class="token comment" spellcheck="true">/* Move data from field longest_i to big rec vector.
     添加longest_i字段到big rec向量中
@@ -658,15 +658,15 @@ skip_field<span class="token operator">:</span>
         n_fields<span class="token operator">++</span><span class="token punctuation">;</span>
         <span class="token punctuation">(</span><span class="token operator">*</span>n_ext<span class="token punctuation">)</span><span class="token operator">++</span><span class="token punctuation">;</span>
         <span class="token function">ut_ad</span><span class="token punctuation">(</span>n_fields <span class="token operator">&lt;</span> <span class="token function">dtuple_get_n_fields</span><span class="token punctuation">(</span>entry<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>       
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>       
+    <span class="token punctuation">}</span>
     
         <span class="token comment" spellcheck="true">//4、开始进行索引分裂</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_index_get_page</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">btr_cur_get_block</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>page<span class="token punctuation">.</span>id<span class="token punctuation">.</span><span class="token function">page_no</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dict_index_get_page</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">btr_cur_get_block</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span>page<span class="token punctuation">.</span>id<span class="token punctuation">.</span><span class="token function">page_no</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">/* The page is the root page
         如果当前记录的cursor在根Page上，则分裂节点，提升BTREE高度，然后再插入记录*/</span>
-        <span class="token operator">*</span>rec <span class="token operator">=</span> <span class="token function">btr_root_raise_and_insert</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token operator">*</span>rec <span class="token operator">=</span> <span class="token function">btr_root_raise_and_insert</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">//1、首先为B-TREE分配一个新Page，并进行初始化前后page指针</span>
             <span class="token comment" spellcheck="true">//1.1、给B-Tree分配一个新的Page页</span>
             level <span class="token operator">=</span> <span class="token function">btr_page_get_level</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -690,9 +690,9 @@ skip_field<span class="token operator">:</span>
             <span class="token comment" spellcheck="true">//2.3、迁移或者删除hash索引</span>
             <span class="token function">btr_search_move_or_delete_hash_entries</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> root_block<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//2.4、将root页上supremum记录上的锁迁移到新block的supremum记录上</span>
-            <span class="token function">lock_update_root_raise</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> root_block<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token function">lock_update_root_raise</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> root_block<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token function">lock_rec_move</span><span class="token punctuation">(</span>block<span class="token punctuation">,</span> root<span class="token punctuation">,</span> PAGE_HEAP_NO_SUPREMUM<span class="token punctuation">,</span> PAGE_HEAP_NO_SUPREMUM<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             
             <span class="token comment" spellcheck="true">//3、构建节点指针（node_ptr）</span>
             <span class="token comment" spellcheck="true">//3.1、读取新page上的第一个用户记录，根据rec和new_page_no创建节点指针</span>
@@ -720,29 +720,29 @@ skip_field<span class="token operator">:</span>
             <span class="token function">page_cur_search</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> index<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> page_cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//对new page进行split</span>
             <span class="token function">btr_page_split_and_insert</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//如果当前记录cursor不在根节点page上，走一般的索引分裂逻辑</span>
-        <span class="token operator">*</span>rec <span class="token operator">=</span> <span class="token function">btr_page_split_and_insert</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//如果当前记录cursor不在根节点page上，走一般的索引分裂逻辑</span>
+        <span class="token operator">*</span>rec <span class="token operator">=</span> <span class="token function">btr_page_split_and_insert</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> entry<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">//1、选择分裂中间点的记录</span>
             <span class="token comment" spellcheck="true">//1.1、已经做过一次split，但记录依然无法插入成功，则继续进行分裂</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>n_iterations <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> 
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n_iterations <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
                 direction <span class="token operator">=</span> FSP_UP<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//#define    FSP_UP        ((byte)111)    </span><span class="token comment" spellcheck="true">/*!&lt; alphabetically upwards */</span>
                 hint_page_no <span class="token operator">=</span> page_no <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
                 split_rec <span class="token operator">=</span> <span class="token function">btr_page_get_split_rec</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     insert_left <span class="token operator">=</span> <span class="token function">btr_page_tuple_smaller</span><span class="token punctuation">(</span>
                         cursor<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> offsets<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//1.2、推荐往右进行分裂</span>
-            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">btr_page_get_split_rec_to_right</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>split_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//1.2、推荐往右进行分裂</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">btr_page_get_split_rec_to_right</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>split_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 direction <span class="token operator">=</span> FSP_UP<span class="token punctuation">;</span>
                 hint_page_no <span class="token operator">=</span> page_no <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//1.3、推荐往左进行分裂    </span>
-            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">btr_page_get_split_rec_to_left</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>split_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//1.3、推荐往左进行分裂    </span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">btr_page_get_split_rec_to_left</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token operator">&amp;</span>split_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 direction <span class="token operator">=</span> FSP_DOWN<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//#define    FSP_DOWN    ((byte)112)    </span><span class="token comment" spellcheck="true">/*!&lt; alphabetically downwards */</span>
                 hint_page_no <span class="token operator">=</span> page_no <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//1.4、以上都不满足</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//1.4、以上都不满足</span>
                 direction <span class="token operator">=</span> FSP_UP<span class="token punctuation">;</span>
                 hint_page_no <span class="token operator">=</span> page_no <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
@@ -751,17 +751,17 @@ skip_field<span class="token operator">:</span>
                 to determine whether the new record will be inserted
                 to the left or right. */</span>
                 <span class="token comment" spellcheck="true">//1.4.1、如果page上记录不止一个，则从中间开始分裂</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_get_n_recs</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_get_n_recs</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     split_rec <span class="token operator">=</span> <span class="token function">page_get_middle_rec</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//1.4.2、如果当前插入记录比page上记录要小，则插到最左边</span>
+                <span class="token punctuation">}</span><span class="token comment" spellcheck="true">//1.4.2、如果当前插入记录比page上记录要小，则插到最左边</span>
                 <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">btr_page_tuple_smaller</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span>
-                                  offsets<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                                  offsets<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     split_rec <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>
                         <span class="token function">page_get_infimum_rec</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
                     split_rec <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
             
             
            <span class="token comment" spellcheck="true">//2、给索引分配一个new page </span>
@@ -775,65 +775,65 @@ skip_field<span class="token operator">:</span>
             
             <span class="token comment" spellcheck="true">//3、计算上半部分的page的第一个记录，以及在原始page上的第一个记录</span>
             <span class="token comment" spellcheck="true">//3.1、如果split_rec不为空</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             first_rec <span class="token operator">=</span> move_limit <span class="token operator">=</span> split_rec<span class="token punctuation">;</span>
             <span class="token operator">*</span>offsets <span class="token operator">=</span> <span class="token function">rec_get_offsets</span><span class="token punctuation">(</span>split_rec<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> <span class="token operator">*</span>offsets<span class="token punctuation">,</span> n_uniq<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">;</span>
             insert_left <span class="token operator">=</span> <span class="token function">cmp_dtuple_rec</span><span class="token punctuation">(</span>tuple<span class="token punctuation">,</span> split_rec<span class="token punctuation">,</span> <span class="token operator">*</span>offsets<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//表示当前记录是插入到split_rec的左边还是右边</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>insert_left <span class="token operator">&amp;&amp;</span> new_page_zip <span class="token operator">&amp;&amp;</span> n_iterations <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>insert_left <span class="token operator">&amp;&amp;</span> new_page_zip <span class="token operator">&amp;&amp;</span> n_iterations <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token comment" spellcheck="true">/* If a compressed page has already been split,
                     avoid further splits by inserting the record
                     to an empty page. */</span>
                     split_rec <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
                     <span class="token keyword">goto</span> insert_empty<span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//3.2、insert_left为TRUE</span>
-            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>insert_left<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//3.2、insert_left为TRUE</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>insert_left<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
                 <span class="token function">ut_a</span><span class="token punctuation">(</span>n_iterations <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//只有在n_iterations>0时才会发生</span>
                 first_rec <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span><span class="token function">page_get_infimum_rec</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 move_limit <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span><span class="token function">btr_cur_get_rec</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//以上都不满足（split_rec为空）</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//以上都不满足（split_rec为空）</span>
                 insert_empty<span class="token operator">:</span>
                 buf <span class="token operator">=</span> <span class="token function">UT_NEW_ARRAY_NOKEY</span><span class="token punctuation">(</span>byte<span class="token punctuation">,</span> <span class="token function">rec_get_converted_size</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 first_rec <span class="token operator">=</span> <span class="token function">rec_convert_dtuple_to_rec</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//当前插入的记录</span>
                 move_limit <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span><span class="token function">btr_cur_get_rec</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//当前插入的记录下一条</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             
             <span class="token comment" spellcheck="true">//4、修改B树结构</span>
             <span class="token comment" spellcheck="true">//4.1、将新page attach到b-tree上对应的层次上，并向上层节点插入node指针，更新当前层次的节点链表指针</span>
             <span class="token function">btr_attach_half_pages</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> block<span class="token punctuation">,</span> first_rec<span class="token punctuation">,</span> new_block<span class="token punctuation">,</span> direction<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//4.2、判断新记录是否能够满足插入</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>split_rec<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token comment" spellcheck="true">//对于压缩表，new_page_zip为true，因此insert_will_fit总为false</span>
                 insert_will_fit <span class="token operator">=</span> <span class="token operator">!</span>new_page_zip
                     <span class="token operator">&amp;&amp;</span> <span class="token function">btr_page_insert_fits</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> split_rec<span class="token punctuation">,</span>
                                 offsets<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//split_rec为空，表示分裂记录就是当前插入记录</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>insert_left<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">//split_rec为空，表示分裂记录就是当前插入记录</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>insert_left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token function">UT_DELETE_ARRAY</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
                     buf <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
                <span class="token comment" spellcheck="true">//同样的insert_will_fit对于压缩表而言，总是为FALSE。这意味着在索引分裂的过程中，会一直持有索引上的排他锁，这会导致压缩表分裂的开销非常大</span>
                 insert_will_fit <span class="token operator">=</span> <span class="token operator">!</span>new_page_zip
                     <span class="token operator">&amp;&amp;</span> <span class="token function">btr_page_insert_fits</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span>
                                 offsets<span class="token punctuation">,</span> tuple<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> heap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             <span class="token comment" spellcheck="true">//4.3、判断是否释放索引上的排他锁（x lock）</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>srv_read_only_mode
             <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_table_is_intrinsic</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span>
             <span class="token operator">&amp;&amp;</span> insert_will_fit
             <span class="token operator">&amp;&amp;</span> <span class="token function">page_is_leaf</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span>
-            <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_index_is_online_ddl</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_index_is_online_ddl</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 mtr<span class="token operator">-</span><span class="token operator">></span><span class="token function">memo_release</span><span class="token punctuation">(</span><span class="token function">dict_index_get_lock</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span><span class="token punctuation">,</span> MTR_MEMO_X_LOCK <span class="token operator">|</span> MTR_MEMO_SX_LOCK<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             
              <span class="token comment" spellcheck="true">//5、迁移记录到new page上</span>
             <span class="token comment" spellcheck="true">//5.1、迁移记录到new block上</span>
-            <span class="token function">page_move_rec_list_end</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> block<span class="token punctuation">,</span> move_limit<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token function">page_move_rec_list_end</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> block<span class="token punctuation">,</span> move_limit<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token comment" spellcheck="true">//将block上从move_limit(包含该记录)开始拷贝到new_block中。</span>
                 <span class="token function">page_copy_rec_list_end</span><span class="token punctuation">(</span>new_block<span class="token punctuation">,</span> block<span class="token punctuation">,</span> split_rec<span class="token punctuation">,</span> index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token comment" spellcheck="true">//删除转移的记录</span>
                 <span class="token function">page_delete_rec_list_end</span><span class="token punctuation">(</span>split_rec<span class="token punctuation">,</span> block<span class="token punctuation">,</span> index<span class="token punctuation">,</span> new_n_recs <span class="token operator">-</span> old_n_recs<span class="token punctuation">,</span> new_data_size <span class="token operator">-</span> old_data_size<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             <span class="token comment" spellcheck="true">//5.2、将原page中的记录按字节拷到new page中</span>
             <span class="token function">page_zip_copy_recs</span><span class="token punctuation">(</span>new_page_zip<span class="token punctuation">,</span> new_page<span class="token punctuation">,</span> page_zip<span class="token punctuation">,</span> page<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token comment" spellcheck="true">//5.3、从新page上删除从move_limit开始的记录，不包括move_limit记录本身以及Infimum和Supremum Records</span>
@@ -849,11 +849,11 @@ skip_field<span class="token operator">:</span>
             <span class="token function">lock_update_split_right</span><span class="token punctuation">(</span>right_block<span class="token punctuation">,</span> left_block<span class="token punctuation">)</span><span class="token punctuation">;</span>
             
             <span class="token comment" spellcheck="true">//6、到了这一步，索引树的分裂和修改已经结束了，这时根据insert_left来选择把记录插入到哪个block中</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>insert_left<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>insert_left<span class="token punctuation">)</span> <span class="token punctuation">{</span>
                insert_block <span class="token operator">=</span> left_block<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
                 insert_block <span class="token operator">=</span> right_block<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
             
             <span class="token comment" spellcheck="true">//7、开始尝试插入</span>
             page_cursor <span class="token operator">=</span> <span class="token function">btr_cur_get_page_cur</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -862,28 +862,28 @@ skip_field<span class="token operator">:</span>
                     offsets<span class="token punctuation">,</span> heap<span class="token punctuation">,</span> n_ext<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
             
             <span class="token comment" spellcheck="true">//8、如果插入失败，则重新reorgnize page，n_iterations++;然后从头开始继续分裂</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_cur_get_page_zip</span><span class="token punctuation">(</span>page_cursor<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">btr_page_reorganize</span><span class="token punctuation">(</span>page_cursor<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_cur_get_page_zip</span><span class="token punctuation">(</span>page_cursor<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">btr_page_reorganize</span><span class="token punctuation">(</span>page_cursor<span class="token punctuation">,</span> cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">goto</span> insert_failed<span class="token punctuation">;</span>
-           <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
             insert_failed<span class="token operator">:</span>
                 <span class="token comment" spellcheck="true">/* We play safe and reset the free bits for new_page */</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dict_index_is_clust</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span>
-                    <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                    <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     <span class="token function">ibuf_reset_free_bits</span><span class="token punctuation">(</span>new_block<span class="token punctuation">)</span><span class="token punctuation">;</span>
                     <span class="token function">ibuf_reset_free_bits</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
                 n_iterations<span class="token operator">++</span><span class="token punctuation">;</span>
                 <span class="token function">ut_ad</span><span class="token punctuation">(</span>n_iterations <span class="token operator">&lt;</span> <span class="token number">2</span> <span class="token operator">||</span> <span class="token function">buf_block_get_page_zip</span><span class="token punctuation">(</span>insert_block<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token function">ut_ad</span><span class="token punctuation">(</span><span class="token operator">!</span>insert_will_fit<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token keyword">goto</span> func_start<span class="token punctuation">;</span>
             
             <span class="token comment" spellcheck="true">//9、对于辅助索引，更新insert buffer</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dict_index_is_clust</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">page_is_leaf</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dict_index_is_clust</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">dict_table_is_temporary</span><span class="token punctuation">(</span>cursor<span class="token operator">-</span><span class="token operator">></span>index<span class="token operator">-</span><span class="token operator">></span>table<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">page_is_leaf</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token function">ibuf_update_free_bits_for_two_pages_low</span><span class="token punctuation">(</span>left_block<span class="token punctuation">,</span> right_block<span class="token punctuation">,</span> mtr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
             
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
     
     
     <span class="token comment" spellcheck="true">//5、更新AHI</span>
@@ -893,14 +893,14 @@ skip_field<span class="token operator">:</span>
     <span class="token function">lock_update_insert</span><span class="token punctuation">(</span><span class="token function">btr_cur_get_block</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>rec<span class="token punctuation">)</span><span class="token punctuation">;</span>
     
     <span class="token comment" spellcheck="true">//7、如果之前分配了extend,则更新space->n_reserved_extents计数</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>n_reserved <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token function">fil_space_release_free_extents</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>space<span class="token punctuation">,</span> n_reserved<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n_reserved <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">fil_space_release_free_extents</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token operator">></span>space<span class="token punctuation">,</span> n_reserved<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             space <span class="token operator">=</span> <span class="token function">fil_space_get_by_id</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
             space<span class="token operator">-</span><span class="token operator">></span>n_reserved_extents <span class="token operator">-</span><span class="token operator">=</span> n_reserved<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
     
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对于往右进行分裂，在<code>btr_page_get_split_rec_to_right</code>中进行了实现，源码如下：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">/*************************************************************/</span><span class="token comment" spellcheck="true">/**
@@ -914,7 +914,7 @@ ibool
                 the first record on upper half page,
                 or NULL if tuple to be inserted should
                 be first */</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
     page_t<span class="token operator">*</span>    page<span class="token punctuation">;</span>
     rec_t<span class="token operator">*</span>    insert_point<span class="token punctuation">;</span>
 
@@ -922,28 +922,28 @@ ibool
     insert_point <span class="token operator">=</span> <span class="token function">btr_cur_get_rec</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">//判断是否是向右顺序插入</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_header_get_ptr</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> PAGE_LAST_INSERT<span class="token punctuation">)</span> <span class="token operator">==</span> insert_point<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_header_get_ptr</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> PAGE_LAST_INSERT<span class="token punctuation">)</span> <span class="token operator">==</span> insert_point<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         rec_t<span class="token operator">*</span>    next_rec<span class="token punctuation">;</span>
         next_rec <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>insert_point<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//insert_point后面不足两条用户记录（if和else），则将split_rec赋值为NULL，即为insert_point</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_rec_is_supremum</span><span class="token punctuation">(</span>next_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_rec_is_supremum</span><span class="token punctuation">(</span>next_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 split_at_new<span class="token operator">:</span>
             <span class="token comment" spellcheck="true">/* Split at the new record to insert */</span>
             <span class="token operator">*</span>split_rec <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
             rec_t<span class="token operator">*</span>    next_next_rec <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>next_rec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_rec_is_supremum</span><span class="token punctuation">(</span>next_next_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_rec_is_supremum</span><span class="token punctuation">(</span>next_next_rec<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">goto</span> split_at_new<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
             <span class="token comment" spellcheck="true">/* 否则（insert_point后面不少于两条记录），则将其赋值为insert_point后的第二条记录，*/</span>
             <span class="token operator">*</span>split_rec <span class="token operator">=</span> next_next_rec<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token keyword">return</span><span class="token punctuation">(</span>FALSE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对于<code>insert_point</code>后面有不少于<code>2</code>条用户记录，<code>split_rec</code>赋值为第二条记录</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210309153130890.png" alt="image-20210309153130890"></p>
@@ -961,7 +961,7 @@ ibool
                 the first record on upper half page,
                 or NULL if tuple to be inserted should
                 be first */</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
     page_t<span class="token operator">*</span>    page<span class="token punctuation">;</span>
     rec_t<span class="token operator">*</span>    insert_point<span class="token punctuation">;</span>
     rec_t<span class="token operator">*</span>    infimum<span class="token punctuation">;</span>
@@ -970,20 +970,20 @@ ibool
     insert_point <span class="token operator">=</span> <span class="token function">btr_cur_get_rec</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">//判断是否是向左顺序插入</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">page_header_get_ptr</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> PAGE_LAST_INSERT<span class="token punctuation">)</span>
-        <span class="token operator">==</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>insert_point<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token operator">==</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>insert_point<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         infimum <span class="token operator">=</span> <span class="token function">page_get_infimum_rec</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//insert_point不为Infimum并且不为第一个用户记录，将split_rec赋值为insert_point</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>infimum <span class="token operator">!=</span> insert_point
-            <span class="token operator">&amp;&amp;</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>infimum<span class="token punctuation">)</span> <span class="token operator">!=</span> insert_point<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>infimum<span class="token punctuation">)</span> <span class="token operator">!=</span> insert_point<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token operator">*</span>split_rec <span class="token operator">=</span> insert_point<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//insert_point为Infimum或者第一个用户记录，将则split_rec赋值为insert_point下一个记录</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//insert_point为Infimum或者第一个用户记录，将则split_rec赋值为insert_point下一个记录</span>
             <span class="token operator">*</span>split_rec <span class="token operator">=</span> <span class="token function">page_rec_get_next</span><span class="token punctuation">(</span>insert_point<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
         <span class="token keyword">return</span><span class="token punctuation">(</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token keyword">return</span><span class="token punctuation">(</span>FALSE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对于<code>if</code>的情况，如下图</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210309160330729.png" alt="image-20210309160330729"></p>
@@ -1808,7 +1808,7 @@ ibool
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

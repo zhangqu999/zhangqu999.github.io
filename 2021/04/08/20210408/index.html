@@ -450,7 +450,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    771
+                    755
                 </div>
                 
 
@@ -529,21 +529,21 @@
 <p>然后我们进去<code>send_redo_update_request</code>函数里看看</p>
 <p>首先会调用一个<code>check_and_reset</code>方法</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">  <span class="token keyword">void</span> <span class="token function">check_and_reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
     <span class="token keyword">bool</span> is_checked <span class="token operator">=</span> <span class="token punctuation">(</span>m_is_get_redo_update <span class="token operator">!=</span> response_state_t<span class="token operator">::</span>NONE<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//是否收到过response</span>
       <span class="token comment" spellcheck="true">//如果全部SE节点都成功收到redo，重置一些信息，global_count++</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>m_get_redo_update_node_num <span class="token operator">==</span> m_node_num <span class="token operator">&amp;&amp;</span> is_checked<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{</span>
       m_get_redo_update_node_num <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
       m_is_get_redo_update <span class="token operator">=</span> response_state_t<span class="token operator">::</span>NONE<span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>m_get_redo_update_event<span class="token punctuation">.</span><span class="token function">is_set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{</span>
         m_get_redo_update_event<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
       m_protect_sync_data<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       m_fault<span class="token punctuation">.</span><span class="token function">count_up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后就会写一下<code>m_sync_request</code>和<code>m_model</code></p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408004056704.png" alt="image-20210408004056704"></p>
@@ -581,7 +581,7 @@
 <h4 id="2-2-3、CE读取SE的response包"><a href="#2-2-3、CE读取SE的response包" class="headerlink" title="2.2.3、CE读取SE的response包"></a>2.2.3、CE读取SE的response包</h4><p>通过<code>net_receive</code>进行接收</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408023011611.png" alt="image-20210408023011611"></p>
 <p>依次会调用<code>net_read_raw</code>-&gt;<code>my_net_read</code>-&gt;<code>net_read_packet</code></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">net_read_packet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">net_read_packet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//读取包头</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">net_read_packet_header</span><span class="token punctuation">(</span>net<span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token keyword">goto</span> error<span class="token punctuation">;</span>
@@ -589,7 +589,7 @@
      <span class="token comment" spellcheck="true">// 读取包体</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">net_read_raw_loop</span><span class="token punctuation">(</span>net<span class="token punctuation">,</span> pkt_len<span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token keyword">goto</span> error<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>net_read_raw_loop</code>往下会继续调用<code>vio_read</code>-&gt;<code>mysql_socket_recv:inline_mysql_socket_recv</code>-&gt;<code>recv</code></p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210408024810294.png" alt="image-20210408024810294"></p>
@@ -1326,7 +1326,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>

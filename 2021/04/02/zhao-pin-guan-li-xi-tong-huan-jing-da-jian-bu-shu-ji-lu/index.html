@@ -465,7 +465,7 @@ https://download.oracle.com/otn/java/jdk/8u281-b09/89d678f2be164786b292527658c">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    3k
                 </div>
                 
 
@@ -552,7 +552,7 @@ under the License.
  | This is the configuration file for Maven. It can be specified at two levels:
  |
  |  1. User Level. This settings.xml file provides configuration for a single user,
- |                 and is normally provided in $&amp;#123;user.home&amp;#125;/.m2/settings.xml.
+ |                 and is normally provided in ${user.home}/.m2/settings.xml.
  |
  |                 NOTE: This location can be overridden with the CLI option:
  |
@@ -561,7 +561,7 @@ under the License.
  |  2. Global Level. This settings.xml file provides configuration for all Maven
  |                 users on a machine (assuming they're all using the same Maven
  |                 installation). It's normally provided in
- |                 $&amp;#123;maven.conf&amp;#125;/settings.xml.
+ |                 ${maven.conf}/settings.xml.
  |
  |                 NOTE: This location can be overridden with the CLI option:
  |
@@ -578,7 +578,7 @@ under the License.
   <span class="token comment" spellcheck="true">&lt;!-- localRepository
    | The path to the local repository maven will use to store artifacts.
    |
-   | Default: $&amp;#123;user.home&amp;#125;/.m2/repository
+   | Default: ${user.home}/.m2/repository
   &lt;localRepository>/path/to/local/repo&lt;/localRepository>
   --></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span>D:/repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>
@@ -759,7 +759,7 @@ under the License.
      |   &lt;artifactId>myplugin&lt;/artifactId>
      |
      |   &lt;configuration>
-     |     &lt;tomcatLocation>$&amp;#123;tomcatPath&amp;#125;&lt;/tomcatLocation>
+     |     &lt;tomcatLocation>${tomcatPath}&lt;/tomcatLocation>
      |   &lt;/configuration>
      | &lt;/plugin>
      | ...
@@ -838,22 +838,22 @@ under the License.
 <pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh
 RESOURCE_NAME=recruitsystem-1.0.0-SNAPSHOT.jar
  
-tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '&#123;print $2&#125;'`
-if [ $&#123;tpid&#125; ]; then
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
 echo 'Stop Process...'
 kill -15 $tpid
 fi
 sleep 5
-tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '&#123;print $2&#125;'`
-if [ $&#123;tpid&#125; ]; then
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
 echo 'Kill Process!'
 kill -9 $tpid
 else
 echo 'Stop Success!'
 fi
  
-tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '&#123;print $2&#125;'`
-if [ $&#123;tpid&#125; ]; then
+tpid=`ps -ef|grep $RESOURCE_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
+if [ ${tpid} ]; then
     echo 'App is running.'
 else
     echo 'App is NOT running.'
@@ -882,7 +882,7 @@ echo Start Success!
 <p>然后再通过<code>service nginx start</code> 命令就可以启动成功了。</p>
 <h4 id="2-2-2-2、Nginx配置"><a href="#2-2-2-2、Nginx配置" class="headerlink" title="2.2.2.2、Nginx配置"></a>2.2.2.2、Nginx配置</h4><p>修改<code>nginx.conf</code>文件</p>
 <p>修改<code>server</code>配置如下：</p>
-<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">server</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<pre class="line-numbers language-nginx"><code class="language-nginx">    <span class="token keyword">server</span> <span class="token punctuation">{</span>
         <span class="token keyword">listen</span>       <span class="token number">8080</span><span class="token punctuation">;</span>
         <span class="token keyword">server_name</span>  <span class="token number">121.4</span><span class="token punctuation">.</span><span class="token number">20.119</span><span class="token punctuation">;</span>
         <span class="token keyword">root</span>         <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html<span class="token punctuation">;</span>
@@ -890,26 +890,26 @@ echo Start Success!
         <span class="token keyword">include</span> <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>default<span class="token punctuation">.</span>d<span class="token operator">/</span><span class="token operator">*</span><span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
 
         <span class="token comment" spellcheck="true">#重写nginx默认欢迎页面</span>
-        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
          <span class="token keyword">root</span> <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>dist<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">#dist目录绝对路径</span>
          <span class="token keyword">index</span> <span class="token keyword">index</span><span class="token punctuation">.</span>html<span class="token punctuation">;</span>
          <span class="token keyword">try_files</span> <span class="token variable">$uri</span> <span class="token variable">$uri</span><span class="token operator">/</span> <span class="token operator">/</span><span class="token keyword">index</span><span class="token punctuation">.</span>html<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">#重定向</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+        <span class="token punctuation">}</span>
 
     <span class="token comment" spellcheck="true">#配置后端的接口，将访问域名/api的路径代理给我们后端的接口</span>
-    <span class="token keyword">location</span> <span class="token operator">/</span>api <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+    <span class="token keyword">location</span> <span class="token operator">/</span>api <span class="token punctuation">{</span>
         <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">121.4</span><span class="token punctuation">.</span><span class="token number">20.119</span><span class="token punctuation">:</span><span class="token number">3000</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+    <span class="token punctuation">}</span>
 
 
         <span class="token keyword">error_page</span> <span class="token number">404</span> <span class="token operator">/</span><span class="token number">404</span><span class="token punctuation">.</span>html<span class="token punctuation">;</span>
-        <span class="token keyword">location</span> <span class="token operator">=</span> <span class="token operator">/</span><span class="token number">404</span><span class="token punctuation">.</span>html <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+        <span class="token keyword">location</span> <span class="token operator">=</span> <span class="token operator">/</span><span class="token number">404</span><span class="token punctuation">.</span>html <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
 
         <span class="token keyword">error_page</span> <span class="token number">500</span> <span class="token number">502</span> <span class="token number">503</span> <span class="token number">504</span> <span class="token operator">/</span>50x<span class="token punctuation">.</span>html<span class="token punctuation">;</span>
-        <span class="token keyword">location</span> <span class="token operator">=</span> <span class="token operator">/</span>50x<span class="token punctuation">.</span>html <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-    <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+        <span class="token keyword">location</span> <span class="token operator">=</span> <span class="token operator">/</span>50x<span class="token punctuation">.</span>html <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后通过 <code>service nginx restart</code> 命令重启<code>nginx</code>，就可以通过 <a target="_blank" rel="noopener" href="http://121.4.20.119:8080/">http://121.4.20.119:8080/</a> 正常在线访问了。</p>
 <p><img src="https://zhangqu-oss.oss-cn-zhangjiakou.aliyuncs.com/img/image-20210403164710280.png" alt="image-20210403164710280"></p>
@@ -1703,7 +1703,7 @@ echo Start Success!
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.6k</span>
+            <span class="white-color">280.1k</span>
             
 
             <br>
