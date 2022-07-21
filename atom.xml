@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>JavaGuy的博客</title>
+  
+  <subtitle>Step by step, just Right!</subtitle>
+  <link href="https://javaguycoffee.com/atom.xml" rel="self"/>
+  
+  <link href="https://javaguycoffee.com/"/>
+  <updated>2022-07-21T10:02:40.807Z</updated>
+  <id>https://javaguycoffee.com/</id>
+  
+  <author>
+    <name>JavaGuy</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leveldb学习</title>
+    <link href="https://javaguycoffee.com/2022/07/21/leveldb-xue-xi/"/>
+    <id>https://javaguycoffee.com/2022/07/21/leveldb-xue-xi/</id>
+    <published>2022-07-21T03:55:36.000Z</published>
+    <updated>2022-07-21T10:02:40.807Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1、简介&quot;&gt;&lt;a href=&quot;#1、简介&quot; class=&quot;headerlink&quot; title=&quot;1、简介&quot;&gt;&lt;/a&gt;1、简介&lt;/h2&gt;&lt;p&gt;Google开发的一个高性能的KV数据库，提供自定义key排序。&lt;/p&gt;
+&lt;h3 id=&quot;1-1、功能&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20211207</title>
+    <link href="https://javaguycoffee.com/2021/12/07/20211207/"/>
+    <id>https://javaguycoffee.com/2021/12/07/20211207/</id>
+    <published>2021-12-07T04:45:35.000Z</published>
+    <updated>2022-07-21T03:51:31.854Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;p&gt;1、解决了上周独立镜像制作的问题&lt;/p&gt;
+&lt;p&gt;2、解决k8s集群的问题&lt;/p&gt;
+&lt;p&gt;下一步：&lt;/p&gt;
+&lt;p&gt;1、做sysbench压测&lt;/p&gt;
+&lt;p&gt;2、编写实现Pod，StatefulSet，Deployment等组件，完成在k8s集群上</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20211102</title>
+    <link href="https://javaguycoffee.com/2021/11/02/20211102/"/>
+    <id>https://javaguycoffee.com/2021/11/02/20211102/</id>
+    <published>2021-11-02T01:03:12.000Z</published>
+    <updated>2022-07-21T03:51:31.852Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;p&gt;成功搭建Kubernetes主从集群环境&lt;/p&gt;
+&lt;p&gt;下一步：运行多SE版本代码，并编写脚本完成自动化部署&lt;/p&gt;
+&lt;p&gt;1、安装Kubelet, kubeadm, kubectl</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20211026</title>
+    <link href="https://javaguycoffee.com/2021/10/25/20211026/"/>
+    <id>https://javaguycoffee.com/2021/10/25/20211026/</id>
+    <published>2021-10-25T10:48:55.000Z</published>
+    <updated>2022-07-21T03:51:31.851Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;p&gt;在docker里运行多SE版本代码，并建立通信&lt;/p&gt;
+&lt;p&gt;下一步：搭建Kubernetes主从集群环境，并将多SE版本代码在上面成功部署。&lt;/p&gt;
+&lt;p&gt;成功在docker内运行一个CE，三个SE&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210804</title>
+    <link href="https://javaguycoffee.com/2021/08/03/20210804/"/>
+    <id>https://javaguycoffee.com/2021/08/03/20210804/</id>
+    <published>2021-08-03T12:31:48.000Z</published>
+    <updated>2022-07-21T03:51:31.849Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;p&gt;基本确定技术方案，为下一步实践做准备。&lt;/p&gt;
+&lt;h1 id=&quot;1、关键技术方案确定&quot;&gt;&lt;a href=&quot;#1、关键技术方案确定&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ma上云方案</title>
+    <link href="https://javaguycoffee.com/2021/07/30/ma-shang-yun-fang-an/"/>
+    <id>https://javaguycoffee.com/2021/07/30/ma-shang-yun-fang-an/</id>
+    <published>2021-07-30T02:25:52.000Z</published>
+    <updated>2022-07-21T03:51:31.977Z</updated>
+    
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="开题" scheme="https://javaguycoffee.com/categories/Lab/%E5%BC%80%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210728</title>
+    <link href="https://javaguycoffee.com/2021/07/27/20210728/"/>
+    <id>https://javaguycoffee.com/2021/07/27/20210728/</id>
+    <published>2021-07-27T13:42:01.000Z</published>
+    <updated>2022-07-21T03:51:31.847Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;阅读《基于Docker的云数据库服务系统的设计与实现》和《基于PaaS平台和云编排引擎的云数据库服务设计与实现》，总结难点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;《基于Docker的云数据库服务系统的设计与实现》&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Shopee</title>
+    <link href="https://javaguycoffee.com/2021/07/24/shopee/"/>
+    <id>https://javaguycoffee.com/2021/07/24/shopee/</id>
+    <published>2021-07-24T13:50:28.000Z</published>
+    <updated>2022-07-21T03:51:31.877Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;北京后端&quot;&gt;&lt;a href=&quot;#北京后端&quot; class=&quot;headerlink&quot; title=&quot;北京后端&quot;&gt;&lt;/a&gt;北京后端&lt;/h1&gt;&lt;h2 id=&quot;进程线程协程（问得很深）&quot;&gt;&lt;a href=&quot;#进程线程协程（问得很深）&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="面经" scheme="https://javaguycoffee.com/categories/Java/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Gossip讲稿</title>
+    <link href="https://javaguycoffee.com/2021/07/21/gossip-jiang-gao/"/>
+    <id>https://javaguycoffee.com/2021/07/21/gossip-jiang-gao/</id>
+    <published>2021-07-21T06:43:18.000Z</published>
+    <updated>2022-07-21T03:51:31.858Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Gossip协议概述&quot;&gt;&lt;a href=&quot;#Gossip协议概述&quot; class=&quot;headerlink&quot; title=&quot;Gossip协议概述&quot;&gt;&lt;/a&gt;Gossip协议概述&lt;/h1&gt;&lt;h2 id=&quot;应用场景&quot;&gt;&lt;a href=&quot;#应用场景&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="Task" scheme="https://javaguycoffee.com/categories/Lab/Task/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210721</title>
+    <link href="https://javaguycoffee.com/2021/07/20/20210721/"/>
+    <id>https://javaguycoffee.com/2021/07/20/20210721/</id>
+    <published>2021-07-20T12:20:29.000Z</published>
+    <updated>2022-07-21T03:51:31.846Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;阅读《中国联通容器化大数据云平台的探索和实践》和《达梦云数据库平台》&lt;/li&gt;
+&lt;li&gt;调研国内外云数据库解决方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;1、《中国联通容器化大数据云平台的探索和实践》&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>bytedance</title>
+    <link href="https://javaguycoffee.com/2021/07/18/bytedance/"/>
+    <id>https://javaguycoffee.com/2021/07/18/bytedance/</id>
+    <published>2021-07-18T04:28:23.000Z</published>
+    <updated>2022-07-21T03:51:31.878Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、计算机网络&quot;&gt;&lt;a href=&quot;#1、计算机网络&quot; class=&quot;headerlink&quot; title=&quot;1、计算机网络&quot;&gt;&lt;/a&gt;1、计算机网络&lt;/h1&gt;&lt;h2 id=&quot;ARP协议工作原理？如何解决ARP攻击？&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Dubbo笔记</title>
+    <link href="https://javaguycoffee.com/2021/07/15/dubbo-bi-ji/"/>
+    <id>https://javaguycoffee.com/2021/07/15/dubbo-bi-ji/</id>
+    <published>2021-07-15T02:11:57.000Z</published>
+    <updated>2022-07-21T03:51:31.857Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、分布式系统相关概念&quot;&gt;&lt;a href=&quot;#1、分布式系统相关概念&quot; class=&quot;headerlink&quot; title=&quot;1、分布式系统相关概念&quot;&gt;&lt;/a&gt;1、分布式系统相关概念&lt;/h1&gt;&lt;h2 id=&quot;1-1、大型互联网公司架构目标&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="Dubbo" scheme="https://javaguycoffee.com/categories/Java/Dubbo/"/>
+    
+    
+    <category term="Dubbo" scheme="https://javaguycoffee.com/tags/Dubbo/"/>
+    
+    <category term="Zookeeper" scheme="https://javaguycoffee.com/tags/Zookeeper/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210714</title>
+    <link href="https://javaguycoffee.com/2021/07/14/20210714/"/>
+    <id>https://javaguycoffee.com/2021/07/14/20210714/</id>
+    <published>2021-07-14T02:38:48.000Z</published>
+    <updated>2022-07-21T03:51:31.844Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：学习k8s，为下一步实践方案打基础&lt;/p&gt;
+&lt;p&gt;下一步：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将ma通过docker部署到容器里&lt;/li&gt;
+&lt;li&gt;通过k8s管理容器&lt;/li&gt;
+&lt;li&gt;进一步考虑弄一个前端服务化界面（类似DAS）对接k8s来使用数据库，以此对外提供服</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="K8S" scheme="https://javaguycoffee.com/tags/K8S/"/>
+    
+    <category term="Docker" scheme="https://javaguycoffee.com/tags/Docker/"/>
+    
+    <category term="DAS" scheme="https://javaguycoffee.com/tags/DAS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>interview_summary</title>
+    <link href="https://javaguycoffee.com/2021/07/08/interview-summary/"/>
+    <id>https://javaguycoffee.com/2021/07/08/interview-summary/</id>
+    <published>2021-07-08T08:47:31.000Z</published>
+    <updated>2022-07-21T03:51:31.977Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、Java基础&quot;&gt;&lt;a href=&quot;#1、Java基础&quot; class=&quot;headerlink&quot; title=&quot;1、Java基础&quot;&gt;&lt;/a&gt;1、Java基础&lt;/h1&gt;&lt;h1 id=&quot;2、Java集合框架&quot;&gt;&lt;a href=&quot;#2、Java集合框架&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="面经" scheme="https://javaguycoffee.com/categories/Java/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20210707</title>
+    <link href="https://javaguycoffee.com/2021/07/06/20210707/"/>
+    <id>https://javaguycoffee.com/2021/07/06/20210707/</id>
+    <published>2021-07-06T11:54:44.000Z</published>
+    <updated>2022-07-21T03:51:31.843Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;整合Docker与Jenkins部署微服务，进一步熟悉Docker与Jenkins</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="Docker" scheme="https://javaguycoffee.com/tags/Docker/"/>
+    
+    <category term="Jenkins" scheme="https://javaguycoffee.com/tags/Jenkins/"/>
+    
+    <category term="SonarCube" scheme="https://javaguycoffee.com/tags/SonarCube/"/>
+    
+    <category term="Harbor" scheme="https://javaguycoffee.com/tags/Harbor/"/>
+    
+    <category term="PersistentVolumeClaim" scheme="https://javaguycoffee.com/tags/PersistentVolumeClaim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210630</title>
+    <link href="https://javaguycoffee.com/2021/06/27/20210630/"/>
+    <id>https://javaguycoffee.com/2021/06/27/20210630/</id>
+    <published>2021-06-27T05:47:06.000Z</published>
+    <updated>2022-07-21T03:51:31.841Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：基于K8S+Docker搭建Jenkins主从分布式构建环境，业界解决方案的了解，具体包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Master节点&lt;/li&gt;
+&lt;li&gt;Slave节点&lt;/li&gt;
+&lt;li&gt;NFS的安装配置&lt;/li&gt;
+&lt;li&gt;在K8S上创建Jenkins-Ma</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="K8S" scheme="https://javaguycoffee.com/tags/K8S/"/>
+    
+    <category term="Docker" scheme="https://javaguycoffee.com/tags/Docker/"/>
+    
+    <category term="Jenkins" scheme="https://javaguycoffee.com/tags/Jenkins/"/>
+    
+    <category term="NFS" scheme="https://javaguycoffee.com/tags/NFS/"/>
+    
+    <category term="Devops" scheme="https://javaguycoffee.com/tags/Devops/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面经</title>
+    <link href="https://javaguycoffee.com/2021/06/25/mian-jing/"/>
+    <id>https://javaguycoffee.com/2021/06/25/mian-jing/</id>
+    <published>2021-06-25T08:03:04.000Z</published>
+    <updated>2022-07-21T03:51:31.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2021-6-25&quot;&gt;&lt;a href=&quot;#2021-6-25&quot; class=&quot;headerlink&quot; title=&quot;2021-6-25&quot;&gt;&lt;/a&gt;2021-6-25&lt;/h1&gt;&lt;h2 id=&quot;1、问算法实习内容&quot;&gt;&lt;a href=&quot;#1、问算法实习内容&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="面经" scheme="https://javaguycoffee.com/categories/Java/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+    <category term="HashMap" scheme="https://javaguycoffee.com/tags/HashMap/"/>
+    
+    <category term="线程池" scheme="https://javaguycoffee.com/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+    <category term="Mybatis" scheme="https://javaguycoffee.com/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20210623</title>
+    <link href="https://javaguycoffee.com/2021/06/21/20210623/"/>
+    <id>https://javaguycoffee.com/2021/06/21/20210623/</id>
+    <published>2021-06-21T09:58:21.000Z</published>
+    <updated>2022-07-21T03:51:31.840Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本周工作总结：&lt;/p&gt;
+&lt;p&gt;在三台CentOS7服务器上做一个单体Maven项目的持续集成流程测试（从GitLab拉取指定分支代码，代码检测，编译，打包部署，发送构建结果邮件），包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;带参数的自动化构建流程&lt;/li&gt;
+&lt;li&gt;邮件服务器&lt;/li</summary>
+        
+      
+    
+    
+    
+    <category term="Lab" scheme="https://javaguycoffee.com/categories/Lab/"/>
+    
+    <category term="周会总结报告" scheme="https://javaguycoffee.com/categories/Lab/%E5%91%A8%E4%BC%9A%E6%80%BB%E7%BB%93%E6%8A%A5%E5%91%8A/"/>
+    
+    
+    <category term="K8S" scheme="https://javaguycoffee.com/tags/K8S/"/>
+    
+    <category term="Docker" scheme="https://javaguycoffee.com/tags/Docker/"/>
+    
+    <category term="Jenkins" scheme="https://javaguycoffee.com/tags/Jenkins/"/>
+    
+    <category term="SonarCube" scheme="https://javaguycoffee.com/tags/SonarCube/"/>
+    
+    <category term="SpringCloud" scheme="https://javaguycoffee.com/tags/SpringCloud/"/>
+    
+    <category term="GitLab" scheme="https://javaguycoffee.com/tags/GitLab/"/>
+    
+    <category term="Maven" scheme="https://javaguycoffee.com/tags/Maven/"/>
+    
+    <category term="Tomcat" scheme="https://javaguycoffee.com/tags/Tomcat/"/>
+    
+    <category term="Jdk" scheme="https://javaguycoffee.com/tags/Jdk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ds梳理</title>
+    <link href="https://javaguycoffee.com/2021/06/19/ds-shu-li/"/>
+    <id>https://javaguycoffee.com/2021/06/19/ds-shu-li/</id>
+    <published>2021-06-19T09:22:20.000Z</published>
+    <updated>2022-07-21T03:51:31.880Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1、项目介绍&quot;&gt;&lt;a href=&quot;#1、项目介绍&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://javaguycoffee.com/categories/Java/"/>
+    
+    <category term="项目实战" scheme="https://javaguycoffee.com/categories/Java/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="MySQL" scheme="https://javaguycoffee.com/tags/MySQL/"/>
+    
+    <category term="SpringBoot" scheme="https://javaguycoffee.com/tags/SpringBoot/"/>
+    
+    <category term="Elasticsearch" scheme="https://javaguycoffee.com/tags/Elasticsearch/"/>
+    
+    <category term="Redis" scheme="https://javaguycoffee.com/tags/Redis/"/>
+    
+    <category term="RabbitMQ" scheme="https://javaguycoffee.com/tags/RabbitMQ/"/>
+    
+    <category term="Vue" scheme="https://javaguycoffee.com/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zp梳理</title>
+    <link href="https://javaguycoffee.com/2021/06/19/zp-shu-li/"/>
+    <id>https://javaguycoffee.com/2021/06/19/zp-shu-li/</id>
+    <published>2021-06-19T01:49:29.000Z</published>
+    <updated>2022-07-21T03:51:31.983Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+</feed>
