@@ -413,14 +413,14 @@ key和value是任意的字节数组
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
                 
@@ -447,57 +447,57 @@ key和value是任意的字节数组
 <h3 id="1-2、基本操作"><a href="#1-2、基本操作" class="headerlink" title="1.2、基本操作"></a>1.2、基本操作</h3><ul>
 <li><p>打开数据库</p>
 <p>每个leveldb数据库都有一个相关的文件系统目录，所有数据存放在该目录下。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include <cassert>
-#include "leveldb/db.h"
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;cassert></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"leveldb/db.h"</span></span>
 
-leveldb::DB* db;
-leveldb::Options options;
-options.create_if_missing = true;
-options.error_if_exists = true;  //捕捉数据库存在error
-leveldb::Status status = leveldb::DB::Open(options, "/tmp/testdb", &db);
-assert(status.ok());
-...
+leveldb<span class="token operator">::</span>DB<span class="token operator">*</span> db<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Options options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>create_if_missing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>error_if_exists <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//捕捉数据库存在error</span>
+leveldb<span class="token operator">::</span>Status status <span class="token operator">=</span> leveldb<span class="token operator">::</span>DB<span class="token operator">::</span><span class="token function">Open</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token string">"/tmp/testdb"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>db<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span>status<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Status</p>
 <p> 可以打印函数调用返回的错误信息</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Status s = ...;
-if (!s.ok()) cerr << s.ToString() << endl;
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Status s <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>s<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> cerr <span class="token operator">&lt;&lt;</span> s<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>关闭数据库</p>
-<pre class="line-numbers language-c++"><code class="language-c++">... open the db as described above ...
-... do something with db ...
-delete db;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> open the db as described above <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">do</span> something with db <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">delete</span> db<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>基本读写操作</p>
 <p> 比如移动key1的值到key2</p>
-<pre class="line-numbers language-c++"><code class="language-c++">std::string value;
-leveldb::Status s = db->Get(leveldb::ReadOptions(), key1, &value);
-if (s.ok()) s = db->Put(leveldb::WriteOptions(), key2, value);
-if (s.ok()) s = db->Delete(leveldb::WriteOptions(), key1);
+<pre class="line-numbers language-cpp"><code class="language-cpp">std<span class="token operator">::</span>string value<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Status s <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Get</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">ReadOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> s <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Put</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">WriteOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key2<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> s <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Delete</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">WriteOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>原子更新</p>
 <p>比如上面第二步未完成，进程挂掉了，这样数据就会在两个key里面都丢失了。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include "leveldb/write_batch.h"
-...
-std::string value;
-leveldb::Status s = db->Get(leveldb::ReadOptions(), key1, &value);
-if (s.ok()) &#123;
-  leveldb::WriteBatch batch;
-  batch.Delete(key1);
-  batch.Put(key2, value);
-  s = db->Write(leveldb::WriteOptions(), &batch);
-&#125;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"leveldb/write_batch.h"</span></span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+std<span class="token operator">::</span>string value<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Status s <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Get</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">ReadOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  leveldb<span class="token operator">::</span>WriteBatch batch<span class="token punctuation">;</span>
+  batch<span class="token punctuation">.</span><span class="token function">Delete</span><span class="token punctuation">(</span>key1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  batch<span class="token punctuation">.</span><span class="token function">Put</span><span class="token punctuation">(</span>key2<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  s <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Write</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">WriteOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>batch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>同步写</p>
 <p>默认leveldb写是异步的，但是leveldb也是支持同步写的。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::WriteOptions write_options;
-write_options.sync = true;
-db->Put(write_options, ...);
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>WriteOptions write_options<span class="token punctuation">;</span>
+write_options<span class="token punctuation">.</span>sync <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+db<span class="token operator">-</span><span class="token operator">></span><span class="token function">Put</span><span class="token punctuation">(</span>write_options<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>一般来说，异步写性能要比同步写高出几千倍，但是异步写缺点是当进程挂掉时，最后几次update会丢失，但是同步写不会。这并不能说异步写不安全，因为有崩溃恢复机制（同步写来维护checkpoint）来保证安全。</p>
 </li>
@@ -506,48 +506,48 @@ db->Put(write_options, ...);
 </li>
 <li><p>迭代器</p>
 <p>遍历数据库里所有数据</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Iterator* it = db->NewIterator(leveldb::ReadOptions());
-for (it->SeekToFirst(); it->Valid(); it->Next()) &#123;
-  cout << it->key().ToString() << ": "  << it->value().ToString() << endl;
-&#125;
-assert(it->status().ok());  // Check for any errors found during the scan
-delete it;
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Iterator<span class="token operator">*</span> it <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">NewIterator</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">ReadOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span>it<span class="token operator">-</span><span class="token operator">></span><span class="token function">SeekToFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">": "</span>  <span class="token operator">&lt;&lt;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span>it<span class="token operator">-</span><span class="token operator">></span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Check for any errors found during the scan</span>
+<span class="token keyword">delete</span> it<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>遍历在[start, limit)范围内的数据</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for (it->Seek(start);
-   it->Valid() && it->key().ToString() < limit;
-   it->Next()) &#123;
-  ...
-&#125;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">for</span> <span class="token punctuation">(</span>it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Seek</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> limit<span class="token punctuation">;</span>
+   it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>逆向遍历数据</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for (it->SeekToLast(); it->Valid(); it->Prev()) &#123;
-  ...
-&#125;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">for</span> <span class="token punctuation">(</span>it<span class="token operator">-</span><span class="token operator">></span><span class="token function">SeekToLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Prev</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>数据快照</p>
 <p>​    对数据库的某个状态进行快照，使用ReadOptions::snapshot来维护，非空表示存在快照，读操作则作用于该快照，为空的话，作用于当前状态。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::ReadOptions options;
-options.snapshot = db->GetSnapshot();
-... apply some updates to db ...
-leveldb::Iterator* iter = db->NewIterator(options);
-... read using iter to view the state when the snapshot was created ...
-delete iter;
-db->ReleaseSnapshot(options.snapshot);
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>ReadOptions options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>snapshot <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">GetSnapshot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> apply some updates to db <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+leveldb<span class="token operator">::</span>Iterator<span class="token operator">*</span> iter <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">NewIterator</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> read <span class="token keyword">using</span> iter to view the state when the snapshot was created <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">delete</span> iter<span class="token punctuation">;</span>
+db<span class="token operator">-</span><span class="token operator">></span><span class="token function">ReleaseSnapshot</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>snapshot<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Slice</p>
 <p>Slice是一个包含length和指向字节数组指针的数据结构，返回Slice数据结构比std::string更节省空间，上面的it-&gt;key()和it-&gt;value()都是Slice数据类型。</p>
 <p>字符串可以很容易转为Slice类型。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Slice s1 = "hello";
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Slice s1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
 
-std::string str("world");
-leveldb::Slice s2 = str;
+std<span class="token operator">::</span>string <span class="token function">str</span><span class="token punctuation">(</span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Slice s2 <span class="token operator">=</span> str<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Slice转为c++字符串</p>
-<pre class="line-numbers language-c++"><code class="language-c++">std::string str = s1.ToString();
-assert(str == std::string("hello"));
+<pre class="line-numbers language-cpp"><code class="language-cpp">std<span class="token operator">::</span>string str <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span>str <span class="token operator">==</span> std<span class="token operator">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>比较器</p>
@@ -558,71 +558,71 @@ assert(str == std::string("hello"));
 </li>
 <li><p>数据压缩</p>
 <p>默认开启，因为默认压缩算法非常快；同时也可以禁用压缩</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Options options;
-options.compression = leveldb::kNoCompression;
-... leveldb::DB::Open(options, name, ...) ....
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Options options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>compression <span class="token operator">=</span> leveldb<span class="token operator">::</span>kNoCompression<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> leveldb<span class="token operator">::</span>DB<span class="token operator">::</span><span class="token function">Open</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Cache</p>
 <p>主要用来缓存非压缩数据，压缩数据缓存由操作系统缓存或者客户端负责</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include "leveldb/cache.h"
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"leveldb/cache.h"</span></span>
 
-leveldb::Options options;
-options.block_cache = leveldb::NewLRUCache(100 * 1048576);  // 100MB cache
-leveldb::DB* db;
-leveldb::DB::Open(options, name, &db);
-... use the db ...
-delete db
-delete options.block_cache;
+leveldb<span class="token operator">::</span>Options options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>block_cache <span class="token operator">=</span> leveldb<span class="token operator">::</span><span class="token function">NewLRUCache</span><span class="token punctuation">(</span><span class="token number">100</span> <span class="token operator">*</span> <span class="token number">1048576</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 100MB cache</span>
+leveldb<span class="token operator">::</span>DB<span class="token operator">*</span> db<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>DB<span class="token operator">::</span><span class="token function">Open</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token operator">&amp;</span>db<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> use the db <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">delete</span> db
+<span class="token keyword">delete</span> options<span class="token punctuation">.</span>block_cache<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>进行批量读取时，需要关闭缓存，可以这样实现：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::ReadOptions options;
-options.fill_cache = false;
-leveldb::Iterator* it = db->NewIterator(options);
-for (it->SeekToFirst(); it->Valid(); it->Next()) &#123;
-  ...
-&#125;
-delete it;
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>ReadOptions options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>fill_cache <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Iterator<span class="token operator">*</span> it <span class="token operator">=</span> db<span class="token operator">-</span><span class="token operator">></span><span class="token function">NewIterator</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span>it<span class="token operator">-</span><span class="token operator">></span><span class="token function">SeekToFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token operator">-</span><span class="token operator">></span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token keyword">delete</span> it<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Key Layout</p>
 <p>因为相邻的keys会被放在同一个block里，可以将经常一起访问的数据块key放置相邻，不常访问的数据块放在一个独立的region里。</p>
 <p>假如在leveldb里实现一个简单的文件系统，可能要存储以下数据</p>
-<pre class="line-numbers language-c++"><code class="language-c++">filename -> permission-bits, length, list of file_block_ids
-file_block_id -> data
+<pre class="line-numbers language-cpp"><code class="language-cpp">filename <span class="token operator">-</span><span class="token operator">></span> permission<span class="token operator">-</span>bits<span class="token punctuation">,</span> length<span class="token punctuation">,</span> list of file_block_ids
+file_block_id <span class="token operator">-</span><span class="token operator">></span> data
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>过滤器</p>
 <p>可以减少Get()方法获取数据实际访问磁盘的数量。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Options options;
-options.filter_policy = NewBloomFilterPolicy(10);
-leveldb::DB* db;
-leveldb::DB::Open(options, "/tmp/testdb", &db);
-... use the database ...
-delete db;
-delete options.filter_policy;
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Options options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>filter_policy <span class="token operator">=</span> <span class="token function">NewBloomFilterPolicy</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>DB<span class="token operator">*</span> db<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>DB<span class="token operator">::</span><span class="token function">Open</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token string">"/tmp/testdb"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>db<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> use the database <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">delete</span> db<span class="token punctuation">;</span>
+<span class="token keyword">delete</span> options<span class="token punctuation">.</span>filter_policy<span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>推荐使用布隆过滤器，那些不适合放在内存中或者随机读比较频繁的推荐使用过滤器。</p>
 <p>如果自定义了比较器，过滤器也需要自定义。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">class CustomFilterPolicy : public leveldb::FilterPolicy &#123;
- private:
-  leveldb::FilterPolicy* builtin_policy_;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">CustomFilterPolicy</span> <span class="token operator">:</span> <span class="token keyword">public</span> leveldb<span class="token operator">::</span>FilterPolicy <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  leveldb<span class="token operator">::</span>FilterPolicy<span class="token operator">*</span> builtin_policy_<span class="token punctuation">;</span>
 
- public:
-  CustomFilterPolicy() : builtin_policy_(leveldb::NewBloomFilterPolicy(10)) &#123;&#125;
-  ~CustomFilterPolicy() &#123; delete builtin_policy_; &#125;
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token function">CustomFilterPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">builtin_policy_</span><span class="token punctuation">(</span>leveldb<span class="token operator">::</span><span class="token function">NewBloomFilterPolicy</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token operator">~</span><span class="token function">CustomFilterPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token keyword">delete</span> builtin_policy_<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-  const char* Name() const &#123; return "IgnoreTrailingSpacesFilter"; &#125;
+  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token string">"IgnoreTrailingSpacesFilter"</span><span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-  void CreateFilter(const leveldb::Slice* keys, int n, std::string* dst) const &#123;
-    // Use builtin bloom filter code after removing trailing spaces
-    std::vector<leveldb::Slice> trimmed(n);
-    for (int i = 0; i < n; i++) &#123;
-      trimmed[i] = RemoveTrailingSpaces(keys[i]);
-    &#125;
-    builtin_policy_->CreateFilter(trimmed.data(), n, dst);
-  &#125;
-&#125;;
+  <span class="token keyword">void</span> <span class="token function">CreateFilter</span><span class="token punctuation">(</span><span class="token keyword">const</span> leveldb<span class="token operator">::</span>Slice<span class="token operator">*</span> keys<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span> std<span class="token operator">::</span>string<span class="token operator">*</span> dst<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Use builtin bloom filter code after removing trailing spaces</span>
+    std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>leveldb<span class="token operator">::</span>Slice<span class="token operator">></span> <span class="token function">trimmed</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      trimmed<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">RemoveTrailingSpaces</span><span class="token punctuation">(</span>keys<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    builtin_policy_<span class="token operator">-</span><span class="token operator">></span><span class="token function">CreateFilter</span><span class="token punctuation">(</span>trimmed<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Checksums</p>
@@ -635,23 +635,23 @@ delete options.filter_policy;
 <p><code>GetApproximateSizes</code>方法可以用来估算某几个key range占用文件系统空间大小。</p>
 </li>
 </ul>
-<pre class="line-numbers language-c++"><code class="language-c++">leveldb::Range ranges[2];
-ranges[0] = leveldb::Range("a", "c");
-ranges[1] = leveldb::Range("x", "z");
-uint64_t sizes[2];
-db->GetApproximateSizes(ranges, 2, sizes);
+<pre class="line-numbers language-cpp"><code class="language-cpp">leveldb<span class="token operator">::</span>Range ranges<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ranges<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> leveldb<span class="token operator">::</span><span class="token function">Range</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> <span class="token string">"c"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ranges<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> leveldb<span class="token operator">::</span><span class="token function">Range</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"z"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+uint64_t sizes<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+db<span class="token operator">-</span><span class="token operator">></span><span class="token function">GetApproximateSizes</span><span class="token punctuation">(</span>ranges<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> sizes<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>Environment</p>
 <p>leveldb实现的所有文件操作（系统调用）都在leveldb::Env对象里进行了定义，也可以继承该对象进行功能扩展。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">class SlowEnv : public leveldb::Env &#123;
-  ... implementation of the Env interface ...
-&#125;;
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">SlowEnv</span> <span class="token operator">:</span> <span class="token keyword">public</span> leveldb<span class="token operator">::</span>Env <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> implementation of the Env interface <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-SlowEnv env;
-leveldb::Options options;
-options.env = &env;
-Status s = leveldb::DB::Open(options, ...);
+SlowEnv env<span class="token punctuation">;</span>
+leveldb<span class="token operator">::</span>Options options<span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>env <span class="token operator">=</span> <span class="token operator">&amp;</span>env<span class="token punctuation">;</span>
+Status s <span class="token operator">=</span> leveldb<span class="token operator">::</span>DB<span class="token operator">::</span><span class="token function">Open</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>移植</p>
@@ -1394,7 +1394,7 @@ key和value是任意的字节数组
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">285.4k</span>
+            <span class="white-color">285.6k</span>
             
 
             <br>
